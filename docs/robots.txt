@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://t0niske.github.io/vdokh-lab/sitemap.xml
