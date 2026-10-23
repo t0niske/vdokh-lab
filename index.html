@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ВДОХ — симулятор аромата для бизнеса</title>
+<meta name="description" content="ВДОХ — интерактивный симулятор ароматизации. Выберите пространство, нажмите на зоны и посмотрите, как аромат заполнит ваш бутик, отель, кофейню, фитнес-клуб, клинику или офис.">
+<meta name="theme-color" content="#E6EAEE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tektur:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23FF5A1F'/%3E%3Cpath d='M8 12l8 10 8-10' stroke='%23fff' stroke-width='3' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- SIMULATOR -->
+<section class="sim" id="sim" aria-label="Симулятор аромата">
+  <header class="bar">
+    <a class="logo" href="#sim">ВДОХ<sup>sim v1.0</sup></a>
+    <nav class="spaces" id="spaces" role="tablist" aria-label="Выберите пространство"></nav>
+    <a class="cta" href="#contact">3 дня бесплатно</a>
+  </header>
+
+  <aside class="left">
+    <span class="hud-k">// сцена <b id="scene-n">01</b> / 06</span>
+    <h1 class="title"><span>Здесь пахнет</span><span id="scene-title">бутиком</span></h1>
+    <p class="hint">Нажимайте на <i class="plus">+</i> — это зоны пространства. Двигайте площадь внизу и смотрите, как аромат заполняет помещение.</p>
+    <div class="led-box"><svg viewBox="0 0 288 54" aria-hidden="true"><g id="led"></g></svg><span class="hud-k">статус диффузора</span></div>
+    <dl class="legend">
+      <div><dt><i class="lg lg-cloud"></i></dt><dd>облако аромата</dd></div>
+      <div><dt><i class="lg lg-dev"></i></dt><dd>диффузор Nova</dd></div>
+      <div><dt><i class="lg lg-guest"></i></dt><dd>гости</dd></div>
+    </dl>
+  </aside>
+
+  <div class="stage-wrap">
+  <div class="stage" id="stage">
+    <svg class="room" id="room" viewBox="-560 -40 1120 760" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <radialGradient id="cloud-g"><stop offset="0" style="stop-color:var(--cloud);stop-opacity:.55"/><stop offset=".55" style="stop-color:var(--cloud);stop-opacity:.2"/><stop offset="1" style="stop-color:var(--cloud);stop-opacity:0"/></radialGradient>
+        <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0v8" stroke="rgba(11,13,16,.08)" stroke-width="2"/></pattern>
+      </defs>
+      <g id="g-floor"></g>
+      <g id="g-cloud"></g>
+      <g id="g-boxes"></g>
+      <g id="g-people"></g>
+      <g id="g-lines"></g>
+    </svg>
+    <div class="hotspots" id="hotspots"></div>
+    <div class="bubbles" id="bubbles"></div>
+    <div class="pix" id="pix" aria-hidden="true"></div>
+  </div>
+  </div>
+
+  <aside class="panel" id="panel" aria-live="polite">
+    <div class="panel-head"><span class="hud-k">зона</span><span class="hud-k" id="p-idx">01/04</span></div>
+    <h2 id="p-zone">Вход</h2>
+    <dl class="pdl">
+      <div><dt>Задача</dt><dd id="p-task">—</dd></div>
+      <div><dt>Решение</dt><dd id="p-sol">—</dd></div>
+    </dl>
+    <div class="scent-card">
+      <span class="hud-k">аромат сцены</span>
+      <b id="p-scent">—</b>
+      <span id="p-scent-d">—</span>
+      <button type="button" class="swap" id="p-swap">Следующий аромат ↻</button>
+    </div>
+    <label class="hud-k" for="intensity">интенсивность <output id="int-o">60%</output></label>
+    <input type="range" id="intensity" min="20" max="100" value="60">
+  </aside>
+
+  <footer class="console">
+    <div class="c-area">
+      <label class="hud-k" for="area">площадь <output id="area-o">120 м²</output></label>
+      <input type="range" id="area" min="30" max="3000" step="10" value="120">
+    </div>
+    <div class="c-term" role="group" aria-label="Срок подписки">
+      <span class="hud-k">срок</span>
+      <div class="seg" id="term"><button type="button" data-i="0" aria-pressed="false">1 мес</button><button type="button" data-i="1" aria-pressed="false">3 мес</button><button type="button" data-i="2" aria-pressed="true">6 мес</button></div>
+    </div>
+    <div class="c-out"><span class="hud-k">аппараты</span><b id="c-set">1 × Nova 300</b></div>
+    <div class="c-out"><span class="hud-k">покрытие</span><b id="c-cov">100%</b><i class="cov"><i id="c-covbar"></i></i></div>
+    <div class="c-out"><span class="hud-k">в месяц</span><b id="c-price">33 333 ₸</b></div>
+    <a class="c-send" id="c-send" href="#" target="_blank" rel="noopener">Отправить сцену в WhatsApp →</a>
+  </footer>
+</section>
+
+<main>
+  <!-- PROTOCOL -->
+  <section class="blk" id="protocol">
+    <div class="blk-head"><span class="hud-k">// 02 протокол</span><h2 class="h2">Вдох за 48 часов</h2></div>
+    <ol class="proto">
+      <li><b>01</b><h3>Скан</h3><p>Изучаем задачи бизнеса и приезжаем на объект: зоны, потоки людей, вентиляция, розетки.</p></li>
+      <li><b>02</b><h3>Запуск</h3><p>Привозим и запускаем диффузор в день обращения. Первые 3 дня — бесплатно.</p></li>
+      <li><b>03</b><h3>Сервис</h3><p>Удалённые настройки со смартфона, замена масел и визиты специалиста — по подписке.</p></li>
+      <li><b>04</b><h3>Чисто</h3><p>OdorOut™ нейтрализует запахи санузлов, кухни, мусора и спортзала на молекулярном уровне.</p></li>
+    </ol>
+  </section>
+
+  <!-- DEVICES -->
+  <section class="blk" id="devices">
+    <div class="blk-head"><span class="hud-k">// 03 железо</span><h2 class="h2">Два аппарата</h2></div>
+    <div class="hw" id="hw"></div>
+  </section>
+
+  <!-- SCENTS -->
+  <section class="blk" id="scents">
+    <div class="blk-head"><span class="hud-k">// 04 библиотека</span><h2 class="h2">32 аромата</h2></div>
+    <div class="sc-filter" id="sc-filter"></div>
+    <div class="sc-grid" id="sc-grid"></div>
+  </section>
+
+  <!-- STATS -->
+  <section class="blk stats-blk">
+    <div class="big-stats" id="big-stats"></div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="blk" id="faq">
+    <div class="blk-head"><span class="hud-k">// 05 вопросы</span><h2 class="h2">FAQ</h2></div>
+    <div class="faq" id="faq-list"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="blk contact" id="contact">
+    <div class="blk-head"><span class="hud-k">// 06 связь</span><h2 class="h2">Сделаем вдох<br>в вашем пространстве</h2></div>
+    <div class="ct-grid">
+      <a class="ct-big" href="https://wa.me/77079479977" target="_blank" rel="noopener"><span class="hud-k">whatsapp</span><b>Написать →</b></a>
+      <a class="ct-big" href="tel:+77079479977"><span class="hud-k">телефон</span><b>+7 707 947-99-77</b></a>
+      <div class="ct-big"><span class="hud-k">адрес</span><b>Астана, Балкантау, 92<br>4 этаж, офис 89</b></div>
+      <div class="ct-big"><span class="hud-k">время</span><b>Пн–Пт<br>09:00 — 19:00</b></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot"><span>ВДОХ · симулятор аромата · Астана</span><span>© 2026</span></footer>
+
+<script src="js/data.js"></script>
+<script src="js/led.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
