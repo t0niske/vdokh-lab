@@ -1,30 +1,66 @@
-/* ВДОХ: layout и блоки. Тёмная «лаборатория», тепловизор аромата, сигнальный оранжевый. */
+/* ВДОХ: layout и блоки. Служба устранения запахов: светлый «отчёт об осмотре», графит и лайм,
+   один шрифт Golos Text. */
 const D = require('../lib/data');
 const { esc } = require('../lib/engine');
-const SCENES = require('./scenes');
 const ODORS = require('./odors');
+const PLACES = require('./places');
 
 let site;
 const init = s => { site = s; };
+
+/* Предложение компании — заготовки, уточнить у владельца (как company/trialDays в data.js) */
+const OFFER = {
+  diag: 'Выезд и осмотр — бесплатно',
+  reply: 'Ответим в WhatsApp за 15 минут в рабочее время',
+  start: 'Запуск в день обращения'
+};
 
 const ICONS = {
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
-  wa: '<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/>'
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  wa: '<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9.5 9.5c0 2.5 2.5 5 5 5l1-1.3-1.8-.9-.8.7c-1-.4-1.9-1.3-2.3-2.3l.7-.8-.9-1.8z"/>',
+  phone: '<path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  search: '<path d="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 1 0 0-13zM15.5 15.5 20 20"/>',
+  list: '<path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>',
+  wind: '<path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/>',
+  done: '<path d="M12 3a9 9 0 1 0 0 18 9 9 0 1 0 0-18z"/><path d="M8 12.2l2.8 2.8L16 9.5"/>',
+  pipe: '<path d="M2 7h8v4H2zM10 9h5a4 4 0 0 1 4 4v7M16 20h6"/>',
+  wc: '<path d="M7 3h5v6H7zM5 9h12a5 5 0 0 1-5 5H9a4 4 0 0 1-4-4zM9 14l-1 7h7l-1-7"/>',
+  pan: '<path d="M3 12h13a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM16 13h5M8 4c-1 1.5 1 2.5 0 4M12 4c-1 1.5 1 2.5 0 4"/>',
+  smoke: '<path d="M2 16h14v3H2zM18.5 16v3M21.5 16v3M17 5c0 2 2 2 2 4s-2 2-2 4M20.5 5c0 2 1.5 2 1.5 4"/>',
+  drop: '<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11zM9 14a3 3 0 0 0 3 3"/>',
+  gym: '<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>',
+  bin: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5M14 11v5"/>',
+  paw: '<path d="M12 12c-3 0-5 3-5 5 0 2 2 3 5 2 3 1 5 0 5-2 0-2-2-5-5-5zM5.5 9a1.5 2 0 1 0 3 0 1.5 2 0 1 0-3 0M9 5.5a1.5 2 0 1 0 3 0 1.5 2 0 1 0-3 0M12.5 5.5a1.5 2 0 1 0 3 0 1.5 2 0 1 0-3 0M16 9a1.5 2 0 1 0 3 0 1.5 2 0 1 0-3 0"/>',
+  bottle: '<path d="M10 3h4v3h-4zM9 6h6l1 3v11H8V9zM8 13h8"/>',
+  roller: '<path d="M4 4h13v5H4zM17 6.5h3v5h-8v3M11 14.5h2v6h-2z"/>',
+  cross: '<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>',
+  cup: '<path d="M4 9h12v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM16 10.5h1.5a2 2 0 0 1 0 4H16M3 21h15M8 3.5c-1 1.5 1 2 0 3.5M12 3.5c-1 1.5 1 2 0 3.5"/>',
+  cloche: '<path d="M3 17h18M5 17a7 7 0 0 1 14 0M12 8V6M10 6h4M2 20h20"/>',
+  building: '<path d="M5 21V4h10v17M15 9h4v12M3 21h18M8 8h1M11 8h1M8 12h1M11 12h1M8 16h1M11 16h1"/>',
+  scissors: '<path d="M3 7a3 3 0 1 0 6 0 3 3 0 1 0-6 0M3 17a3 3 0 1 0 6 0 3 3 0 1 0-6 0M8.5 8.5 20 19M8.5 15.5 20 5"/>',
+  case: '<path d="M3 8h18v12H3zM9 8V5h6v3M3 13h18"/>',
+  bed: '<path d="M3 19V6M3 14h18v5M21 14v-3a3 3 0 0 0-3-3h-7v6M5 10.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 1 0-3 0"/>'
 };
 const icon = (n, cls = 'ic') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
 
-const NAV = [['Симулятор', ''], ['Планы', 'simulyator/'], ['Запахи', 'zapahi/'], ['Расчёт', 'raschet/'], ['Как работает', 'kak-rabotaet/'], ['Контакты', 'kontakty/']];
+const LOGO = `<svg class="logo-m" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15"/><path d="M8 13c2.7-2.6 5.3-2.6 8 0s5.3 2.6 8 0M8 19c2.7-2.6 5.3-2.6 8 0s5.3 2.6 8 0"/></svg>`;
+
+const NAV = [['Запахи', 'zapahi/'], ['Помещения', 'pomeshcheniya/'], ['Как мы работаем', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Статьи', 'stati/'], ['Контакты', 'kontakty/']];
 
 function header(p) {
   return `<a class="skip" href="#main">К содержанию</a>
 <header class="hdr" id="hdr">
-  <a class="logo" href="/" aria-label="ВДОХ — на главную">ВДОХ<sup>lab</sup></a>
-  <nav class="menu" id="menu" aria-label="Основное меню">${NAV.map(([n, h]) => `<a href="/${h}"${p.section === h ? ' aria-current="true"' : ''}>${n}</a>`).join('')}<a class="menu-ph" href="tel:${D.contacts.phoneRaw}">${D.contacts.phone}</a></nav>
-  <a class="hdr-cta" href="#zayavka">Получить расчёт</a>
-  <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">${icon('menu')}${icon('close', 'ic ic-x')}</button>
+  <div class="hdr-in">
+    <a class="logo" href="/" aria-label="ВДОХ — на главную">${LOGO}<span>ВДОХ</span></a>
+    <nav class="menu" id="menu" aria-label="Основное меню">${NAV.map(([n, h]) => `<a href="/${h}"${p.section === h ? ' aria-current="true"' : ''}>${n}</a>`).join('')}<a class="menu-ph" href="tel:${D.contacts.phoneRaw}">${icon('phone')}${D.contacts.phone}</a></nav>
+    <a class="hdr-ph" href="tel:${D.contacts.phoneRaw}">${D.contacts.phone}</a>
+    <a class="btn btn-s hdr-cta" href="#zayavka">Описать запах</a>
+    <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">${icon('menu')}${icon('close', 'ic ic-x')}</button>
+  </div>
 </header>`;
 }
 
@@ -32,12 +68,13 @@ function footer() {
   const C = D.contacts;
   return `<footer class="ftr">
   <div class="wrap ftr-in">
-    <div><a class="logo" href="/">ВДОХ<sup>lab</sup></a><p>Лаборатория ароматизации помещений в Астане: планы, расчёт аппаратов, нейтрализация запахов и сервис по подписке.</p></div>
-    <nav aria-label="Планы"><p class="k">// планы</p>${SCENES.map(s => `<a href="/simulyator/${s.id}/">${s.tab}</a>`).join('')}</nav>
-    <nav aria-label="Запахи"><p class="k">// запахи</p>${ODORS.map(o => `<a href="/zapahi/${o.slug}/">${o.short}</a>`).join('')}</nav>
-    <address><p class="k">// связь</p><a href="tel:${C.phoneRaw}">${C.phone}</a><a href="${D.waLink()}" target="_blank" rel="noopener">WhatsApp</a><a href="${C.map2gis}" target="_blank" rel="noopener">${C.address}</a><span>${C.hours}</span></address>
+    <div class="ftr-a"><a class="logo" href="/">${LOGO}<span>ВДОХ</span></a><p>Служба устранения неприятных запахов в коммерческих помещениях Астаны. Находим причину, говорим, что исправить, и держим чистый воздух по подписке.</p></div>
+    <nav aria-label="Запахи"><p class="ftr-k">Запахи</p>${ODORS.map(o => `<a href="/zapahi/${o.slug}/">${o.short}</a>`).join('')}</nav>
+    <nav aria-label="Помещения"><p class="ftr-k">Помещения</p>${PLACES.map(o => `<a href="/pomeshcheniya/${o.slug}/">${o.name}</a>`).join('')}</nav>
+    <div><p class="ftr-k">Связь</p><address><a href="tel:${C.phoneRaw}">${C.phone}</a><a href="${D.waLink()}" target="_blank" rel="noopener">WhatsApp</a><a href="${C.map2gis}" target="_blank" rel="noopener">${C.address}</a><span>${C.hours}</span></address>
+    <p class="ftr-k ftr-k2">Компания</p><a href="/kak-my-rabotaem/">Как мы работаем</a><a href="/ceny/">Цены</a><a href="/voprosy/">Вопросы</a><a href="/stati/">Статьи</a></div>
   </div>
-  <div class="wrap ftr-bot"><span>© 2026 ВДОХ lab · Астана</span><a href="/politika-konfidencialnosti/">Политика конфиденциальности</a></div>
+  <div class="wrap ftr-bot"><span>© 2026 ВДОХ · Астана</span><a href="/politika-konfidencialnosti/">Политика конфиденциальности</a></div>
 </footer>`;
 }
 
@@ -49,7 +86,7 @@ ${head}
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tektur:wght@500;600;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
@@ -57,83 +94,83 @@ ${head}
 ${header(p)}
 <main id="main">
 ${p.body}
-${p.noCta ? '' : cta(p.ctaTitle)}
+${p.noCta ? '' : cta(p.cta || {})}
 </main>
 ${footer()}
 <script src="/assets/js/data.js"></script>
-${p.sim ? '<script src="/assets/js/sim.js"></script>' : ''}
 <script src="/assets/js/main.js"></script>
 </body>
 </html>`;
 }
 
-/* Симулятор. tabs — показать переключатель шести планов (главная). */
-function sim(id, o = {}) {
-  const s = SCENES.find(x => x.id === id);
-  return `<div class="sim" data-scene="${id}">
-  ${o.tabs ? `<div class="sim-tabs" role="tablist" aria-label="Пространство">${SCENES.map(x => `<button type="button" role="tab" data-tab="${x.id}" aria-selected="${x.id === id}">${x.tab}<small>${x.w * x.h} м²</small></button>`).join('')}</div>` : ''}
-  <div class="sim-body">
-    <div class="sim-stage">
-      <canvas role="img" aria-label="Тепловая карта аромата на плане помещения"></canvas>
-      <div class="sim-zones"></div>
-      <noscript><p class="ns">Включите JavaScript, чтобы увидеть тепловую карту аромата.</p></noscript>
-    </div>
-    <aside class="sim-hud" aria-live="polite">
-      <div class="hud-row"><span class="k">// покрытие</span><b class="cov" data-o="cov">—</b></div>
-      <i class="bar"><i data-o="bar"></i></i>
-      <p class="verdict" data-o="verdict">Загрузка плана…</p>
-      <dl class="hud-dl">
-        <div><dt>Площадь</dt><dd data-o="area">${s.w * s.h} м²</dd></div>
-        <div><dt>Аппараты</dt><dd data-o="devs">—</dd></div>
-        <div><dt>Цена в месяц</dt><dd data-o="pm">—</dd></div>
-      </dl>
-      <div class="hud-k">// ставить на план</div>
-      <div class="seg"><button type="button" data-type="300" aria-pressed="true">Nova 300</button><button type="button" data-type="1000" aria-pressed="false">Nova 1000</button></div>
-      <div class="hud-btns"><button type="button" class="hb" data-act="auto">Наша расстановка</button><button type="button" class="hb" data-act="clear">Очистить</button></div>
-      <p class="hint">Нажмите на план — появится диффузор. Нажмите на диффузор — он исчезнет. Цифры — зоны, нажмите на них.</p>
-      ${o.tabs ? `<a class="hud-link" data-scene-link data-base="/" href="/simulyator/${id}/">Подробно про план: <b>${s.tab.toLowerCase()}</b> ${icon('arrow')}</a>` : ''}
-    </aside>
-  </div>
-  <ul class="legend"><li><i class="lg lg-hot"></i>аромат ощущается сильно</li><li><i class="lg lg-mid"></i>лёгкий фон</li><li><i class="lg lg-cold"></i>аромата нет</li><li><i class="lg lg-dev"></i>диффузор</li></ul>
-</div>`;
-}
-
 function pageHead(p, o = {}) {
-  return `<section class="phead">
+  return `<section class="phead${o.aside ? ' phead-2' : ''}">
   <div class="wrap">
     ${site.crumbs(p.breadcrumbs)}
-    ${o.kicker ? `<p class="k">${o.kicker}</p>` : ''}
-    <h1>${p.h1}</h1>
-    ${o.lead ? `<p class="lead">${o.lead}</p>` : ''}
+    <div class="phead-g">
+      <div>
+        ${o.kicker ? `<p class="k">${o.icon ? icon(o.icon, 'ic k-ic') : ''}${o.kicker}</p>` : ''}
+        <h1>${p.h1}</h1>
+        ${o.lead ? `<p class="lead">${o.lead}</p>` : ''}
+        ${o.extra || ''}
+      </div>
+      ${o.aside || ''}
+    </div>
   </div>
 </section>`;
 }
 
-function faq(list, title = 'Вопросы') {
-  return `<section class="sec"><div class="wrap narrow">
-  <h2 class="h2">${title}</h2>
+/* Подбор: «где пахнет» → «чем пахнет» → вероятные причины, что проверить и что сделаем мы.
+   place — заранее выбранное помещение (на страницах помещений шаг 1 скрыт). */
+function picker(o = {}) {
+  const pl = o.place ? PLACES.find(x => x.slug === o.place) : null;
+  return `<div class="pk${o.cls ? ' ' + o.cls : ''}" data-picker${pl ? ` data-place="${pl.slug}"` : ''}>
+  <a hidden data-zap href="/zapahi/"></a>
+  <div class="pk-h"><span class="pk-dot"></span>${o.title || 'Подбор решения за 2 шага'}</div>
+  ${pl ? '' : `<fieldset class="pk-step" data-step="1"><legend><span class="pk-n">1</span>Где пахнет?</legend>
+    <div class="pk-chips">${PLACES.map(x => `<button type="button" class="pc" data-v="${x.slug}" aria-pressed="false">${icon(x.icon)}${x.name}</button>`).join('')}</div></fieldset>`}
+  <fieldset class="pk-step" data-step="2"${pl ? '' : ' disabled'}><legend><span class="pk-n">${pl ? 1 : 2}</span>Чем пахнет?</legend>
+    <div class="pk-chips" data-odors>${ODORS.map(x => `<button type="button" class="pc" data-v="${x.slug}" aria-pressed="false">${icon(x.icon)}${x.name}</button>`).join('')}</div></fieldset>
+  <div class="pk-res" aria-live="polite" data-res><p class="pk-wait">${pl ? 'Выберите запах — покажем вероятные причины и что делать.' : 'Выберите помещение и запах — покажем вероятные причины и что делать.'}</p></div>
+</div>`;
+}
+
+function odorTile(o) {
+  return `<a class="ot" href="/zapahi/${o.slug}/">${icon(o.icon, 'ic ot-ic')}<span class="ot-t">${o.short}</span><span class="ot-d">${esc(o.signs[0])}</span>${icon('arrow', 'ic ot-go')}</a>`;
+}
+
+function placeTile(p) {
+  return `<a class="pt" href="/pomeshcheniya/${p.slug}/">${site.img('place-' + p.slug, { cls: 'pt-img' })}<span class="pt-b"><span class="pt-k">${icon(p.icon)}${p.short}</span><span class="pt-t">${p.h1}</span><span class="pt-o">${p.odors.map(s => ODORS.find(x => x.slug === s).name).join(' · ')}</span></span></a>`;
+}
+
+function faq(list, title = 'Частые вопросы') {
+  return `<section class="sec"><div class="wrap faq-g">
+  <div><h2 class="h2">${title}</h2><p class="faq-n">Не нашли ответ? <a href="${D.waLink('Здравствуйте! У меня вопрос про запах в помещении.')}" target="_blank" rel="noopener">Спросите в WhatsApp</a> или посмотрите <a href="/voprosy/">все вопросы</a>.</p></div>
   <div class="faq">${list.map(([q, a]) => `<details><summary><span>${esc(q)}</span>${icon('plus')}</summary><p>${a}</p></details>`).join('')}</div>
 </div></section>`;
 }
 
 function scentRow(s) {
-  return `<li class="sr"><span class="sr-n">#${String(s.n).padStart(2, '0')}</span><div><h3>${esc(s.name)}</h3><p>${esc(s.desc)}</p></div><span class="sr-notes">${esc(s.notes.join(' · '))}</span></li>`;
+  return `<li class="sr"><div><h3>${esc(s.name)}</h3><p>${esc(s.desc)}</p></div><span class="sr-notes">${esc(s.notes.join(' · '))}</span></li>`;
 }
 
-function cta(title) {
+/* Заявка: место и запах — те же списки, что в подборе; o.place / o.odor подставляют значения */
+function cta(o) {
   return `<section class="sec cta-sec" id="zayavka"><div class="wrap">
   <div class="cta">
-    <div>
-      <p class="k">// заявка</p>
-      <h2 class="h2">${title || 'Рассчитаем ваше помещение по плану'}</h2>
-      <p class="lead">Пришлите площадь или план помещения — расставим диффузоры, подберём аромат и запустим в день обращения.</p>
+    <div class="cta-a">
+      <p class="k k-l">Заявка на осмотр</p>
+      <h2 class="h2">${o.title || 'Опишите запах — скажем, откуда он и что делать'}</h2>
+      <p class="lead">Часто причина понятна уже по описанию. Если нет&nbsp;— приедем, пройдём помещение и дадим список того, что исправить.</p>
+      <ul class="ticks">${[OFFER.diag, OFFER.reply, OFFER.start].map(t => `<li>${icon('check')}${t}</li>`).join('')}</ul>
     </div>
     <form class="form" id="lead-form" novalidate>
-      <label>Тип помещения<select id="f-type">${SCENES.map(s => `<option>${s.tab}</option>`).join('')}<option>Другое</option></select></label>
-      <label>Площадь, м²<input id="f-area" inputmode="numeric" placeholder="Например, 150"></label>
-      <label>Что мешает<input id="f-odor" placeholder="Запах кухни, санузла… или ничего"></label>
+      <label>Где пахнет<select id="f-place">${PLACES.map(x => `<option${o.place === x.slug ? ' selected' : ''}>${x.name}</option>`).join('')}<option>Другое помещение</option></select></label>
+      <label>Чем пахнет<select id="f-odor">${ODORS.map(x => `<option${o.odor === x.slug ? ' selected' : ''}>${x.short}</option>`).join('')}<option>Не могу определить</option></select></label>
+      <label>Когда сильнее<select id="f-when"><option>Утром и после выходных</option><option>Вечером, в часы пик</option><option>Всё время</option><option>Не замечал</option></select></label>
+      <label>Комментарий<input id="f-note" placeholder="Например: у туалета, после дождя"></label>
       <button class="btn" type="submit">${icon('wa')}Отправить в WhatsApp</button>
-      <p class="f-note">Откроется WhatsApp с готовым сообщением · <a href="tel:${D.contacts.phoneRaw}">${D.contacts.phone}</a></p>
+      <p class="f-note">Откроется WhatsApp с готовым сообщением · или позвоните <a href="tel:${D.contacts.phoneRaw}">${D.contacts.phone}</a></p>
     </form>
   </div>
 </div></section>`;
@@ -144,5 +181,8 @@ function related(title, links) {
 }
 
 const pm = d => D.fmt(Math.min(...d.plans.map(D.perMonth)));
+/* Цена комплекта при подписке на 6 месяцев */
+const setupPm = s => s.n300 * D.perMonth(D.devices[0].plans[2]) + s.n1000 * D.perMonth(D.devices[1].plans[2]);
+const setupText = s => [s.n1000 ? `${s.n1000} × Nova 1000` : '', s.n300 ? `${s.n300} × Nova 300` : ''].filter(Boolean).join(' + ');
 
-module.exports = { init, layout, icon, sim, pageHead, faq, scentRow, cta, related, pm };
+module.exports = { init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, pm, setupPm, setupText, OFFER };
