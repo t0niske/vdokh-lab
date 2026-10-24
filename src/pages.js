@@ -7,6 +7,7 @@ const ODORS = require('./odors');
 const PLACES = require('./places');
 const ARTICLES = require('./articles');
 const { icon, OFFER } = UI;
+const TX = require('./texts');
 
 const HOME = ['Главная', ''];
 const odor = s => ODORS.find(o => o.slug === s);
@@ -37,7 +38,7 @@ const STEPS = [
 ];
 const steps = () => `<ol class="steps">${STEPS.map(([ic, t, d], i) => `<li class="st"><span class="st-n">0${i + 1}</span>${icon(ic, 'ic st-ic')}<h3>${t}</h3><p>${d}</p></li>`).join('')}</ol>`;
 
-const devices = () => `<div class="devs">${D.devices.map(d => `<article class="dev"><p class="k">до ${d.area} м²</p><h3>${d.name}</h3><p>${d.lead}</p><p class="dev-pm">от <b>${UI.pm(d)}</b> в месяц</p><ul class="dev-pl">${d.plans.map(p => `<li><span>${p.months} ${p.months === 1 ? 'месяц' : p.months < 5 ? 'месяца' : 'месяцев'}</span><b>${D.fmt(p.total)}</b></li>`).join('')}</ul></article>`).join('')}</div>`;
+const devices = () => `<div class="devs">${D.devices.map(d => `<article class="dev"><p class="k">до ${d.area} м²</p><h3>${d.name}</h3><p>${TX.lead[d.id]}</p><p class="dev-pm">от <b>${UI.pm(d)}</b> в месяц</p><ul class="dev-pl">${d.plans.map(p => `<li><span>${p.months} ${p.months === 1 ? 'месяц' : p.months < 5 ? 'месяца' : 'месяцев'}</span><b>${D.fmt(p.total)}</b></li>`).join('')}</ul></article>`).join('')}</div>`;
 
 function register(site) {
   const { add, img } = site;
@@ -47,12 +48,12 @@ function register(site) {
     ['Вы просто перебиваете запах ароматом?', 'Нет. Сначала находим причину — сухой трап, вытяжку, текстиль, мусорную зону — и говорим, как её убрать. Аромат держит чистый фон после этого и там, где запах неизбежно накапливается.'],
     ['Вы делаете сантехнику и вентиляцию?', 'Нет, мы находим причину и даём понятный список работ для ваших специалистов. Сами отвечаем за ароматизацию: аппарат, масла, настройку и обслуживание.'],
     ['Сколько это стоит?', `Диффузор в аренду с маслами и обслуживанием — от ${UI.pm(D.devices[0])} в месяц. Сколько аппаратов нужно, зависит от помещения: часто хватает одного-двух.`],
-    D.faq[2]
+    TX.faq.start
   ];
   add({
     path: '', section: '', priority: '1.0', bodyClass: 'home',
-    title: 'Устранение неприятных запахов в помещениях в Астане — ВДОХ',
-    description: 'Убираем запах канализации, кухни, табака, сырости и туалета в кафе, офисах, ЖК и фитнес-клубах Астаны. Находим причину, а не маскируем. Подбор решения онлайн.',
+    title: 'Устранение запахов и ароматизация помещений в Астане — ВДОХ',
+    description: 'Ароматизация помещений в Астане через устранение причины запаха: канализация, кухня, табак, сырость, туалеты. Кафе, офисы, ЖК, фитнес. Подбор решения онлайн.',
     schema: [site.schema.website(), site.schema.business(D.contacts), site.schema.faq(homeFaq)],
     body: `
 <section class="hero">
@@ -101,7 +102,7 @@ function register(site) {
   <div class="wrap">
     <div class="sec-head"><div><p class="k">Цены</p><h2 class="h2">Аппарат, масла и&nbsp;обслуживание&nbsp;— в&nbsp;одной подписке</h2></div><a class="more" href="/ceny/">Все цены${icon('arrow')}</a></div>
     ${devices()}
-    <p class="note">${D.included.join(' · ')}. Чем длиннее срок, тем ниже цена в месяц.</p>
+    <p class="note">${TX.included.join(' · ')}. Полгода выходит дешевле, чем помесячно.</p>
   </div>
 </section>
 
@@ -199,9 +200,9 @@ ${UI.related('Другие запахи', ODORS.filter(x => x !== o).map(x => [x
   /* ── Помещения ── */
   add({
     path: 'pomeshcheniya/', section: 'pomeshcheniya/',
-    title: 'Запах в помещении: ресторан, ЖК, фитнес, клиника, офис, отель',
+    title: 'Ароматизация и запахи по типам помещений: ресторан, ЖК, офис',
     description: 'Разборы запахов по типам помещений Астаны: ресторан и кафе, тойхана, ЖК и подъезд, фитнес-клуб, клиника, салон красоты, туалеты ТРЦ, офис, гостиница.',
-    h1: 'Запахи по типам помещений',
+    h1: 'Ароматизация и запахи по помещениям',
     breadcrumbs: [HOME, ['Помещения', 'pomeshcheniya/']],
     schema: [site.schema.itemList(PLACES.map(o => [o.h1, `pomeshcheniya/${o.slug}/`]))],
     get body() {
@@ -244,7 +245,7 @@ ${UI.related('Другие запахи', ODORS.filter(x => x !== o).map(x => [x
 <section class="sec sec-alt">
   <div class="wrap split">
     <div><p class="k">Типовой комплект</p><h2 class="h2">Сколько это стоит</h2><p class="lead">Пример для типичного объекта: ${pl.setup.note}. Точный комплект считаем после описания или осмотра.</p></div>
-    <div class="sum"><p class="sum-set">${UI.setupText(pl.setup)}</p><p class="sum-pm">${D.fmt(pm)}<span>в месяц при подписке на 6 месяцев</span></p><ul class="sum-l">${D.included.map(t => `<li>${icon('check')}${t}</li>`).join('')}</ul></div>
+    <div class="sum"><p class="sum-set">${UI.setupText(pl.setup)}</p><p class="sum-pm">${D.fmt(pm)}<span>в месяц при подписке на 6 месяцев</span></p><ul class="sum-l">${TX.included.map(t => `<li>${icon('check')}${t}</li>`).join('')}</ul></div>
   </div>
 </section>
 ${UI.faq(pl.faq)}
@@ -296,19 +297,19 @@ ${UI.faq(howFaq)}`;
   const priceFaq = [
     ['Платный ли осмотр?', `${OFFER.diag}. Вы ничего не должны, если решите не ставить аппарат.`],
     ['Нужно ли покупать аппарат?', 'Нет. Диффузор выдаётся в аренду, масла и обслуживание входят в подписку.'],
-    D.faq[3],
+    TX.faq.contract,
     ['Можно ли поставить аппарат только в туалет?', 'Да, это частый случай. Одного компактного Nova 300 хватает на санузел с несколькими кабинками.']
   ];
   add({
     path: 'ceny/', section: 'ceny/',
-    title: 'Сколько стоит убрать запах в помещении — цены ВДОХ, Астана',
+    title: 'Цены на ароматизацию и устранение запахов в Астане — ВДОХ',
     description: `Цены на устранение запахов и ароматизацию: Nova 300 от ${UI.pm(D.devices[0])}, Nova 1000 от ${UI.pm(D.devices[1])} в месяц. Аренда аппарата, масла и обслуживание в подписке.`,
     h1: 'Цены',
     breadcrumbs: [HOME, ['Цены', 'ceny/']],
     schema: [site.schema.faq(priceFaq), site.schema.service({ name: 'Устранение неприятных запахов в помещениях', description: 'Осмотр, поиск причины и ароматизация по подписке', low: D.perMonth(D.devices[0].plans[2]), high: D.devices[1].plans[2].total }, 'ceny/')],
     get body() {
       return UI.pageHead(this, { kicker: 'Подписка', lead: 'Вы не покупаете оборудование. Платите за подписку: аппарат в аренду, масла, настройка и обслуживание. Чем длиннее срок, тем ниже цена в месяц.' }) + `
-<section class="sec sec-t"><div class="wrap">${devices()}<p class="note">${D.included.join(' · ')}.</p></div></section>
+<section class="sec sec-t"><div class="wrap">${devices()}<p class="note">${TX.included.join(' · ')}.</p></div></section>
 <section class="sec sec-alt">
   <div class="wrap">
     <div class="sec-head"><div><p class="k">Примеры</p><h2 class="h2">Типовые комплекты по помещениям</h2></div></div>
@@ -355,7 +356,7 @@ ${UI.related('Другие статьи', ARTICLES.filter(x => x !== a).map(x =>
 
   /* ── Вопросы ── */
   const allFaq = [
-    homeFaq[0], homeFaq[1], howFaq[0], priceFaq[0], priceFaq[1], D.faq[0], D.faq[2], D.faq[3], D.faq[4],
+    homeFaq[0], homeFaq[1], howFaq[0], priceFaq[0], priceFaq[1], TX.faq.safe, TX.faq.start, TX.faq.contract, TX.faq.change,
     ['Работаете ли вы с управляющими компаниями и ОСИ?', 'Да, для ЖК и бизнес-центров заключаем договор с юрлицом и обслуживаем общие зоны по графику.'],
     ['Можно ли сначала попробовать?', 'Да. Ставим аппарат в зоне, где запах сильнее, и через неделю вместе смотрим результат.']
   ];
@@ -399,7 +400,7 @@ ${UI.related('Другие статьи', ARTICLES.filter(x => x !== a).map(x =>
     h1: 'Политика конфиденциальности',
     breadcrumbs: [HOME, ['Политика', 'politika-konfidencialnosti/']],
     get body() {
-      return UI.pageHead(this, {}) + `<section class="sec sec-t"><div class="wrap narrow prose"><p>Сайт не собирает и не хранит персональные данные на сервере. Данные формы передаются в WhatsApp сообщением, которое вы отправляете сами. Мы используем их только для связи и расчёта и не передаём третьим лицам, кроме случаев, предусмотренных законодательством Республики Казахстан. Чтобы удалить данные, позвоните ${C.phone}.</p></div></section>`;
+      return UI.pageHead(this, {}) + `<section class="sec sec-t"><div class="wrap narrow prose"><p>На этом сайте нет личных кабинетов и баз данных: ничего из того, что вы вводите в форму или подбор, не сохраняется на сервере. Форма лишь собирает текст, а отправляете его вы сами — через WhatsApp.</p><p>Описание запаха, помещения и контакт нужны нам только для ответа, осмотра и договора. Третьим лицам мы их не передаём, если этого не требует закон Республики Казахстан. Попросить удалить переписку можно по телефону ${C.phone}.</p></div></section>`;
     }
   });
   add({
