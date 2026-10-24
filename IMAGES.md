@@ -3,9 +3,9 @@
 Сгенерируйте в ChatGPT, сохраните в `src/assets/img/` под указанным именем (png, jpg или webp) и пересоберите: `node build.js`.
 Пока файла нет, на сайте стоит подписанная заглушка того же размера.
 
-Готово: 0 из 23.
+Готово: 23 из 23.
 
-## ⬜ `hero` — Главная: специалист проверяет трап
+## ✅ `hero` — Главная: специалист проверяет трап
 
 - Формат: 3:2
 - Где на сайте: главная, первый экран
@@ -16,7 +16,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a technician's hand in a dark-grey work glove holding a small flashlight, checking a stainless steel floor drain in a clean tiled restroom of a cafe. The beam of light falls on the drain grate. Only the hand and sleeve are visible. Aspect ratio 3:2.
 ```
 
-## ⬜ `metod` — Как мы работаем: обход помещения
+## ✅ `metod` — Как мы работаем: обход помещения
 
 - Формат: 3:2
 - Где на сайте: /kak-my-rabotaem/
@@ -27,7 +27,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a clipboard with a printed inspection checklist (lines and tick boxes only, no readable words), a small digital hygrometer and a pen on a light wooden reception counter of a cafe, blurred interior behind. Aspect ratio 3:2.
 ```
 
-## ⬜ `place-restoran-kafe` — Ресторан и кафе
+## ✅ `place-restoran-kafe` — Ресторан и кафе
 
 - Формат: 4:3
 - Где на сайте: /pomeshcheniya/restoran-kafe/
@@ -38,7 +38,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a modern cafe hall with wooden tables and an open kitchen pass in the background, steam rising softly from the kitchen. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
-## ⬜ `place-tojhana` — Тойхана и банкетный зал
+## ✅ `place-tojhana` — Тойхана и банкетный зал
 
 - Формат: 4:3
 - Где на сайте: /pomeshcheniya/tojhana/
@@ -49,7 +49,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a large elegant banquet hall (toyhana) prepared for a celebration, round tables with white tablecloths, chandeliers, wide angle. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
-## ⬜ `place-zhk-podezd` — ЖК и подъезд
+## ✅ `place-zhk-podezd` — ЖК и подъезд
 
 - Формат: 4:3
 - Где на сайте: /pomeshcheniya/zhk-podezd/
@@ -60,7 +60,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a bright elevator hall of a modern residential building, stone floor, two steel elevator doors, clean and minimal. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
-## ⬜ `place-fitnes` — Фитнес-клуб
+## ✅ `place-fitnes` — Фитнес-клуб
 
 - Формат: 4:3
 - Где на сайте: /pomeshcheniya/fitnes/
@@ -71,7 +71,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a clean locker room of a fitness club, light wooden lockers, a bench with a folded white towel, tiled floor. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
-## ⬜ `place-klinika` — Клиника и ветклиника
+## ✅ `place-klinika` — Клиника и ветклиника
 
 - Формат: 4:3
 - Где на сайте: /pomeshcheniya/klinika/
@@ -82,7 +82,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a calm bright waiting area of a modern private clinic, soft armchairs, a plant, a reception desk in the background. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
-## ⬜ `place-salon-krasoty` — Салон красоты
+## ✅ `place-salon-krasoty` — Салон красоты
 
 - Формат: 4:3
 - Где на сайте: /pomeshcheniya/salon-krasoty/
@@ -93,7 +93,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a minimal nail studio with two manicure tables by a large window, small built-in extractor fans on the tables, shelves with bottles. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
-## ⬜ `place-obshchestvennyj-tualet` — Туалеты ТРЦ и АЗС
+## ✅ `place-obshchestvennyj-tualet` — Туалеты ТРЦ и АЗС
 
 - Формат: 4:3
 - Где на сайте: /pomeshcheniya/obshchestvennyj-tualet/
@@ -104,7 +104,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a clean modern public restroom of a shopping mall, row of washbasins with a long mirror, grey stone tiles, soft light. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
-## ⬜ `place-ofis` — Офис
+## ✅ `place-ofis` — Офис
 
 - Формат: 4:3
 - Где на сайте: /pomeshcheniya/ofis/
@@ -115,7 +115,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a light open-space office with desks and a small kitchen corner with a microwave and a coffee machine in the background. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
-## ⬜ `place-gostinica` — Гостиница и хостел
+## ✅ `place-gostinica` — Гостиница и хостел
 
 - Формат: 4:3
 - Где на сайте: /pomeshcheniya/gostinica/
@@ -126,7 +126,7 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a quiet hotel corridor with carpet, room doors on both sides and warm wall lamps, perspective view. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-kanalizacii` — Запах канализации
+## ✅ `odor-kanalizacii` — Запах канализации
 
 - Формат: 4:3
 - Где на сайте: /zapahi/kanalizacii/
@@ -137,7 +137,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: water being poured from a small bucket into a stainless steel floor drain on grey tiles. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-v-tualete` — Запах в туалете
+## ✅ `odor-v-tualete` — Запах в туалете
 
 - Формат: 4:3
 - Где на сайте: /zapahi/v-tualete/
@@ -148,7 +148,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a clean white urinal on light-grey tiles with fresh grout lines, a lime-green cleaning cloth folded on the side. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-kuhni` — Запах кухни
+## ✅ `odor-kuhni` — Запах кухни
 
 - Формат: 4:3
 - Где на сайте: /zapahi/kuhni/
@@ -159,7 +159,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a stainless steel extractor hood above a professional stove with soft steam rising into it. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-tabaka` — Запах табака
+## ✅ `odor-tabaka` — Запах табака
 
 - Формат: 4:3
 - Где на сайте: /zapahi/tabaka/
@@ -170,7 +170,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: linen curtains and an armchair in a hotel room, a beam of sunlight with a faint haze in the air. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-syrosti` — Запах сырости
+## ✅ `odor-syrosti` — Запах сырости
 
 - Формат: 4:3
 - Где на сайте: /zapahi/syrosti/
@@ -181,7 +181,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a small digital hygrometer on a white painted wall near the floor of a basement room, light from a small window. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-pota` — Запах пота
+## ✅ `odor-pota` — Запах пота
 
 - Формат: 4:3
 - Где на сайте: /zapahi/pota/
@@ -192,7 +192,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a rolled white towel, a grey training mat and a water bottle on a gym bench. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-musora` — Запах мусора
+## ✅ `odor-musora` — Запах мусора
 
 - Формат: 4:3
 - Где на сайте: /zapahi/musora/
@@ -203,7 +203,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a clean closed grey waste container in a freshly washed tiled waste room. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-zhivotnyh` — Запах животных
+## ✅ `odor-zhivotnyh` — Запах животных
 
 - Формат: 4:3
 - Где на сайте: /zapahi/zhivotnyh/
@@ -214,7 +214,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a grooming brush and a folded towel on a light grooming table, soft daylight. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-himii` — Запах химии в салоне
+## ✅ `odor-himii` — Запах химии в салоне
 
 - Формат: 4:3
 - Где на сайте: /zapahi/himii/
@@ -225,7 +225,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a manicure table with a built-in extractor grille, a few closed nail polish bottles. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-posle-remonta` — Запах после ремонта
+## ✅ `odor-posle-remonta` — Запах после ремонта
 
 - Формат: 4:3
 - Где на сайте: /zapahi/posle-remonta/
@@ -236,7 +236,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a paint roller and a closed paint can on the floor near a wide open window, fresh white walls. Aspect ratio 4:3.
 ```
 
-## ⬜ `odor-bolnicy` — Запах больницы
+## ✅ `odor-bolnicy` — Запах больницы
 
 - Формат: 4:3
 - Где на сайте: /zapahi/bolnicy/
@@ -247,7 +247,7 @@ Close-up detail photograph, bright natural daylight, clean light-grey background
 Subject: a bright clinic corridor detail with a soft armchair and a green plant, clean white walls. Aspect ratio 4:3.
 ```
 
-## ⬜ `og` — Обложка для соцсетей
+## ✅ `og` — Обложка для соцсетей
 
 - Формат: 16:9
 - Где на сайте: превью ссылок
