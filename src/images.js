@@ -1,7 +1,7 @@
 /* Слоты картинок Aromé. Стиль — светлая документальная съёмка: реальные помещения, дневной свет,
-   спокойные тёплые серые тона и один акцент лаймового цвета (#D4F55B) в кадре, если уместно. */
+   спокойные тёплые серые тона и один небольшой терракотовый акцент (#BF541B, цвет шапки) в кадре, если уместно. */
 const DOC = 'Bright, clean documentary photograph of a real commercial interior in Astana, Kazakhstan. Natural daylight, soft shadows, neutral warm-grey and white tones, realistic materials, slightly desaturated, shot on a 35mm lens at eye level, calm and honest, like a photo from a facility inspection report but beautiful. No people\'s faces, no text, no signs with words, no logos, no watermarks.';
-const DETAIL = 'Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.';
+const DETAIL = 'Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.';
 const place = what => ({ w: 4, h: 3, prio: 1, prompt: `${DOC}\nScene: ${what}. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.` });
 const odor = what => ({ w: 4, h: 3, prio: 2, prompt: `${DETAIL}\nSubject: ${what}. Aspect ratio 4:3.` });
 
@@ -23,7 +23,7 @@ module.exports = {
   'place-ofis': { title: 'Офис', alt: 'Open space офиса с кухонной зоной', where: '/pomeshcheniya/ofis/', ...place('a light open-space office with desks and a small kitchen corner with a microwave and a coffee machine in the background') },
   'place-gostinica': { title: 'Гостиница и хостел', alt: 'Коридор гостиницы с ковровым покрытием', where: '/pomeshcheniya/gostinica/', ...place('a quiet hotel corridor with carpet, room doors on both sides and warm wall lamps, perspective view') },
   'odor-kanalizacii': { title: 'Запах канализации', alt: 'Трап в полу и вода, которую проливают в него', where: '/zapahi/kanalizacii/', ...odor('water being poured from a small bucket into a stainless steel floor drain on grey tiles') },
-  'odor-v-tualete': { title: 'Запах в туалете', alt: 'Белый писсуар и чистая плитка', where: '/zapahi/v-tualete/', ...odor('a clean white urinal on light-grey tiles with fresh grout lines, a lime-green cleaning cloth folded on the side') },
+  'odor-v-tualete': { title: 'Запах в туалете', alt: 'Белый писсуар и чистая плитка', where: '/zapahi/v-tualete/', ...odor('a clean white urinal on light-grey tiles with fresh grout lines, a terracotta-coloured cleaning cloth folded on the side') },
   'odor-kuhni': { title: 'Запах кухни', alt: 'Вытяжной зонт и пар над плитой на профессиональной кухне', where: '/zapahi/kuhni/', ...odor('a stainless steel extractor hood above a professional stove with soft steam rising into it') },
   'odor-tabaka': { title: 'Запах табака', alt: 'Шторы и кресло в номере, луч света', where: '/zapahi/tabaka/', ...odor('linen curtains and an armchair in a hotel room, a beam of sunlight with a faint haze in the air') },
   'odor-syrosti': { title: 'Запах сырости', alt: 'Гигрометр у стены в цокольном помещении', where: '/zapahi/syrosti/', ...odor('a small digital hygrometer on a white painted wall near the floor of a basement room, light from a small window') },

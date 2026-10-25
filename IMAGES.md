@@ -45,7 +45,7 @@ Scene: a technician's hand in a dark-grey work glove holding a small flashlight,
 - Alt: Блокнот с чек-листом обхода помещения и гигрометр на стойке
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a clipboard with a printed inspection checklist (lines and tick boxes only, no readable words), a small digital hygrometer and a pen on a light wooden reception counter of a cafe, blurred interior behind. Aspect ratio 3:2.
 ```
 
@@ -155,7 +155,7 @@ Scene: a quiet hotel corridor with carpet, room doors on both sides and warm wal
 - Alt: Трап в полу и вода, которую проливают в него
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: water being poured from a small bucket into a stainless steel floor drain on grey tiles. Aspect ratio 4:3.
 ```
 
@@ -166,8 +166,8 @@ Subject: water being poured from a small bucket into a stainless steel floor dra
 - Alt: Белый писсуар и чистая плитка
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
-Subject: a clean white urinal on light-grey tiles with fresh grout lines, a lime-green cleaning cloth folded on the side. Aspect ratio 4:3.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
+Subject: a clean white urinal on light-grey tiles with fresh grout lines, a terracotta-coloured cleaning cloth folded on the side. Aspect ratio 4:3.
 ```
 
 ## ✅ `odor-kuhni` — Запах кухни
@@ -177,7 +177,7 @@ Subject: a clean white urinal on light-grey tiles with fresh grout lines, a lime
 - Alt: Вытяжной зонт и пар над плитой на профессиональной кухне
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a stainless steel extractor hood above a professional stove with soft steam rising into it. Aspect ratio 4:3.
 ```
 
@@ -188,7 +188,7 @@ Subject: a stainless steel extractor hood above a professional stove with soft s
 - Alt: Шторы и кресло в номере, луч света
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: linen curtains and an armchair in a hotel room, a beam of sunlight with a faint haze in the air. Aspect ratio 4:3.
 ```
 
@@ -199,7 +199,7 @@ Subject: linen curtains and an armchair in a hotel room, a beam of sunlight with
 - Alt: Гигрометр у стены в цокольном помещении
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a small digital hygrometer on a white painted wall near the floor of a basement room, light from a small window. Aspect ratio 4:3.
 ```
 
@@ -210,7 +210,7 @@ Subject: a small digital hygrometer on a white painted wall near the floor of a 
 - Alt: Свёрнутое полотенце и коврик для тренировки
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a rolled white towel, a grey training mat and a water bottle on a gym bench. Aspect ratio 4:3.
 ```
 
@@ -221,7 +221,7 @@ Subject: a rolled white towel, a grey training mat and a water bottle on a gym b
 - Alt: Закрытый контейнер для мусора в чистой камере
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a clean closed grey waste container in a freshly washed tiled waste room. Aspect ratio 4:3.
 ```
 
@@ -232,7 +232,7 @@ Subject: a clean closed grey waste container in a freshly washed tiled waste roo
 - Alt: Щётка для груминга на светлом столе
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a grooming brush and a folded towel on a light grooming table, soft daylight. Aspect ratio 4:3.
 ```
 
@@ -243,7 +243,7 @@ Subject: a grooming brush and a folded towel on a light grooming table, soft day
 - Alt: Маникюрный стол со встроенной вытяжкой
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a manicure table with a built-in extractor grille, a few closed nail polish bottles. Aspect ratio 4:3.
 ```
 
@@ -254,7 +254,7 @@ Subject: a manicure table with a built-in extractor grille, a few closed nail po
 - Alt: Валик и банка краски у открытого окна
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a paint roller and a closed paint can on the floor near a wide open window, fresh white walls. Aspect ratio 4:3.
 ```
 
@@ -265,7 +265,7 @@ Subject: a paint roller and a closed paint can on the floor near a wide open win
 - Alt: Светлый коридор клиники и зелёное растение
 
 ```text
-Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with a tiny lime-green (#D4F55B) accent object somewhere in the frame. No text, no logos, no faces.
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a bright clinic corridor detail with a soft armchair and a green plant, clean white walls. Aspect ratio 4:3.
 ```
 
