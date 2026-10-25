@@ -1,4 +1,4 @@
-/* ВДОХ — меню, подбор решения, заявка в WhatsApp, появление блоков. */
+/* Aromé — меню, подбор решения, заявка в WhatsApp, появление блоков. */
 (function () {
   var D = window.SITE_DATA, V = window.VD;
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -40,7 +40,7 @@
       var setup = pl ? pl.setup : { n300: 1, n1000: 0 };
       var pm = setup.n300 * pm6(D.devices[0]) + setup.n1000 * pm6(D.devices[1]);
       var kit = [setup.n1000 ? setup.n1000 + ' × Nova 1000' : '', setup.n300 ? setup.n300 + ' × Nova 300' : ''].filter(Boolean).join(' + ');
-      var msg = 'Здравствуйте! ' + o.short + (pl ? ' — ' + pl.name.toLowerCase() : '') + '. Хочу понять причину и убрать запах (ВДОХ).';
+      var msg = 'Здравствуйте! ' + o.short + (pl ? ' — ' + pl.name.toLowerCase() : '') + '. Хочу понять причину и убрать запах (Aromé).';
       var li = function (a) { return a.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join(''); };
       res.innerHTML =
         '<div class="pk-out">' +
@@ -72,7 +72,7 @@
   if (form) form.addEventListener('submit', function (e) {
     e.preventDefault();
     var n = $('#f-note').value.trim();
-    var msg = 'Здравствуйте! Нужна помощь с запахом (ВДОХ).\nГде: ' + $('#f-place').value + '\nЧем пахнет: ' + $('#f-odor').value + '\nКогда сильнее: ' + $('#f-when').value + (n ? '\nКомментарий: ' + n : '') + '\nСтраница: ' + document.title;
+    var msg = 'Здравствуйте! Нужна помощь с запахом (Aromé).\nГде: ' + $('#f-place').value + '\nЧем пахнет: ' + $('#f-odor').value + '\nКогда сильнее: ' + $('#f-when').value + (n ? '\nКомментарий: ' + n : '') + '\nСтраница: ' + document.title;
     window.open(D.waLink(msg), '_blank', 'noopener');
   });
 

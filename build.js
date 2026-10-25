@@ -1,4 +1,4 @@
-/* Сборка ВДОХ: node build.js → docs/ (GitHub Pages публикует папку docs).
+/* Сборка Aromé: node build.js → docs/ (GitHub Pages публикует папку docs).
    Домен: поменяйте origin и base (для своего домена base: '/'). */
 const { createSite } = require('./lib/engine');
 const D = require('./lib/data');
@@ -13,7 +13,7 @@ const VD = {
 
 const site = createSite({
   root: __dirname,
-  name: 'ВДОХ',
+  name: 'Aromé',
   origin: 'https://t0niske.github.io',
   base: '/vdokh-lab/',
   description: 'Служба устранения неприятных запахов в помещениях Астаны',

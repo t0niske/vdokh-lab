@@ -1,9 +1,31 @@
-# Картинки для ВДОХ
+# Картинки для Aromé
 
 Сгенерируйте в ChatGPT, сохраните в `src/assets/img/` под указанным именем (png, jpg или webp) и пересоберите: `node build.js`.
 Пока файла нет, на сайте стоит подписанная заглушка того же размера.
 
-Готово: 23 из 23.
+Готово: 25 из 25.
+
+## ✅ `hero-a` — Первый экран, слева: вдох
+
+- Формат: 4:5
+- Где на сайте: главная, первый экран слева
+- Alt: Женщина с закрытыми глазами спокойно вдыхает чистый воздух
+
+```text
+Editorial lifestyle photograph, warm natural window light from the left with soft directional shadows, muted warm palette of taupe, sand, beige and soft grey, gentle film grain, shot on medium format, calm premium mood like a perfume brand campaign. The middle of the frame stays mid-tone (not white) so a large white wordmark can sit on top of it. No text, no letters, no logos, no watermarks.
+Subject: a tight close-up profile portrait of a calm young woman with dark hair loosely pulled back, eyes closed, lips softly parted, taking a slow deep breath of fresh air; minimal natural make-up, a small simple gold earring, bare shoulder. Her face fills the left half of the frame facing right, plain warm taupe wall behind her. Realistic skin texture, no retouching look. Vertical 4:5 aspect ratio.
+```
+
+## ✅ `hero-b` — Первый экран, справа: аппарат Nova
+
+- Формат: 4:5
+- Где на сайте: главная, первый экран справа
+- Alt: Рука ставит аромадиффузор на деревянный столик у стены
+
+```text
+Editorial lifestyle photograph, warm natural window light from the left with soft directional shadows, muted warm palette of taupe, sand, beige and soft grey, gentle film grain, shot on medium format, calm premium mood like a perfume brand campaign. The middle of the frame stays mid-tone (not white) so a large white wordmark can sit on top of it. No text, no letters, no logos, no watermarks.
+Subject: a still life — a small graphite-green aroma diffuser (exactly the device in the attached reference image: rectangular box with softly rounded edges, a narrow vertical black glossy glass panel on the LEFT third of the front with small blue LED digits "30" and a tiny red power icon, a black oval vented cap on top, a small round black knob on the left side, four short black rubber feet) standing on the corner of a light birch plywood side table against a plain warm grey plaster wall; a woman's hand enters from the top right, fingertips lightly touching the cap of the diffuser. Hard warm sunlight casts a long soft shadow of the device and the table on the wall. The device is about 20 cm tall, realistic scale, with a natural contact shadow, placed in the right half of the frame, slightly below the centre. Reproduce the device shape, proportions, colours and details exactly. Vertical 4:5 aspect ratio.
+```
 
 ## ✅ `hero` — Главная: специалист проверяет трап
 
@@ -251,7 +273,7 @@ Subject: a bright clinic corridor detail with a soft armchair and a green plant,
 
 - Формат: 16:9
 - Где на сайте: превью ссылок
-- Alt: ВДОХ — устранение запахов в помещениях
+- Alt: Aromé — устранение запахов в помещениях
 
 ```text
 Bright, clean documentary photograph of a real commercial interior in Astana, Kazakhstan. Natural daylight, soft shadows, neutral warm-grey and white tones, realistic materials, slightly desaturated, shot on a 35mm lens at eye level, calm and honest, like a photo from a facility inspection report but beautiful. No people's faces, no text, no signs with words, no logos, no watermarks.

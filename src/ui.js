@@ -1,5 +1,5 @@
-/* ВДОХ: layout и блоки. Служба устранения запахов: светлый «отчёт об осмотре», графит и лайм,
-   один шрифт Golos Text. */
+/* Aromé: layout и блоки. Служба устранения запахов: светлый «отчёт об осмотре», графит и лайм,
+   текст — Golos Text, вордмарк логотипа и первого экрана — Tenor Sans. */
 const D = require('../lib/data');
 const { esc } = require('../lib/engine');
 const ODORS = require('./odors');
@@ -47,20 +47,31 @@ const ICONS = {
 };
 const icon = (n, cls = 'ic') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
 
-const LOGO = `<svg class="logo-m" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15"/><path d="M8 13c2.7-2.6 5.3-2.6 8 0s5.3 2.6 8 0M8 19c2.7-2.6 5.3-2.6 8 0s5.3 2.6 8 0"/></svg>`;
+/* Логотип — слово AROMÉ шрифтом Tenor Sans, как вордмарк в референсе; весь остальной текст — Golos Text.
+   Штатное É на мелком кегле читается как È, поэтому ударение над E рисуется отдельной чертой. */
+const WORD = '<span class="logo-w" aria-hidden="true">Arom<span class="logo-e">e</span></span>';
 
-const NAV = [['Запахи', 'zapahi/'], ['Помещения', 'pomeshcheniya/'], ['Как мы работаем', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Статьи', 'stati/'], ['Контакты', 'kontakty/']];
+/* Меню по бокам от логотипа: слева разделы, справа статьи и контакты */
+const NAV_L = [['запахи', 'zapahi/'], ['помещения', 'pomeshcheniya/'], ['как мы работаем', 'kak-my-rabotaem/'], ['цены', 'ceny/']];
+const NAV_R = [['статьи', 'stati/'], ['контакты', 'kontakty/']];
 
 function header(p) {
+  const link = ([n, h]) => `<a href="/${h}"${p.section === h ? ' aria-current="true"' : ''}>${n}</a>`;
   return `<a class="skip" href="#main">К содержанию</a>
+<p class="ann">${OFFER.diag} <span class="ann-d">·</span> <span class="ann-x">${OFFER.reply.replace(' в рабочее время', '')}</span></p>
 <header class="hdr" id="hdr">
   <div class="hdr-in">
-    <a class="logo" href="/" aria-label="ВДОХ — на главную">${LOGO}<span>ВДОХ</span></a>
-    <nav class="menu" id="menu" aria-label="Основное меню">${NAV.map(([n, h]) => `<a href="/${h}"${p.section === h ? ' aria-current="true"' : ''}>${n}</a>`).join('')}<a class="menu-ph" href="tel:${D.contacts.phoneRaw}">${icon('phone')}${D.contacts.phone}</a></nav>
-    <a class="hdr-ph" href="tel:${D.contacts.phoneRaw}">${D.contacts.phone}</a>
-    <a class="btn btn-s hdr-cta" href="#zayavka">Описать запах</a>
-    <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">${icon('menu')}${icon('close', 'ic ic-x')}</button>
+    <div class="hdr-l">
+      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">${icon('menu')}${icon('close', 'ic ic-x')}<span>меню</span></button>
+      <nav class="hdr-nav" aria-label="Разделы">${NAV_L.map(link).join('')}</nav>
+    </div>
+    <a class="logo" href="/" aria-label="Aromé — на главную">${WORD}</a>
+    <div class="hdr-r">
+      <nav class="hdr-nav" aria-label="Ещё">${NAV_R.map(link).join('')}</nav>
+      <a class="hdr-cta" href="#zayavka">${icon('wa')}<span>описать запах</span></a>
+    </div>
   </div>
+  <nav class="menu" id="menu" aria-label="Основное меню">${[...NAV_L, ...NAV_R].map(link).join('')}<a class="menu-ph" href="tel:${D.contacts.phoneRaw}">${icon('phone')}${D.contacts.phone}</a></nav>
 </header>`;
 }
 
@@ -68,13 +79,13 @@ function footer() {
   const C = D.contacts;
   return `<footer class="ftr">
   <div class="wrap ftr-in">
-    <div class="ftr-a"><a class="logo" href="/">${LOGO}<span>ВДОХ</span></a><p>Служба устранения неприятных запахов в коммерческих помещениях Астаны. Находим причину, говорим, что исправить, и держим чистый воздух по подписке.</p></div>
+    <div class="ftr-a"><a class="logo" href="/" aria-label="Aromé — на главную">${WORD}</a><p>Служба устранения неприятных запахов в коммерческих помещениях Астаны. Находим причину, говорим, что исправить, и держим чистый воздух по подписке.</p></div>
     <nav aria-label="Запахи"><p class="ftr-k">Запахи</p>${ODORS.map(o => `<a href="/zapahi/${o.slug}/">${o.short}</a>`).join('')}</nav>
     <nav aria-label="Помещения"><p class="ftr-k">Помещения</p>${PLACES.map(o => `<a href="/pomeshcheniya/${o.slug}/">${o.name}</a>`).join('')}</nav>
     <div><p class="ftr-k">Связь</p><address><a href="tel:${C.phoneRaw}">${C.phone}</a><a href="${D.waLink()}" target="_blank" rel="noopener">WhatsApp</a><a href="${C.map2gis}" target="_blank" rel="noopener">${C.address}</a><span>${C.hours}</span></address>
     <p class="ftr-k ftr-k2">Компания</p><a href="/kak-my-rabotaem/">Как мы работаем</a><a href="/ceny/">Цены</a><a href="/voprosy/">Вопросы</a><a href="/stati/">Статьи</a></div>
   </div>
-  <div class="wrap ftr-bot"><span>© 2026 ВДОХ · Астана</span><a href="/politika-konfidencialnosti/">Политика конфиденциальности</a></div>
+  <div class="wrap ftr-bot"><span>© 2026 Aromé · Астана</span><a href="/politika-konfidencialnosti/">Политика конфиденциальности</a></div>
 </footer>`;
 }
 
@@ -86,7 +97,7 @@ ${head}
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Tenor+Sans&display=swap">
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>

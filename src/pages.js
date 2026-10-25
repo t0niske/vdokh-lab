@@ -1,4 +1,4 @@
-/* Страницы ВДОХ — служба устранения запахов.
+/* Страницы Aromé — служба устранения запахов.
    Кластеры: «Запахи» (как убрать запах …), «Помещения» (запах в ресторане / подъезде …), статьи. */
 const D = require('../lib/data');
 const { esc } = require('../lib/engine');
@@ -16,7 +16,7 @@ const dateRu = d => new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', mo
 
 /* Сравнение способов — главная и «Как мы работаем» */
 const COMPARE = {
-  cols: ['Освежитель', 'Озонатор', 'ВДОХ'],
+  cols: ['Освежитель', 'Озонатор', 'Aromé'],
   rows: [
     ['Что делает', 'Перекрывает запах облаком', 'Разрушает молекулы запаха газом', 'Находит причину и держит чистый фон'],
     ['При людях', 'Да, но раздражает', 'Нельзя — озон вреден', 'Да, мягкая интенсивность'],
@@ -52,15 +52,23 @@ function register(site) {
   ];
   add({
     path: '', section: '', priority: '1.0', bodyClass: 'home',
-    title: 'Устранение запахов и ароматизация помещений в Астане — ВДОХ',
+    title: 'Устранение запахов и ароматизация помещений в Астане — Aromé',
     description: 'Ароматизация помещений в Астане через устранение причины запаха: канализация, кухня, табак, сырость, туалеты. Кафе, офисы, ЖК, фитнес. Подбор решения онлайн.',
     schema: [site.schema.website(), site.schema.business(D.contacts), site.schema.faq(homeFaq)],
     body: `
 <section class="hero">
+  <div class="hero-ph">${img('hero-a', { cls: 'hero-i hero-i1', eager: true })}${img('hero-b', { cls: 'hero-i hero-i2', eager: true })}</div>
+  <div class="hero-c">
+    <h1><span class="hero-mark">Aromé</span><span class="hero-sub">Устранение запахов и&nbsp;ароматизация помещений в&nbsp;Астане</span></h1>
+    <a class="hero-go" href="#podbor">подобрать решение</a>
+  </div>
+</section>
+
+<section class="sec podbor" id="podbor">
   <div class="wrap hero-g">
     <div class="hero-a">
-      <p class="k">Астана · устранение запахов в помещениях</p>
-      <h1>Уберём запах в&nbsp;помещении. Найдём причину, а&nbsp;не&nbsp;замаскируем</h1>
+      <p class="k">Подбор за минуту</p>
+      <h2 class="h2">Уберём запах в&nbsp;помещении. Найдём причину, а&nbsp;не&nbsp;замаскируем</h2>
       <p class="lead">Канализация, кухня, туалеты, табак, сырость, раздевалки. Разбираемся, откуда запах, говорим, что исправить, и держим чистый воздух по подписке.</p>
       <ul class="ticks">${[OFFER.diag, OFFER.reply, OFFER.start].map(t => `<li>${icon('check')}${t}</li>`).join('')}</ul>
       <div class="hero-btns"><a class="btn" href="#zayavka">${icon('wa')}Описать запах</a><a class="btn btn-line" href="/kak-my-rabotaem/">Как мы работаем</a></div>
@@ -263,7 +271,7 @@ ${UI.related('Другие помещения', PLACES.filter(x => x !== pl).map
   add({
     path: 'kak-my-rabotaem/', section: 'kak-my-rabotaem/',
     title: 'Как мы убираем запах в помещении: осмотр, причина, решение',
-    description: 'Как работает ВДОХ: описание или осмотр помещения, поиск источника запаха, список того, что исправить, ароматизация в правильной точке и контроль через неделю.',
+    description: 'Как работает Aromé: описание или осмотр помещения, поиск источника запаха, список того, что исправить, ароматизация в правильной точке и контроль через неделю.',
     h1: 'Как мы работаем',
     breadcrumbs: [HOME, ['Как мы работаем', 'kak-my-rabotaem/']],
     schema: [site.schema.faq(howFaq)],
@@ -302,7 +310,7 @@ ${UI.faq(howFaq)}`;
   ];
   add({
     path: 'ceny/', section: 'ceny/',
-    title: 'Цены на ароматизацию и устранение запахов в Астане — ВДОХ',
+    title: 'Цены на ароматизацию и устранение запахов в Астане — Aromé',
     description: `Цены на устранение запахов и ароматизацию: Nova 300 от ${UI.pm(D.devices[0])}, Nova 1000 от ${UI.pm(D.devices[1])} в месяц. Аренда аппарата, масла и обслуживание в подписке.`,
     h1: 'Цены',
     breadcrumbs: [HOME, ['Цены', 'ceny/']],
@@ -330,7 +338,7 @@ ${UI.faq(priceFaq)}`;
   add({
     path: 'stati/', section: 'stati/',
     title: 'Статьи о запахах в помещениях: причины, вентиляция, советы',
-    description: 'Статьи ВДОХ о неприятных запахах в коммерческих помещениях: как найти источник, чем опасен озонатор, как отвечать на отзывы о запахе и почему зимой пахнет сильнее.',
+    description: 'Статьи Aromé о неприятных запахах в коммерческих помещениях: как найти источник, чем опасен озонатор, как отвечать на отзывы о запахе и почему зимой пахнет сильнее.',
     h1: 'Статьи',
     breadcrumbs: [HOME, ['Статьи', 'stati/']],
     schema: [site.schema.itemList(ARTICLES.map(a => [a.title, `stati/${a.slug}/`]))],
@@ -362,7 +370,7 @@ ${UI.related('Другие статьи', ARTICLES.filter(x => x !== a).map(x =>
   ];
   add({
     path: 'voprosy/', section: '',
-    title: 'Вопросы об устранении запахов и ароматизации — ВДОХ',
+    title: 'Вопросы об устранении запахов и ароматизации — Aromé',
     description: 'Ответы на частые вопросы: как мы ищем причину запаха, что входит в подписку, безопасность ароматов, договор, сроки запуска и работа с УК и ОСИ в Астане.',
     h1: 'Вопросы и ответы',
     breadcrumbs: [HOME, ['Вопросы', 'voprosy/']],
@@ -377,8 +385,8 @@ ${UI.related('Другие статьи', ARTICLES.filter(x => x !== a).map(x =>
   const C = D.contacts;
   add({
     path: 'kontakty/', section: 'kontakty/',
-    title: 'Контакты ВДОХ — устранение запахов в помещениях, Астана',
-    description: `Контакты ВДОХ в Астане: ${C.phone}, WhatsApp, ${C.street}. Опишите запах — скажем, откуда он, и приедем на осмотр.`,
+    title: 'Контакты Aromé — устранение запахов в помещениях, Астана',
+    description: `Контакты Aromé в Астане: ${C.phone}, WhatsApp, ${C.street}. Опишите запах — скажем, откуда он, и приедем на осмотр.`,
     h1: 'Контакты',
     breadcrumbs: [HOME, ['Контакты', 'kontakty/']],
     schema: [site.schema.business(C)],
@@ -395,8 +403,8 @@ ${UI.related('Другие статьи', ARTICLES.filter(x => x !== a).map(x =>
   });
   add({
     path: 'politika-konfidencialnosti/', noindex: true, noCta: true,
-    title: 'Политика конфиденциальности — ВДОХ',
-    description: 'Политика обработки персональных данных сайта ВДОХ: какие данные мы получаем через формы и мессенджеры и как их используем.',
+    title: 'Политика конфиденциальности — Aromé',
+    description: 'Политика обработки персональных данных сайта Aromé: какие данные мы получаем через формы и мессенджеры и как их используем.',
     h1: 'Политика конфиденциальности',
     breadcrumbs: [HOME, ['Политика', 'politika-konfidencialnosti/']],
     get body() {
@@ -405,7 +413,7 @@ ${UI.related('Другие статьи', ARTICLES.filter(x => x !== a).map(x =>
   });
   add({
     path: '404.html', noindex: true, noCta: true,
-    title: 'Страница не найдена — ВДОХ', description: 'Такой страницы нет. Вернитесь на главную ВДОХ или выберите запах в справочнике.',
+    title: 'Страница не найдена — Aromé', description: 'Такой страницы нет. Вернитесь на главную Aromé или выберите запах в справочнике.',
     body: `<section class="phead nf"><div class="wrap"><p class="k">Ошибка 404</p><h1>Здесь ничем не пахнет</h1><p class="lead">Такой страницы нет. Вернитесь на главную или откройте справочник запахов.</p><div class="hero-btns"><a class="btn" href="/">На главную ${icon('arrow')}</a><a class="btn btn-line" href="/zapahi/">Справочник запахов</a></div></div></section>`
   });
 }
