@@ -3,28 +3,39 @@
 Сгенерируйте в ChatGPT, сохраните в `src/assets/img/` под указанным именем (png, jpg или webp) и пересоберите: `node build.js`.
 Пока файла нет, на сайте стоит подписанная заглушка того же размера.
 
-Готово: 25 из 25.
+Готово: 28 из 28.
 
-## ✅ `hero-a` — Первый экран, слева: вдох
+## ✅ `hero-a` — Первый экран, слева: санузел ТРЦ
 
 - Формат: 4:5
 - Где на сайте: главная, первый экран слева
-- Alt: Женщина с закрытыми глазами спокойно вдыхает чистый воздух
+- Alt: Чистый санузел торгового центра с каменной столешницей и мягким светом
 
 ```text
 Editorial lifestyle photograph, warm natural window light from the left with soft directional shadows, muted warm palette of taupe, sand, beige and soft grey, gentle film grain, shot on medium format, calm premium mood like a perfume brand campaign. The middle of the frame stays mid-tone (not white) so a large white wordmark can sit on top of it. No text, no letters, no logos, no watermarks.
-Subject: a tight close-up profile portrait of a calm young woman with dark hair loosely pulled back, eyes closed, lips softly parted, taking a slow deep breath of fresh air; minimal natural make-up, a small simple gold earring, bare shoulder. Her face fills the left half of the frame facing right, plain warm taupe wall behind her. Realistic skin texture, no retouching look. Vertical 4:5 aspect ratio.
+Subject: a calm, spotless public restroom of a premium shopping mall in Astana: a long warm-grey stone vanity with three round white washbasins and brushed brass taps, a wide mirror with soft hidden backlight, warm beige stone walls, a small green plant in a stone pot, a folded white towel. No people. Shot slightly from the side at eye level, the vanity runs diagonally into depth. Vertical 4:5 aspect ratio.
 ```
 
-## ✅ `hero-b` — Первый экран, справа: аппарат Nova
+## ✅ `hero-b` — Первый экран, справа: зал кафе
 
 - Формат: 4:5
 - Где на сайте: главная, первый экран справа
-- Alt: Рука ставит аромадиффузор на деревянный столик у стены
+- Alt: Светлый зал кафе с деревянными столами в тёплом дневном свете
 
 ```text
 Editorial lifestyle photograph, warm natural window light from the left with soft directional shadows, muted warm palette of taupe, sand, beige and soft grey, gentle film grain, shot on medium format, calm premium mood like a perfume brand campaign. The middle of the frame stays mid-tone (not white) so a large white wordmark can sit on top of it. No text, no letters, no logos, no watermarks.
-Subject: a still life — a small graphite-green aroma diffuser (exactly the device in the attached reference image: rectangular box with softly rounded edges, a narrow vertical black glossy glass panel on the LEFT third of the front with small blue LED digits "30" and a tiny red power icon, a black oval vented cap on top, a small round black knob on the left side, four short black rubber feet) standing on the corner of a light birch plywood side table against a plain warm grey plaster wall; a woman's hand enters from the top right, fingertips lightly touching the cap of the diffuser. Hard warm sunlight casts a long soft shadow of the device and the table on the wall. The device is about 20 cm tall, realistic scale, with a natural contact shadow, placed in the right half of the frame, slightly below the centre. Reproduce the device shape, proportions, colours and details exactly. Vertical 4:5 aspect ratio.
+Subject: a cosy modern cafe hall in the morning before opening: light oak tables and chairs, linen-coloured upholstered bench along a warm plaster wall, a coffee bar counter with a pass to the kitchen softly out of focus in the background, sunlight through large windows casting long shadows across the floor, a few ceramic cups on a table. No people. Vertical 4:5 aspect ratio.
+```
+
+## ✅ `device` — Аппарат Nova на столике
+
+- Формат: 4:5
+- Где на сайте: главная — «Как работает аппарат», «Нейтрализатор запаха»
+- Alt: Рука нажимает на крышку аромадиффузора Nova на деревянном столике
+
+```text
+Editorial lifestyle photograph, warm natural window light from the left with soft directional shadows, muted warm palette of taupe, sand, beige and soft grey, gentle film grain, shot on medium format, calm premium mood like a perfume brand campaign. The middle of the frame stays mid-tone (not white) so a large white wordmark can sit on top of it. No text, no letters, no logos, no watermarks.
+Subject: a still life — a small graphite-green aroma diffuser (exactly the device in the attached reference image) on the corner of a light birch plywood side table against a warm grey plaster wall; a woman's hand touches the cap. Vertical 4:5 aspect ratio.
 ```
 
 ## ✅ `hero` — Главная: специалист проверяет трап
@@ -38,11 +49,11 @@ Bright, clean documentary photograph of a real commercial interior in Astana, Ka
 Scene: a technician's hand in a dark-grey work glove holding a small flashlight, checking a stainless steel floor drain in a clean tiled restroom of a cafe. The beam of light falls on the drain grate. Only the hand and sleeve are visible. Aspect ratio 3:2.
 ```
 
-## ✅ `metod` — Как мы работаем: обход помещения
+## ✅ `metod` — Как мы работаем: подбор аппарата
 
 - Формат: 3:2
 - Где на сайте: /kak-my-rabotaem/
-- Alt: Блокнот с чек-листом обхода помещения и гигрометр на стойке
+- Alt: Планшет с листом подбора аппарата и аромата на стойке
 
 ```text
 Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
@@ -267,6 +278,27 @@ Subject: a paint roller and a closed paint can on the floor near a wide open win
 ```text
 Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
 Subject: a bright clinic corridor detail with a soft armchair and a green plant, clean white walls. Aspect ratio 4:3.
+```
+
+## ✅ `odor-gari` — Запах гари
+
+- Формат: 4:3
+- Где на сайте: /zapahi/gari/
+- Alt: Кухонная вытяжка и чистая плита после проветривания
+
+```text
+Close-up detail photograph, bright natural daylight, clean light-grey background, realistic textures, shallow depth of field, calm neutral palette with one tiny muted terracotta (#BF541B, burnt orange clay colour) accent object somewhere in the frame. No text, no logos, no faces.
+Subject: a clean professional kitchen corner after airing: a stainless steel stove with a cold pan, an open window with soft daylight, a faint trace of thin haze dissolving in the air. Aspect ratio 4:3.
+```
+
+## ✅ `kvartira` — Квартира
+
+- Формат: 4:3
+- Где на сайте: /kvartira/
+- Alt: Светлая гостиная квартиры с диваном и креслом
+
+```text
+Bright, clean documentary photograph of a real modern apartment living room in Astana. Natural daylight, soft shadows, neutral warm-grey and white tones, realistic materials: a light sofa with a knitted throw, an armchair, linen curtains, a small side table, a houseplant. Calm and honest. No people, no text, no logos. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.
 ```
 
 ## ✅ `og` — Обложка для соцсетей
