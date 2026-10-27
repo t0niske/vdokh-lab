@@ -113,6 +113,7 @@ function layout(p, head) {
 ${head}
 <meta http-equiv="refresh" content="0; url=${'../'.repeat(p.path.split('/').filter(Boolean).length)}${p.redirect}">
 <link rel="stylesheet" href="/assets/css/style.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body><main class="wrap nf"><h1>Страница переехала</h1><p class="lead"><a href="/${p.redirect}">Перейти на новую страницу</a></p></main></body>
 </html>`;
@@ -125,11 +126,12 @@ ${analytics()}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Tenor+Sans&display=swap">
+${p.fonts ? `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?${p.fonts}&display=swap">` : ''}
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body class="${p.bodyClass || ''}" data-page="${esc(p.pageName)}">
-${header(p)}
+${p.ownHeader ? '<a class="skip" href="#main">К содержанию</a>' : header(p)}
 <main id="main">
 ${p.body}
 ${p.noCta ? '' : cta(p, p.cta || {})}

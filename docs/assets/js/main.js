@@ -34,8 +34,23 @@
     burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
   });
   $$('.menu a').forEach(function (a) { a.addEventListener('click', function () { document.body.classList.remove('menu-open'); }); });
-  var hdr = $('#hdr'), onScroll = function () { hdr.classList.toggle('sc', window.scrollY > 8); };
-  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  /* на главной своя шапка внутри первого экрана — общей #hdr там нет */
+  var hdr = $('#hdr');
+  if (hdr) { var onScroll = function () { hdr.classList.toggle('sc', window.scrollY > 8); }; window.addEventListener('scroll', onScroll, { passive: true }); onScroll(); }
+
+  /* Первый экран главной: подпись и полоски под текущим фото (фото сменяются CSS-анимацией каждые 7 с) */
+  var hx = $('#hx');
+  if (hx) {
+    var hxNames = ['Салоны красоты и SPA', 'Магазины и шоурумы', 'Отели'], hxI = 0;
+    setInterval(function () {
+      hxI = (hxI + 1) % 3;
+      $('.hx-num', hx).firstChild.nodeValue = '0' + (hxI + 1) + ' ';
+      $('.hx-name', hx).textContent = hxNames[hxI];
+      $$('.hx-bars i', hx).forEach(function (b, k) { b.className = k < hxI ? 'done' : k === hxI ? 'on' : ''; });
+    }, 7000);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { document.body.classList.toggle('past-hx', !es[0].isIntersecting); }, { threshold: .15 }).observe(hx);
+    else document.body.classList.add('past-hx');
+  }
 
   /* ── Подбор: где пахнет → чем пахнет → что делает аппарат, где поставим, комплект и цена ── */
   var find = function (list, slug) { for (var i = 0; i < list.length; i++) if (list[i].slug === slug) return list[i]; return null; };

@@ -3,28 +3,36 @@
 Сгенерируйте в ChatGPT, сохраните в `src/assets/img/` под указанным именем (png, jpg или webp) и пересоберите: `node build.js`.
 Пока файла нет, на сайте стоит подписанная заглушка того же размера.
 
-Готово: 28 из 28.
+Готово: 29 из 29.
 
-## ✅ `hero-a` — Первый экран, слева: санузел ТРЦ
+## ✅ `hero-s1` — Первый экран: SPA
 
-- Формат: 4:5
-- Где на сайте: главная, первый экран слева
-- Alt: Чистый санузел торгового центра с каменной столешницей и мягким светом
+- Формат: 16:9
+- Где на сайте: главная, первый экран
+- Alt: Ресепшен SPA-зоны с бассейном за стеклом в тёплом вечернем свете
 
 ```text
-Editorial lifestyle photograph, warm natural window light from the left with soft directional shadows, muted warm palette of taupe, sand, beige and soft grey, gentle film grain, shot on medium format, calm premium mood like a perfume brand campaign. The middle of the frame stays mid-tone (not white) so a large white wordmark can sit on top of it. No text, no letters, no logos, no watermarks.
-Subject: a calm, spotless public restroom of a premium shopping mall in Astana: a long warm-grey stone vanity with three round white washbasins and brushed brass taps, a wide mirror with soft hidden backlight, warm beige stone walls, a small green plant in a stone pot, a folded white towel. No people. Shot slightly from the side at eye level, the vanity runs diagonally into depth. Vertical 4:5 aspect ratio.
+Фото предоставлено заказчиком — не генерировать.
 ```
 
-## ✅ `hero-b` — Первый экран, справа: зал кафе
+## ✅ `hero-s2` — Первый экран: магазин одежды
 
-- Формат: 4:5
-- Где на сайте: главная, первый экран справа
-- Alt: Светлый зал кафе с деревянными столами в тёплом дневном свете
+- Формат: 16:9
+- Где на сайте: главная, первый экран
+- Alt: Зал магазина одежды с вешалками и травертиновыми стенами
 
 ```text
-Editorial lifestyle photograph, warm natural window light from the left with soft directional shadows, muted warm palette of taupe, sand, beige and soft grey, gentle film grain, shot on medium format, calm premium mood like a perfume brand campaign. The middle of the frame stays mid-tone (not white) so a large white wordmark can sit on top of it. No text, no letters, no logos, no watermarks.
-Subject: a cosy modern cafe hall in the morning before opening: light oak tables and chairs, linen-coloured upholstered bench along a warm plaster wall, a coffee bar counter with a pass to the kitchen softly out of focus in the background, sunlight through large windows casting long shadows across the floor, a few ceramic cups on a table. No people. Vertical 4:5 aspect ratio.
+Фото предоставлено заказчиком — не генерировать.
+```
+
+## ✅ `hero-s3` — Первый экран: лобби отеля
+
+- Формат: 16:9
+- Где на сайте: главная, первый экран
+- Alt: Просторное лобби отеля с диванами и стойкой ресепшен
+
+```text
+Фото предоставлено заказчиком — не генерировать.
 ```
 
 ## ✅ `device` — Аппарат Nova на столике

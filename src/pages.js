@@ -87,6 +87,11 @@ const OSI_TEMPLATE = `ОБЪЯВЛЕНИЕ ДЛЯ ЖИЛЬЦОВ
 Председатель ОСИ: ____________________
 `;
 
+/* Меню первого экрана главной (согласовано 27.10.2026). «Коллекция» пока ведёт в каталог запахов:
+   отдельной страницы с ароматами на сайте ещё нет. */
+const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'zapahi/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/']];
+const hxLink = ([n, h]) => `<a href="/${h}">${n}</a>`;
+
 function register(site) {
   const { add, img } = site;
 
@@ -96,22 +101,35 @@ function register(site) {
     ['Сколько это стоит?', `Аппарат в аренду с маслами и обслуживанием — от ${UI.pm(N300)} в месяц при оплате за 6 месяцев или ${D.fmt(N300.plans[0].total)} помесячно. ${TRIAL}.`]
   ];
   add({
-    path: '', section: '', priority: '1.0', bodyClass: 'home', pageName: 'Главная',
-    title: 'Устранение запахов и ароматизация помещений в Астане — Aromé',
-    description: `Устранение запахов в Астане: аппарат с маслом нейтрализует неприятный запах и наполняет помещение ароматом. Туалет, кафе, подъезд, офис. От ${UI.pm(N300)} в месяц.`,
+    path: '', section: '', priority: '1.0', bodyClass: 'home', pageName: 'Главная', ownHeader: true,
+    fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
+    title: 'Ароматизация помещений для бизнеса в Астане | Aromé',
+    description: `Ароматизация помещений для бизнеса в Астане: подбор аромата, установка в вентиляцию и обслуживание. От ${UI.pm(N300)} в месяц, тест 3 дня бесплатно.`,
     schema: [site.schema.website(), site.schema.business(C), site.schema.faq(homeFaq)],
     get body() {
       return `
-<section class="hero">
-  <div class="hero-ph">${img('hero-a', { cls: 'hero-i hero-i1', eager: true })}${img('hero-b', { cls: 'hero-i hero-i2', eager: true })}</div>
-  <div class="hero-c">
-    <p class="hero-mark" aria-hidden="true">Aromé</p>
-    <h1 class="hero-h1">Устранение запахов и&nbsp;ароматизация помещений в&nbsp;Астане</h1>
-    <p class="hero-sub">Нейтрализуем запах и наполним помещение ароматом</p>
-    <p class="hero-pr">от ${UI.pm(N300)} в месяц · ${TRIAL.toLowerCase()}</p>
-    <a class="hero-go" href="${UI.wa(this.pageName, 'Хочу подобрать аппарат.')}" target="_blank" rel="noopener">Напишите, где пахнет, — подберём аппарат</a>
-    <a class="btn hero-pk" href="#podbor">Подобрать решение</a>
+<section class="hx" id="hx">
+  <div class="hx-sl" data-scroll-x>${img('hero-s1', { cls: 'hx-i', eager: true })}${img('hero-s2', { cls: 'hx-i' })}${img('hero-s3', { cls: 'hx-i' })}</div>
+  <div class="hx-shade"></div>
+  <div class="hx-lines" aria-hidden="true"><span></span></div>
+  <header class="hx-top">
+    <a class="hx-logo" href="/" aria-label="Aromé — на главную">Aromé</a>
+    <nav class="hx-tab" aria-label="Разделы">${HX_NAV.map(hxLink).join('')}</nav>
+    <div class="hx-r">
+      <a class="hx-call" href="tel:${C.phoneRaw}" aria-label="Позвонить">${icon('phone')}</a>
+      <a class="hx-wa" href="${UI.wa(this.pageName)}" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">${icon('wa')}<span>WhatsApp</span></a>
+      <a class="hx-ul" href="#podbor">Подобрать решение</a>
+      <button class="hx-burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i></button>
+    </div>
+    <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${HX_NAV.map(hxLink).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
+  </header>
+  <div class="hx-txt">
+    <h1><span class="hx-s1">Ароматизация помещений</span><span class="hx-s2">для бизнеса в&nbsp;Астане</span></h1>
+    <p class="hx-lead">Подберём аромат под характер вашего бизнеса, установим оборудование в&nbsp;вентиляцию и&nbsp;возьмём обслуживание на&nbsp;себя.</p>
+    <div class="hx-btns"><a class="hx-btn hx-btn-a" href="${UI.wa(this.pageName, 'Хочу тест 3 дня.')}" target="_blank" rel="noopener" data-test>Попробовать 3 дня бесплатно</a><a class="hx-btn hx-btn-g" href="/ceny/">Посмотреть стоимость</a></div>
   </div>
+  <p class="hx-word" aria-hidden="true">Aromé</p>
+  <div class="hx-tb" aria-hidden="true"><span class="hx-num">01 <em>/ 03</em></span><span class="hx-name">Салоны красоты и SPA</span><span class="hx-bars"><i class="on"></i><i></i><i></i></span></div>
 </section>
 
 <section class="sec podbor" id="podbor">
