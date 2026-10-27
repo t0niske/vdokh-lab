@@ -132,6 +132,26 @@ function register(site) {
   <div class="hx-tb" aria-hidden="true"><span class="hx-num">01 <em>/ 03</em></span><span class="hx-name">Салоны красоты и SPA</span><span class="hx-bars"><i class="on"></i><i></i><i></i></span></div>
 </section>
 
+<section class="ab" id="o-nas">
+  <div class="ab-g">
+    <div class="ab-l">
+      <p class="ab-k">о нас</p>
+      <div class="ab-dev"><div class="ab-aura" aria-hidden="true" data-scroll-x><b></b><i></i><i></i><i></i></div>${img('nova-cut', { cls: 'ab-img' })}</div>
+    </div>
+    <div class="ab-txt">
+      <h2 class="ab-h">Aromé — ароматизация, <em>о которой не нужно думать</em></h2>
+      <p>Мы — сервис профессиональной ароматизации коммерческих помещений в Астане. Подбираем аромат под характер бизнеса, подключаем аппарат к вентиляции и обслуживаем его по подписке: меняем масла, следим за работой, заменяем при поломке.</p>
+      <p class="ab-m">Наша миссия — чтобы аромат стал такой же продуманной частью пространства, как свет и музыка.</p>
+    </div>
+  </div>
+  <div class="ab-st">
+    <div><b>3 <small>дня</small></b><span>бесплатного теста в вашем помещении</span></div>
+    <div><b>2–3</b><span>аромата подбираем под вашу задачу</span></div>
+    <div><b>1000 <small>м²</small></b><span>закрывает один аппарат Nova 1000</span></div>
+    <div><b>&lt;35 <small>дБ</small></b><span>уровень шума — тише шёпота</span></div>
+  </div>
+</section>
+
 <section class="sec podbor" id="podbor">
   <div class="wrap hero-g">
     <div class="hero-a">

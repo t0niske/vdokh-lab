@@ -576,3 +576,49 @@ a.ct:hover{border-color:var(--ink)}
 .menu-open .hx-wa{background:var(--paper)}
 /* на главной нижняя панель телефона появляется после первого экрана — там свои кнопки WhatsApp и теста */
 @media (max-width:720px){.home .mbar{transition:transform .35s var(--ease)}.home:not(.past-hx) .mbar{transform:translateY(110%)}}
+
+/* ── Главная: блок «О нас» (согласован 28.10.2026, макет design/arome-home/about.html, вариант A, аура 1) ──
+   Крупный аппарат уходит низом под плитки с цифрами; за ним «дышит» оранжевое свечение и расходятся мягкие кольца,
+   как на airlife (3 круга, 5 с, задержки 0 / 0,5 / 1,5 с). Акцент пока оранжевый — --ab-acc. */
+.ab{--ab-acc:#EE6A2C;--ab-f:"Inter Tight",system-ui,sans-serif;--ab-s:"Playfair Display",Georgia,serif;--ab-gut:clamp(20px,4.2vw,64px);
+  position:relative;overflow:hidden;background:#F4F3EF;color:#1A1714;font-family:var(--ab-f);padding-top:80px}
+.ab-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;max-width:1440px;margin:0 auto;padding:0 var(--ab-gut)}
+.ab-k{margin:0;font-size:18px;color:#8A847C;text-transform:lowercase}
+.ab-k::before{content:"["}.ab-k::after{content:"]"}
+.ab-dev{position:relative;display:grid;place-items:end center;height:560px;margin:0 0 -60px}
+.ab-img{position:relative;z-index:2;width:auto;height:500px;filter:drop-shadow(0 40px 50px rgba(40,28,16,.22))}
+.ab-aura{position:absolute;left:0;right:0;top:8%;height:100%;display:grid;place-items:center;z-index:1;pointer-events:none}
+.ab-aura b{position:absolute;width:860px;height:860px;border-radius:50%;background:radial-gradient(closest-side,rgba(238,106,44,.62) 0%,rgba(242,128,64,.42) 30%,rgba(247,170,116,.2) 58%,rgba(250,210,180,.07) 80%,rgba(244,243,239,0) 100%);animation:ab-breathe 5s ease-in-out infinite}
+.ab-aura i{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(closest-side,rgba(238,106,44,0) 58%,rgba(238,106,44,.38) 84%,rgba(246,170,110,.14) 95%,rgba(238,106,44,0) 100%);animation:ab-ring 5s cubic-bezier(.22,.61,.36,1) infinite}
+.ab-aura i:nth-child(3){animation-delay:.5s}.ab-aura i:nth-child(4){animation-delay:1.5s}
+@keyframes ab-ring{0%{transform:scale(1);opacity:1}100%{transform:scale(3);opacity:0}}
+@keyframes ab-breathe{50%{transform:scale(1.06)}}
+.ab-txt{position:relative;z-index:2;padding:40px 0 80px}
+.ab-h{margin:26px 0 30px;text-wrap:wrap;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px)}
+.ab-h em{display:block;font-family:var(--ab-s);font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
+.ab-txt p{color:#4A443E;font-size:clamp(16px,1.2vw,18px);line-height:1.45;max-width:58ch}
+.ab-txt p+p{margin-top:14px}
+.ab-m{border-left:2px solid var(--ab-acc);padding-left:20px;font-family:var(--ab-s);font-style:italic;line-height:1.25!important;color:#1A1714!important}
+.ab-st{position:relative;z-index:3;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.ab-st>div{display:flex;flex-direction:column;justify-content:flex-end;min-height:290px;padding:42px 40px 40px;background:#fff;position:relative}
+.ab-st>div:nth-child(even){background:#ECEAE4}
+.ab-st>div::before{content:"";position:absolute;left:40px;top:42px;width:12px;height:12px;background:var(--ab-acc)}
+.ab-st b{font-size:clamp(48px,4.4vw,68px);font-weight:600;letter-spacing:-.045em;line-height:1}
+.ab-st small{font-size:.5em;letter-spacing:-.02em;margin-left:4px}
+.ab-st span{margin-top:12px;color:#857C73;font-size:15.5px;line-height:1.4;max-width:22ch}
+@media (max-width:900px){
+  .ab{padding-top:64px}
+  .ab-g{grid-template-columns:minmax(0,1fr);gap:0}
+  .ab-dev{height:340px;margin:0 0 24px}
+  .ab-img{height:310px}
+  .ab-aura b{width:480px;height:480px}
+  .ab-aura i{width:170px;height:170px}
+  .ab-txt{padding:10px 0 56px}
+  .ab-h{font-size:36px}
+  .ab-st{grid-template-columns:1fr 1fr}
+  .ab-st>div{min-height:200px;padding:28px 22px}
+  .ab-st>div::before{left:22px;top:28px}
+  .ab-st b{font-size:44px}
+  .ab-st span{font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){.ab-aura b,.ab-aura i{animation:none}}
