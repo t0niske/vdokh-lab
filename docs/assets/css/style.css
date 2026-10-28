@@ -941,3 +941,53 @@ a.ct:hover{border-color:var(--ink)}
   .cm-c.cm-us::before{color:#BFB2A3}
   .cm-us i{display:none}
 }
+
+/* ── Главная: цены (согласованы 28.10.2026, макет design/arome-home/price.html) ── */
+.pr{--pr-acc:#4A3F37;--pr-acc2:#5C4F45;--pr-ink:#2A2522;--pr-ink2:#5A534D;--pr-ink3:#8A847C;--pr-line:#DCD7CE;--pr-s:"Playfair Display",Georgia,serif;--pr-gut:clamp(20px,4.2vw,64px);
+  padding:96px 0;background:#F4F3EF;color:var(--pr-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
+.cm+.pr{padding-top:0}
+:where(.pr) :where(h2,h3,p,ul){margin:0}
+.pr-wrap{max-width:1440px;margin:0 auto;padding:0 var(--pr-gut)}
+.pr-k{font-size:18px;color:var(--pr-ink3)}.pr-k::before{content:"["}.pr-k::after{content:"]"}
+.pr-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin:22px 0 48px}
+.pr-h{text-wrap:wrap;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px);color:var(--pr-ink)}
+.pr-h em{display:block;font-family:var(--pr-s);font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
+.pr-lead{max-width:42ch;color:var(--pr-ink2);font-size:clamp(16px,1.2vw,18px)}
+.pr-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.pr-ph{position:relative;min-height:600px;border-radius:26px;overflow:hidden;background:#2A2522}
+.pr-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pr-ph span{position:absolute;left:14px;bottom:14px;padding:10px 16px;border-radius:14px;background:rgba(30,24,19,.36);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);color:#fff;font-size:14.5px}
+.pr-ph span b{font-weight:600}
+.pr-card{display:flex;flex-direction:column;padding:32px 30px 28px;border:1px solid #E6E1D8;border-radius:26px;background:#FBFAF7}
+.pr-fit{font-size:14.5px;color:var(--pr-ink3)}
+.pr-card h3{margin-top:8px;font-family:var(--pr-s);font-style:italic;font-weight:400;font-size:46px;line-height:1;letter-spacing:-.01em;color:inherit}
+.pr-for{margin-top:12px;font-size:15px;color:var(--pr-ink2)}
+.pr-sub{margin-top:30px;font-size:15px;font-weight:600}
+.pr-rows{list-style:none;margin-top:6px!important;padding:0}
+.pr-rows li{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--pr-line);font-size:15.5px;color:var(--pr-ink2)}
+.pr-rows li b{white-space:nowrap;font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--pr-ink)}
+.pr-rows li small{display:block;margin-top:2px;font-size:12.5px;color:var(--pr-ink3)}
+.pr-btn{display:flex;align-items:center;justify-content:center;height:54px;margin-top:auto;border-radius:16px;background:var(--pr-acc);color:#F4F0EA;font-size:15px;font-weight:500;text-decoration:none;transition:background .2s}
+.pr-rows+.pr-btn{margin-top:auto}
+.pr-card .pr-rows{margin-bottom:28px!important}
+.pr-btn:hover{background:var(--pr-acc2)}
+.pr-dk{position:relative;overflow:hidden;border:0;background:linear-gradient(150deg,#5A4C41,#4A3F37 55%,#3D332C);color:#F4F0EA}
+.pr-dk::before{content:"";position:absolute;right:-140px;top:-140px;width:420px;height:420px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,196,.2),rgba(255,226,196,0));pointer-events:none}
+.pr-dk>*{position:relative}
+.pr-dk .pr-fit,.pr-dk .pr-rows li small{color:#BFB2A3}
+.pr-dk .pr-for,.pr-dk .pr-rows li{color:#D9CFC3}
+.pr-dk .pr-rows li{border-bottom-color:rgba(244,240,234,.16)}
+.pr-dk .pr-rows li b{color:#F4F0EA}
+.pr-dk .pr-btn{background:#F4F0EA;color:var(--pr-ink)}
+.pr-dk .pr-btn:hover{background:#fff}
+@media (max-width:1100px){.pr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pr-ph{min-height:420px}}
+@media (max-width:900px){
+  .pr{padding:64px 0}
+  .pr-top{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:28px}
+  .pr-h{font-size:36px}
+  .pr-grid{grid-template-columns:minmax(0,1fr);gap:10px}
+  .pr-ph{min-height:0;height:240px}
+  .pr-card{padding:26px 22px 22px}
+  .pr-card h3{font-size:40px}
+  .pr-ph+.pr-card{margin-bottom:14px}
+}

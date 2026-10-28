@@ -212,6 +212,36 @@ function priceCard(p, setup, o = {}) {
 </div>`;
 }
 
+/* Цены (согласованы 28.10.2026, макет design/arome-home/price.html): фото небольшого помещения → Nova 300,
+   фото большого → Nova 1000 коричневой карточкой. Суммы — из data.js (прайс PDF) */
+const PR_CARD = {
+  nova300: { photo: 'pr-small', alt: 'Небольшая кофейня с травертиновыми столиками', tag: 'Небольшое помещение', for: 'Бутик, кофейня, салон, офис' },
+  nova1000: { photo: 'pr-large', alt: 'Просторное лобби отеля с колоннами из травертина', tag: 'Большое пространство', for: 'Лобби отеля, торговый зал, ресторан', dark: true }
+};
+const months = n => n + ' ' + (n === 1 ? 'месяц' : n < 5 ? 'месяца' : 'месяцев');
+function pricing() {
+  return `<section class="pr" id="ceny">
+  <div class="pr-wrap">
+    <p class="pr-k">цены</p>
+    <div class="pr-top">
+      <h2 class="pr-h">Стоимость <em>подписки</em></h2>
+      <p class="pr-lead">Аппарат в&nbsp;аренду, масла, настройка и&nbsp;обслуживание — в&nbsp;одной цене. Первые ${D.trialDays}&nbsp;дня бесплатно</p>
+    </div>
+    <div class="pr-grid">
+      ${D.devices.map(d => { const c = PR_CARD[d.id]; return `<div class="pr-ph"><img src="${site.url(`assets/img/${c.photo}.webp`)}" alt="${c.alt}" loading="lazy"><span>${c.tag} · <b>до ${d.area} м²</b></span></div>
+      <article class="pr-card${c.dark ? ' pr-dk' : ''}">
+        <p class="pr-fit">до ${d.area} м²</p>
+        <h3>${d.name}</h3>
+        <p class="pr-for">${c.for}</p>
+        <p class="pr-sub">Подписка</p>
+        <ul class="pr-rows">${d.plans.map(pl => `<li>${pl.months > 1 && pl === d.plans[d.plans.length - 1] ? `<span>${months(pl.months)}<small>${D.fmt(D.perMonth(pl))} в&nbsp;месяц</small></span>` : months(pl.months)}<b>${D.fmt(pl.total)}</b></li>`).join('')}</ul>
+        <a class="pr-btn" href="#zayavka">Оставить заявку</a>
+      </article>`; }).join('\n      ')}
+    </div>
+  </div>
+</section>`;
+}
+
 /* Сравнение «Свечи, спреи или аромамаркетинг» (согласовано 28.10.2026, макет design/arome-home/compare.html):
    на компьютере таблица с коричневой колонкой Aromé, на телефоне — карточка на каждый критерий */
 const VS_COLS = ['Свечи и&nbsp;спреи', 'Диффузор с&nbsp;палочками'];
@@ -400,4 +430,4 @@ function spaces(p) {
 </section>`;
 }
 
-module.exports = { versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+module.exports = { pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

@@ -201,14 +201,7 @@ ${UI.method()}
 
 ${UI.versus()}
 
-<section class="sec sec-alt">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Подписка и цена</p><h2 class="h2">Аппарат, масла и&nbsp;обслуживание&nbsp;— в&nbsp;одной подписке</h2></div><a class="more" href="/ceny/">Все цены${icon('arrow')}</a></div>
-    ${devices()}
-    <p class="note">${TX.included.join(' · ')}. Полгода выходит дешевле, чем помесячно.</p>
-    ${trialBar(this)}
-  </div>
-</section>
+${UI.pricing()}
 
 <section class="sec">
   <div class="wrap">
