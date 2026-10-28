@@ -154,6 +154,8 @@ function register(site) {
   </div>
 </section>
 
+${UI.method()}
+
 <section class="sp" id="prodazhi">
   <div class="sp-wrap">
     <p class="sp-k">аромат и&nbsp;продажи</p>
@@ -199,7 +201,6 @@ ${UI.collection(this, COL.top())}
 
 ${UI.spaces(this)}
 
-${UI.method()}
 
 ${UI.versus()}
 

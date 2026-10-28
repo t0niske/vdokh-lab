@@ -890,7 +890,7 @@ a.ct:hover{border-color:var(--ink)}
 /* ── Главная: сравнение «Свечи, спреи или аромамаркетинг» (согласовано 28.10.2026, макет design/arome-home/compare.html) ── */
 .cm{--cm-acc:#4A3F37;--cm-ink:#2A2522;--cm-ink2:#5A534D;--cm-ink3:#8A847C;--cm-line:#DCD7CE;--cm-s:"Playfair Display",Georgia,serif;--cm-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--cm-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
-.hw+.cm{padding-top:0}
+.hw+.cm,.ps+.cm{padding-top:0}
 .cm h2,.cm p{margin:0}
 .cm-wrap{max-width:1440px;margin:0 auto;padding:0 var(--cm-gut)}
 .cm-k{font-size:18px;color:var(--cm-ink3)}.cm-k::before{content:"["}.cm-k::after{content:"]"}
@@ -1096,3 +1096,6 @@ a.ct:hover{border-color:var(--ink)}
   .ft-word{margin-top:40px;font-size:31vw}
   .ft-bot{flex-direction:column;gap:6px;padding-bottom:96px}
 }
+
+/* «Метод» стоит сразу после «О нас»: второй большой отступ сверху и снизу не нужен */
+.ab+.hw,.hw+.sp{padding-top:0}
