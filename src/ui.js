@@ -701,7 +701,8 @@ function numbers(s) {
 </section>`;
 }
 
-/* Страница одного пространства (28.10.2026, по системе «Цен» и «Пространств»): верх с фото справа, что даёт аромат,
+/* Порядок (пользователь, 28.10.2026): верх, аромат через вентиляцию, аппарат, что почувствуют гости, что получит бизнес, затем ароматы, комплект, вопросы.
+   Страница одного пространства (28.10.2026, по системе «Цен» и «Пространств»): верх с фото справа, что даёт аромат,
    зоны аромата через вентиляцию, типовой комплект с ценой из прайса, вопросы, другие пространства. Данные — src/spaces.js */
 function spacePage(p, s) {
   const pm = setupPm(s.setup), month = setupMonth(s.setup);
@@ -717,9 +718,6 @@ function spacePage(p, s) {
   </div>
 </section>
 
-${points({ id: 'zachem', k: s.feel ? 'для гостей' : 'зачем аромат', h: s.feel ? `Что почувствуют <em>${s.feel}</em>` : 'Что даёт <em>аромат</em>', list: s.why.map(([t, d]) => [nb(t), nb(d)]) })}
-${s.nums ? numbers(s) : ''}
-
 <section class="sz" id="zony">
   <div class="sz-wrap">
     <p class="sz-k">зоны аромата</p>
@@ -732,6 +730,9 @@ ${s.nums ? numbers(s) : ''}
 </section>
 
 ${device({ model: s.setup.n1000 && !s.setup.n300 ? 1 : 0 })}
+
+${points({ id: 'zachem', k: s.feel ? 'для гостей' : 'зачем аромат', h: s.feel ? `Что почувствуют <em>${s.feel}</em>` : 'Что даёт <em>аромат</em>', list: s.why.map(([t, d]) => [nb(t), nb(d)]) })}
+${s.nums ? numbers(s) : ''}
 
 ${collection(p, s.aromas.map(require('./collection').item), { title: `Ароматы <em>для&nbsp;${s.for}</em>`, lead: 'Подборка из&nbsp;нашей коллекции. Выберите аромат — покажем ноты, а&nbsp;пробник пришлём, чтобы выбрать у&nbsp;себя' })}
 

@@ -1636,3 +1636,9 @@ a.kc-c:hover i{transform:translateX(4px)}
 /* Блок «Аппарат» с главной на странице пространства: после него отступ до коллекции */
 .dv+.kl{margin-top:96px}
 @media (max-width:900px){.dv+.kl{margin-top:64px}}
+
+/* Порядок страницы пространства: зоны → аппарат → для гостей → для бизнеса → ароматы */
+.sv+.sz{padding-top:0}
+.dv+.sh{padding-top:96px}
+.bz+.kl,.sh+.kl{margin-top:0}
+@media (max-width:900px){.dv+.sh{padding-top:64px}}
