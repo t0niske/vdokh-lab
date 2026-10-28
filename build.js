@@ -31,4 +31,6 @@ UI.init(site);
 register(site);
 /* Имя страницы для метки в WhatsApp: «…страница «Салоны красоты и SPA»» */
 site.pages.forEach(p => { p.pageName = p.pageName || p.h1 || p.title; });
+/* Копия на github.io — только для просмотра: настоящий сайт на arome-marketing.kz, в поиск копию не пускаем */
+if (!PROD) site.pages.forEach(p => { p.noindex = true; });
 site.build(UI.layout);
