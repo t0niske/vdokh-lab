@@ -746,9 +746,11 @@ a.ct:hover{border-color:var(--ink)}
 .ps-h em{display:block;font-family:var(--ps-s);font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
 .ps-tr{display:flex;align-items:flex-end;gap:28px}
 .ps-lead{max-width:40ch;color:var(--ps-ink2);font-size:clamp(16px,1.2vw,18px)}
-.ps-nav{display:flex;gap:8px}
-.ps-nav button{width:52px;height:52px;border-radius:50%;border:1px solid #D6D0C6;background:#fff;font-size:18px;color:var(--ps-ink);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.ps-nav{display:none;gap:8px}
+.ps-nav button{display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;border:1px solid #D6D0C6;background:#fff;color:var(--ps-ink);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .ps-nav button:hover{background:var(--ps-acc);border-color:var(--ps-acc);color:#fff}
+/* стрелки — только на планшетах и телефонах; на компьютере их нет */
+@media (max-width:1180px){.ps-nav{display:flex}}
 .ps-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--ps-gut);padding:0 var(--ps-gut) 8px;scrollbar-width:none}
 .ps-track::-webkit-scrollbar{display:none}
 .ps-card{position:relative;flex:none;width:clamp(300px,31vw,450px);aspect-ratio:3/4;border-radius:var(--ps-r);overflow:hidden;scroll-snap-align:start;background:#2A2522;color:#fff}
@@ -779,7 +781,7 @@ a.ct:hover{border-color:var(--ink)}
   .ps{padding:64px 0}
   .ps-top{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:24px}
   .ps-tr{flex-direction:column;align-items:flex-start;gap:16px}
-  .ps-nav{display:none}
+  .ps-nav button{width:46px;height:46px}
   .ps-h{font-size:36px}
   .ps-card{width:82vw}
   .ps-cta{padding:24px}
