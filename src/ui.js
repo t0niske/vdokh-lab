@@ -134,7 +134,7 @@ ${p.fonts ? `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?${p.
 ${p.ownHeader ? '<a class="skip" href="#main">К содержанию</a>' : header(p)}
 <main id="main">
 ${p.body}
-${p.noCta ? '' : cta(p, p.cta || {})}
+${p.noCta ? '' : p.leadForm ? leadForm(p) : cta(p, p.cta || {})}
 </main>
 ${footer()}
 ${mbar(p)}
@@ -210,6 +210,32 @@ function priceCard(p, setup, o = {}) {
   ${o.list === false ? '' : `<ul class="sum-l">${require('./texts').included.map(t => `<li>${icon('check')}${t}</li>`).join('')}</ul>`}
   <a class="btn" href="${wa(p.pageName, `Хочу тест ${D.trialDays} дня бесплатно.`)}" target="_blank" rel="noopener" data-test>${icon('wa')}Попробовать ${D.trialDays} дня бесплатно</a>
 </div>`;
+}
+
+/* Заявка в стиле главной (согласована 28.10.2026, макет design/arome-home/cta.html): фон — стена с тенями от окна,
+   по центру карточка с фото нот и формой. Форма собирает сообщение и открывает WhatsApp. */
+const LF_SPACES = ['Магазин', 'Салон и SPA', 'Отель', 'Ресторан', 'Офис', 'Автосалон', 'Другое'];
+function leadForm(p) {
+  return `<section class="lf" id="zayavka">
+  <div class="lf-box">
+    <div class="lf-ph"><img src="${site.url('assets/img/lead-notes.webp')}" alt="Белый чай, инжир, бергамот, кедр и флакон аромамасла на травертине" loading="lazy"></div>
+    <form class="lf-fm" id="lf-form" novalidate>
+      <p class="lf-k">заявка</p>
+      <h2 class="lf-h">Попробуйте аромат <em>${D.trialDays}&nbsp;дня бесплатно</em></h2>
+      <p class="lf-lead">Расскажите о&nbsp;своём пространстве — подберём аромат и&nbsp;дадим ${D.trialDays}&nbsp;дня бесплатно проверить его у&nbsp;вас</p>
+      <div class="lf-fields">
+        <label class="lf-in"><span class="lf-sr">Ваше имя</span><input id="lf-name" type="text" autocomplete="name" placeholder="Ваше имя"></label>
+        <label class="lf-in lf-tel"><span class="lf-flag" aria-hidden="true"><i></i></span><b>+7</b><span class="lf-sr">Телефон</span><input id="lf-phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(700) 000-00-00" maxlength="15"></label>
+      </div>
+      <fieldset class="lf-pl"><legend>Ваше пространство</legend>
+        <div class="lf-chips">${LF_SPACES.map(s => `<label><input type="radio" name="lf-space" value="${s}"><span>${s.replace(' и ', ' и&nbsp;')}</span></label>`).join('')}</div>
+      </fieldset>
+      <label class="lf-ok"><input id="lf-ok" type="checkbox"><i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span>Я&nbsp;соглашаюсь на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;<a href="/politika-konfidencialnosti/">политикой конфиденциальности</a></span></label>
+      <button class="lf-btn" type="submit">Оставить заявку</button>
+      <a class="lf-wa" href="${wa(p.pageName, 'Хочу подобрать аромат.')}" target="_blank" rel="noopener">или написать в&nbsp;WhatsApp</a>
+    </form>
+  </div>
+</section>`;
 }
 
 /* Заявка: WhatsApp и форма из трёх полей — где пахнет, площадь, телефон. o.place подставляет помещение. */
@@ -320,4 +346,4 @@ function spaces(p) {
 </section>`;
 }
 
-module.exports = { spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+module.exports = { leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

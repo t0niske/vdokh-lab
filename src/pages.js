@@ -101,7 +101,7 @@ function register(site) {
     ['Сколько это стоит?', `Аппарат в аренду с маслами и обслуживанием — от ${UI.pm(N300)} в месяц при оплате за 6 месяцев или ${D.fmt(N300.plans[0].total)} помесячно. ${TRIAL}.`]
   ];
   add({
-    path: '', section: '', priority: '1.0', bodyClass: 'home', pageName: 'Главная', ownHeader: true,
+    path: '', section: '', priority: '1.0', bodyClass: 'home', pageName: 'Главная', ownHeader: true, leadForm: true,
     fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
     title: 'Ароматизация помещений для бизнеса в Астане | Aromé',
     description: `Ароматизация помещений для бизнеса в Астане: подбор аромата, установка в вентиляцию и обслуживание. От ${UI.pm(N300)} в месяц, тест 3 дня бесплатно.`,

@@ -802,3 +802,54 @@ a.ct:hover{border-color:var(--ink)}
   .ps-btn{height:54px}
 }
 @media (prefers-reduced-motion:reduce){.ps-card>img,.ps-cta::before{transition:none;animation:none}}
+
+/* ── Главная: заявка (согласована 28.10.2026, макет design/arome-home/cta.html) ── */
+.lf{--lf-acc:#4A3F37;--lf-acc2:#5C4F45;--lf-ink:#2A2522;--lf-ink2:#5A534D;--lf-ink3:#8A847C;--lf-line:#DCD7CE;--lf-s:"Playfair Display",Georgia,serif;
+  position:relative;display:grid;place-items:center;min-height:900px;padding:110px clamp(16px,4.2vw,64px);background:#C9AE88 url(../img/lead-bg.webp) center/cover;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45;color:var(--lf-ink)}
+.lf::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(42,37,34,0) 40%,rgba(42,37,34,.28) 100%);pointer-events:none}
+.lf h2,.lf p{margin:0}
+.lf-box{position:relative;display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1fr);width:100%;max-width:1180px;border-radius:26px;overflow:hidden;background:#F4F3EF;box-shadow:0 40px 80px -40px rgba(42,37,34,.55)}
+.lf-ph{position:relative;min-height:100%}
+.lf-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.lf-fm{margin:0;padding:52px 52px 44px}
+.lf-k{font-size:18px;color:var(--lf-ink3)}.lf-k::before{content:"["}.lf-k::after{content:"]"}
+.lf-h{margin-top:18px!important;text-wrap:wrap;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(36px,3.4vw,52px);color:var(--lf-ink)}
+.lf-h em{display:block;font-family:var(--lf-s);font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
+.lf-lead{margin-top:16px!important;max-width:42ch;color:var(--lf-ink2);font-size:17px}
+.lf-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.lf-fields{display:grid;gap:10px;margin-top:30px}
+.lf-in{position:relative;display:flex;align-items:center;gap:12px;height:60px;padding:0 20px;border:1px solid var(--lf-line);border-radius:18px;background:#FBFAF7;transition:border-color .2s}
+.lf-in:focus-within{border-color:var(--lf-acc)}
+.lf-in.err{border-color:#B4533A}
+.lf-in input{flex:1;min-width:0;height:100%;padding:0;border:0;outline:0;background:none;font-family:inherit;font-size:16px;font-weight:400;color:var(--lf-ink)}
+.lf-in input::placeholder{color:var(--lf-ink3)}
+.lf-in b{font-weight:500;font-size:16px}
+.lf-flag{display:inline-flex;align-items:center;padding-right:12px;border-right:1px solid var(--lf-line);height:26px}
+.lf-flag i{display:block;width:24px;height:16px;border-radius:4px;background:#00AFCA radial-gradient(circle at 50% 45%,#FEC50C 0 3.4px,transparent 3.6px)}
+.lf-pl{margin:20px 0 0;padding:0;border:0;min-width:0}
+.lf-pl legend{padding:0;font-size:14px;color:var(--lf-ink3)}
+.lf-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.lf-chips label{position:relative;cursor:pointer}
+.lf-chips input,.lf-ok input{position:absolute;opacity:0;width:1px;height:1px}
+.lf-chips span{display:block;padding:9px 15px;border:1px solid var(--lf-line);border-radius:999px;background:#FBFAF7;font-size:14.5px;color:var(--lf-ink2);transition:background .2s,border-color .2s,color .2s}
+.lf-chips label:hover span{border-color:var(--lf-acc)}
+.lf-chips input:checked+span{background:var(--lf-acc);border-color:var(--lf-acc);color:#F4F0EA}
+.lf-chips input:focus-visible+span,.lf-ok input:focus-visible+i{outline:2px solid var(--lf-acc);outline-offset:2px}
+.lf-ok{display:flex;gap:12px;align-items:flex-start;margin-top:22px;font-size:12.5px;line-height:1.4;color:var(--lf-ink3);cursor:pointer}
+.lf-ok i{flex:none;display:grid;place-items:center;width:20px;height:20px;margin-top:1px;border:1px solid var(--lf-line);border-radius:6px;background:#FBFAF7;color:transparent;transition:background .2s,border-color .2s}
+.lf-ok input:checked+i{background:var(--lf-acc);border-color:var(--lf-acc);color:#fff}
+.lf-ok.err i{border-color:#B4533A}
+.lf-ok a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.lf-btn{display:flex;align-items:center;justify-content:center;width:100%;height:62px;margin-top:22px;border:0;border-radius:18px;background:var(--lf-acc);color:#F4F0EA;font:500 16px/1 "Inter Tight",system-ui,sans-serif;cursor:pointer;transition:background .2s}
+.lf-btn:hover{background:var(--lf-acc2)}
+.lf-wa{display:block;margin-top:12px;text-align:center;font-size:14px;color:var(--lf-ink3);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:900px){
+  .lf{min-height:0;padding:56px 16px}
+  .lf-box{grid-template-columns:minmax(0,1fr)}
+  .lf-ph{height:220px;min-height:0}
+  .lf-fm{padding:28px 22px 26px}
+  .lf-h{font-size:34px}
+  .lf-lead{font-size:15.5px}
+  .lf-fields{margin-top:22px}
+  .lf-in{height:56px}
+}

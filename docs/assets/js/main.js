@@ -116,6 +116,35 @@
     window.open(wa(msg), '_blank', 'noopener');
   });
 
+  /* ── Заявка на главной: имя, телефон, пространство → готовое сообщение в WhatsApp ── */
+  var lf = $('#lf-form');
+  if (lf) {
+    var lfPhone = $('#lf-phone'), lfOk = $('#lf-ok');
+    /* телефон в виде (700) 000-00-00 */
+    lfPhone.addEventListener('input', function () {
+      var d = lfPhone.value.replace(/\D/g, '').replace(/^[78](?=\d{10})/, '').slice(0, 10), v = '';
+      if (d.length) v = '(' + d.slice(0, 3);
+      if (d.length >= 3) v += ') ' + d.slice(3, 6);
+      if (d.length >= 6) v += '-' + d.slice(6, 8);
+      if (d.length >= 8) v += '-' + d.slice(8, 10);
+      lfPhone.value = v;
+      lfPhone.parentNode.classList.remove('err');
+    });
+    lfOk.addEventListener('change', function () { lfOk.parentNode.classList.remove('err'); });
+    lf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var digits = lfPhone.value.replace(/\D/g, ''), sp = $('input[name="lf-space"]:checked', lf), name = $('#lf-name').value.trim();
+      var bad = false;
+      if (digits.length !== 10) { lfPhone.parentNode.classList.add('err'); bad = true; }
+      if (!lfOk.checked) { lfOk.parentNode.classList.add('err'); bad = true; }
+      if (bad) { (digits.length !== 10 ? lfPhone : lfOk).focus(); return; }
+      var msg = 'Заявка на тест ' + D.trialDays + ' дня бесплатно.' + (name ? '\nИмя: ' + name : '') + '\nТелефон: +7 ' + lfPhone.value + (sp ? '\nПространство: ' + sp.value : '');
+      track('form_submit', { space: sp ? sp.value : '' });
+      track('test_request', { via: 'form' });
+      window.open(wa(msg), '_blank', 'noopener');
+    });
+  }
+
   /* ── Объявление для собрания жильцов: скопировать текст ── */
   $$('[data-copy]').forEach(function (b) {
     b.addEventListener('click', function () {
