@@ -239,12 +239,13 @@ const STAGES = [
   ['Установка и&nbsp;настройка', 'Подключаем аппарат к&nbsp;вентиляции, настраиваем расписание и&nbsp;интенсивность под часы работы'],
   ['Тест и&nbsp;обслуживание', `Первые ${D.trialDays}&nbsp;дня бесплатно. Дальше меняем масла, следим за&nbsp;работой и&nbsp;заменяем аппарат при поломке`]
 ];
-function stages() {
+/* o.self — блок стоит на самой странице «Метод»: ссылку «Подробнее о методе» не показываем */
+function stages(o = {}) {
   return `<section class="et" id="etapy">
   <div class="et-wrap">
     <p class="et-k">этапы</p>
     <h2 class="et-h">Как мы запускаем <em>аромат в&nbsp;вашем пространстве</em></h2>
-    <div class="et-side"><p>Обычно всё занимает один день — от&nbsp;заявки до&nbsp;аромата в&nbsp;зале</p><a href="/kak-my-rabotaem/">Подробнее о&nbsp;методе</a></div>
+    <div class="et-side"><p>Обычно всё занимает один день — от&nbsp;заявки до&nbsp;аромата в&nbsp;зале</p>${o.self ? '' : '<a href="/kak-my-rabotaem/">Подробнее о&nbsp;методе</a>'}</div>
     ${STAGES.map(([t, d], i) => `<article class="et-c et-c${i + 1}"><span class="et-n">0${i + 1}</span><h3>${t}</h3><p>${d}</p></article>`).join('\n    ')}
   </div>
 </section>`;
@@ -437,10 +438,11 @@ const METHOD = [
   ['Тихо и&nbsp;незаметно', 'Компактный металлический корпус и&nbsp;почти неслышная работа: гости замечают аромат, а&nbsp;не&nbsp;технику', 'шум менее 35 дБ'],
   ['Масла и&nbsp;сервис — на&nbsp;нас', 'Подбираем аромат, меняем масла, следим за&nbsp;работой и&nbsp;заменяем аппарат при поломке', 'входит в&nbsp;подписку']
 ];
-function method() {
+/* o.k — своя подпись: на странице «Метод» «как работает», чтобы не повторять крошки */
+function method(o = {}) {
   return `<section class="hw" id="kak-rabotaet">
   <div class="hw-wrap">
-    <p class="hw-k">метод</p>
+    <p class="hw-k">${o.k || 'метод'}</p>
     <div class="hw-top">
       <h2 class="hw-h">Как работает <em>аппарат</em></h2>
       <p class="hw-lead">Аромат появляется в&nbsp;пространстве сам и&nbsp;держится весь день — без свечей, спреев и&nbsp;участия персонала</p>
@@ -658,4 +660,52 @@ function spaceHow() {
 </section>`;
 }
 
-module.exports = { SPACES, spaceGrid, spaceHow, hxHeader, pageTop, included, kits, device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+/* Страница «Метод» (согласована 28.10.2026, макет design/arome-home/method-page-gen.js) */
+/* Аромат по часам: слева три пункта, справа коричневая карточка с примером дня магазина (уровни: 0 пауза … 3 пик) */
+const RS_DAY = [[8, 0], [9, 1], [10, 1], [11, 2], [12, 3], [13, 3], [14, 2], [15, 2], [16, 2], [17, 3], [18, 3], [19, 3], [20, 2], [21, 1], [22, 0], [23, 0]];
+const RS_LV = ['пауза', 'мягко', 'средне', 'пик'];
+const RS_PTS = [
+  ['Включается к&nbsp;открытию', 'Первые гости заходят в&nbsp;пространство, где аромат уже есть'],
+  ['Сильнее в&nbsp;часы пик', 'Когда людей больше, интенсивность выше, в&nbsp;тихие часы — мягче'],
+  ['Ночью — пауза', 'После закрытия аппарат отдыхает, масло не&nbsp;тратится']
+];
+function schedule() {
+  return `<section class="rs" id="raspisanie">
+  <div class="rs-wrap">
+    <div>
+      <p class="rs-k">расписание</p>
+      <h2 class="rs-h">Аромат по&nbsp;часам <em>вашего бизнеса</em></h2>
+      <p class="rs-lead">Аппарат работает по&nbsp;расписанию, которое мы настраиваем под&nbsp;ваши часы и&nbsp;поток гостей</p>
+      <ul class="rs-pts">${RS_PTS.map(([t, d], i) => `<li><i>${num(i)}</i><b>${t}</b><span>${d}</span></li>`).join('')}</ul>
+    </div>
+    <div class="rs-card">
+      <div class="rs-ct"><p>пример</p><b>Магазин, 10:00–22:00</b></div>
+      <div class="rs-ch" aria-hidden="true">${RS_DAY.map(([h, l]) => `<div class="rs-col"><i class="rs-b rs-l${l}"></i><span>${h % 2 ? '' : String(h).padStart(2, '0')}</span></div>`).join('')}</div>
+      <div class="rs-lg">${RS_LV.map((t, i) => `<span><i class="rs-l${i}"></i>${t}</span>`).join('')}</div>
+      <p class="rs-note">Расписание и&nbsp;интенсивность подбираем под&nbsp;каждое пространство</p>
+    </div>
+  </div>
+</section>`;
+}
+/* Кто что делает: «Делаем мы» — светлая карточка, «Нужно от вас» — пунктирная */
+const MV_WE = ['Подбираем аромат и&nbsp;даём пробники', 'Привозим и&nbsp;подключаем аппарат к&nbsp;вентиляции', 'Настраиваем расписание и&nbsp;интенсивность', 'Заправляем масла по&nbsp;графику', 'Следим за&nbsp;работой и&nbsp;меняем аппарат при поломке', 'Меняем аромат без доплаты'];
+const MV_YOU = ['Место для аппарата у&nbsp;вентиляции и&nbsp;розетка рядом', 'Часы работы и&nbsp;пожелания к&nbsp;аромату', `Обратная связь в&nbsp;первые ${D.trialDays}&nbsp;дня — подстроим интенсивность`];
+const MV_CK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5 6.5 11.5 12.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function weYou() {
+  const ul = l => `<ul>${l.map(t => `<li>${MV_CK}<span>${t}</span></li>`).join('')}</ul>`;
+  return `<section class="mv" id="kto-chto">
+  <div class="mv-wrap">
+    <p class="mv-k">кто что делает</p>
+    <div class="mv-top">
+      <h2 class="mv-h">Почти всё <em>берём на&nbsp;себя</em></h2>
+      <p class="mv-lead">От&nbsp;вас — место для аппарата и&nbsp;пара ответов. Остальное делаем мы, пока действует подписка</p>
+    </div>
+    <div class="mv-g">
+      <div class="mv-c mv-we"><h3>Делаем <em>мы</em></h3>${ul(MV_WE)}</div>
+      <div class="mv-c mv-you"><h3>Нужно <em>от&nbsp;вас</em></h3>${ul(MV_YOU)}</div>
+    </div>
+  </div>
+</section>`;
+}
+
+module.exports = { schedule, weYou, SPACES, spaceGrid, spaceHow, hxHeader, pageTop, included, kits, device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
