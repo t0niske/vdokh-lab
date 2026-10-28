@@ -897,3 +897,5 @@ a.ct:hover{border-color:var(--ink)}
   .hw-foot{padding-top:26px}
   .hw-n{font-size:28px}
 }
+/* после ленты «Пространств» второй большой отступ не нужен — хватает нижнего отступа ленты */
+.ps+.hw{padding-top:0}
