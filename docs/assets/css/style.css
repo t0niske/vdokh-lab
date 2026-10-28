@@ -1632,3 +1632,7 @@ a.kc-c:hover i{transform:translateX(4px)}
   .bz-c h3{font-size:20px}
   .bz-d{font-size:15px}
 }
+
+/* Блок «Аппарат» с главной на странице пространства: после него отступ до коллекции */
+.dv+.kl{margin-top:96px}
+@media (max-width:900px){.dv+.kl{margin-top:64px}}

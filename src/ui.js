@@ -415,15 +415,16 @@ const DV_MODELS = [
     ['Уровень шума', '&lt;35', 'дБ', 'Гости замечают аромат, а&nbsp;не&nbsp;технику']] }
 ];
 const dvTip = x => `<small>${x[0]}</small><b>${x[1]}${x[2] ? `<span>${x[2]}</span>` : ''}</b>${x[3] ? `<p>${x[3]}</p>` : ''}`;
-function device() {
-  const m = DV_MODELS[0];
+/* o.model — какая модель открыта сразу (0 — Nova 300, 1 — Nova 1000): на страницах пространств — та, что в типовом комплекте */
+function device(o = {}) {
+  const sel = o.model || 0, m = DV_MODELS[sel];
   return `<section class="dv" id="apparat">
   <div class="dv-card">
     <div class="dv-top">
       <div><p class="dv-k">аппарат</p><p class="dv-lead" data-k="lead">${m.lead}</p></div>
-      <div class="dv-tabs" role="tablist" aria-label="Модель">${DV_MODELS.map((x, i) => `<button type="button" role="tab" aria-selected="${!i}"${i ? '' : ' class="on"'}>${x.n}</button>`).join('')}</div>
+      <div class="dv-tabs" role="tablist" aria-label="Модель">${DV_MODELS.map((x, i) => `<button type="button" role="tab" aria-selected="${i === sel}"${i === sel ? ' class="on"' : ''}>${x.n}</button>`).join('')}</div>
     </div>
-    <p class="dv-word" aria-hidden="true" data-scroll-x>Nova <em data-k="num">300</em></p>
+    <p class="dv-word" aria-hidden="true" data-scroll-x>Nova <em data-k="num">${m.n.split(' ')[1]}</em></p>
     <div class="dv-stage">
       <img class="dv-img" src="${site.url('assets/img/nova-cut.webp')}" alt="Аромамашина Nova" loading="lazy">
       ${DV_SPOTS.map(([x, y], i) => `<button type="button" class="dv-hs" style="left:${x}%;top:${y}%" aria-label="${m.t[i][0]}" aria-expanded="false"><i></i></button>`).join('')}
@@ -729,6 +730,8 @@ ${s.nums ? numbers(s) : ''}
     <div class="sz-g">${s.zones.map(([t, d, f], i) => `<article class="sz-c"><i>${num(i)}</i><h3>${nb(t)}</h3><p>${nb(d)}</p><span class="sz-f">${f === 'SPA' ? 'SPA-' : f + ' '}ароматы</span></article>`).join('')}</div>
   </div>
 </section>
+
+${device({ model: s.setup.n1000 && !s.setup.n300 ? 1 : 0 })}
 
 ${collection(p, s.aromas.map(require('./collection').item), { title: `Ароматы <em>для&nbsp;${s.for}</em>`, lead: 'Подборка из&nbsp;нашей коллекции. Выберите аромат — покажем ноты, а&nbsp;пробник пришлём, чтобы выбрать у&nbsp;себя' })}
 
