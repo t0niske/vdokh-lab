@@ -1642,3 +1642,54 @@ a.kc-c:hover i{transform:translateX(4px)}
 .dv+.sh{padding-top:96px}
 .bz+.kl,.sh+.kl{margin-top:0}
 @media (max-width:900px){.dv+.sh{padding-top:64px}}
+
+/* ── Коллекция ароматов /aromaty/ (ct-*): фильтр по семействам и плашки «флакон на фоне аромата» ── */
+.ct{padding:84px 0 96px;background:#F4F3EF;color:#2A2522;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
+:where(.ct) :where(h1,h2,p){margin:0}
+.ct-wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4.2vw,64px)}
+.ct-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,430px);gap:64px;align-items:end;margin-top:22px}
+.ct-h{font-weight:600;letter-spacing:-.045em;line-height:.9;font-size:clamp(44px,5vw,76px)}
+.ct-h em{display:block;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.015em;font-size:1.04em;line-height:.98;margin-top:4px}
+.ct-lead{color:#5A534D;font-size:18px}
+/* фильтр: строчными, активный — в квадратных скобках */
+.ct-f{display:flex;flex-wrap:wrap;gap:6px 26px;margin:48px 0 26px;padding:18px 0;border-top:1px solid #DCD7CE;border-bottom:1px solid #DCD7CE}
+.ct-f button{padding:4px 0;border:0;background:none;font:500 15px/1.2 "Inter Tight",system-ui,sans-serif;letter-spacing:.02em;color:#8A847C;cursor:pointer;transition:color .2s}
+.ct-f button sup{font-size:10.5px;margin-left:2px;color:#B5ADA2}
+.ct-f button:hover{color:#2A2522}
+.ct-f button.on{color:#2A2522}
+.ct-f button.on::before{content:"[ "}.ct-f button.on::after{content:" ]"}
+/* карточки */
+.ct-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.ct-c{display:flex;flex-direction:column;border-radius:26px;background:#FBFAF7;border:1px solid #E6E1D8;overflow:hidden}
+.ct-c[hidden]{display:none}
+.ct-ph{position:relative;aspect-ratio:4/5;margin:8px 8px 0;border-radius:20px;overflow:hidden;background:#2A2522}
+.ct-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.ct-c:hover .ct-ph img{transform:scale(1.04)}
+.ct-no{position:absolute;left:14px;top:14px;padding:8px 13px;border-radius:14px;background:rgba(30,24,19,.32);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);color:#fff;font-size:13px;letter-spacing:.06em}
+.ct-b{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:24px 26px 26px;flex:1}
+.ct-b h2{font-size:17px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;line-height:1.25}
+.ct-d{font-size:15px;color:#5A534D;max-width:36ch;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ct-m{font-size:13px;color:#8A847C}
+.ct-btn{display:flex;align-items:center;justify-content:center;align-self:stretch;height:50px;margin-top:auto;border:1px solid #CFC7BB;border-radius:18px;color:#2A2522;font-size:13.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.ct-b .ct-m{margin-bottom:14px}
+.ct-btn:hover{background:#4A3F37;border-color:#4A3F37;color:#F4F0EA}
+@media (max-width:1100px){.ct-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){
+  .ct{padding:36px 0 64px}
+  .ct-top{grid-template-columns:minmax(0,1fr);gap:18px;margin-top:16px}
+  .ct-h{font-size:42px}
+  .ct-lead{font-size:16px}
+  .ct-f{gap:6px 18px;margin:28px 0 18px;padding:14px 0}
+  .ct-f button{font-size:14px}
+  .ct-g{gap:10px}
+  .ct-c{border-radius:22px}
+  .ct-ph{border-radius:16px;margin:6px 6px 0}
+  .ct-b{padding:16px 12px 14px;gap:6px}
+  .ct-b h2{font-size:13px;letter-spacing:.08em}
+  .ct-d{font-size:13px}
+  .ct-m{display:none}
+  .ct-btn{height:42px;font-size:11.5px;border-radius:14px}
+}
+/* аромат по ссылке ?a=<slug> — короткая подсветка плашки; подпись про названия */
+.ct-c.hl{box-shadow:0 0 0 2px #4A3F37}
+.ct-mot{margin-top:22px;font-size:13px;color:#8A847C;text-align:center}

@@ -194,6 +194,22 @@
     if (want) for (var i = 0; i < data.length; i++) if (data[i].s === want) { show(i); its[i].scrollIntoView({ block: 'center' }); break; }
   });
 
+  /* Каталог /aromaty/: фильтр по семействам; ?a=<slug> — показать все и прокрутить к аромату с подсветкой */
+  $$('.ct').forEach(function (ct) {
+    var fb = $$('.ct-f button', ct), cards = $$('.ct-c', ct);
+    var pick = function (b) {
+      var f = b.getAttribute('data-f');
+      fb.forEach(function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', x === b); });
+      cards.forEach(function (c) { c.hidden = f !== 'all' && c.getAttribute('data-c') !== f; });
+    };
+    fb.forEach(function (b) { b.addEventListener('click', function () { pick(b); }); });
+    var want = new URLSearchParams(location.search).get('a'), el = want && document.getElementById(want);
+    if (el && el.classList.contains('ct-c')) {
+      el.scrollIntoView({ block: 'center', behavior: 'instant' }); el.classList.add('hl');
+      setTimeout(function () { el.classList.remove('hl'); }, 2500);
+    }
+  });
+
   /* Пространства: стрелки листают ленту на одну карточку, полоска внизу показывает, где мы в ленте */
   $$('.ps').forEach(function (ps) {
     var t = $('.ps-track', ps), bar = $('.ps-prog i', ps), nav = $$('.ps-nav button', ps);

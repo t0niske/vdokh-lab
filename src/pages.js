@@ -129,18 +129,17 @@ ${UI.faqHome(homeFaq, this)}`;
     }
   });
 
-  /* ── Запахи ── */
-  /* ── Каталог ароматов (блок «Коллекция» на всю страницу, все 32) ── */
+  /* ── Коллекция ароматов (28.10.2026): каталог-плашки по идее референса, UI.catalog ── */
   add({
-    path: 'aromaty/', section: 'aromaty/', pageName: 'Каталог ароматов', leadForm: true,
+    path: 'aromaty/', section: 'aromaty/', pageName: 'Коллекция ароматов', leadForm: true,
     fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
     title: 'Каталог ароматов для бизнеса — 32 композиции | Aromé',
     description: 'Каталог ароматов Aromé для бизнеса в Астане: 32 композиции — отельные, свежие, цветочные, гурманские, SPA и парфюмерные. Ноты, где выбирают, пробники.',
-    h1: 'Каталог ароматов',
-    breadcrumbs: [HOME, ['Ароматы', 'aromaty/']],
+    h1: 'Коллекция: 32 аромата для бизнеса',
+    breadcrumbs: [HOME, ['Коллекция', 'aromaty/']],
     schema: [site.schema.itemList(COL.all().map(s => [s.name, 'aromaty/']))],
     get body() {
-      return UI.collection(this, COL.all(), { page: true, title: 'Каталог ароматов <em>32 композиции для бизнеса</em>', lead: 'Выберите аромат — покажем ноты и где он раскрывается лучше всего' });
+      return UI.catalog(this);
     }
   });
 

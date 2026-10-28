@@ -855,4 +855,38 @@ function contacts(p) {
 ${points({ id: 'chto-napisat', k: 'заявка', h: 'Что написать, <em>чтобы быстрее подобрать аромат</em>', lead: 'Достаточно пары строк в&nbsp;WhatsApp или в&nbsp;форме ниже — остальное уточним сами', list: ASK.map(([t, d]) => [t, nb(d)]) })}`;
 }
 
-module.exports = { blogCards, article, contacts, nb, spacePage, schedule, weYou, SPACES, spaceGrid, spaceHow, hxHeader, pageTop, included, kits, device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+/* Каталог ароматов /aromaty/ (согласован 28.10.2026 по идее референса, макет design/arome-home/catalog-gen.js):
+   фильтр по семействам (активный — в квадратных скобках), сетка плашек — флакон Aromé на фоне настроения аромата
+   (assets/img/sc-NN.webp, пока нет — фото семейства), название капсом, описание, семейство, «Заказать пробник» */
+function catalog(p) {
+  const COL = require('./collection'), all = COL.all();
+  const cat = s => D.scents.find(x => x.n === s.n).cat;
+  const pic = s => { const k = `sc-${String(s.n).padStart(2, '0')}`; return require('fs').existsSync(require('path').join(__dirname, 'assets', 'img', `${k}.webp`)) ? k : s.photo; };
+  return `<section class="ct" id="katalog">
+  <div class="ct-wrap">
+    ${pgCrumbs(p)}
+    <div class="ct-top">
+      <h1 class="ct-h">Коллекция <em>${all.length} аромата для&nbsp;бизнеса</em></h1>
+      <p class="ct-lead">Отельные, свежие, цветочные, гурманские, SPA и&nbsp;парфюмерные композиции. Выберите аромат — пришлём пробник, чтобы вы проверили его у&nbsp;себя</p>
+    </div>
+    <div class="ct-f" role="toolbar" aria-label="Семейства ароматов">
+      <button type="button" class="on" data-f="all" aria-pressed="true">все <sup>${all.length}</sup></button>
+      ${D.categories.map(c => `<button type="button" data-f="${c.id}" aria-pressed="false">${c.name.toLowerCase()} <sup>${all.filter(s => cat(s) === c.id).length}</sup></button>`).join('\n      ')}
+    </div>
+    <div class="ct-g">
+    ${all.map((s, i) => `<article class="ct-c" data-c="${cat(s)}" id="${s.slug}">
+      <div class="ct-ph"><img src="${site.url(`assets/img/${pic(s)}.webp`)}" alt="${esc(s.name)} — флакон Aromé" loading="${i < 3 ? 'eager' : 'lazy'}"><span class="ct-no">${s.no}</span></div>
+      <div class="ct-b">
+        <h2>${esc(s.name)}</h2>
+        <p class="ct-d">${esc(s.desc)}</p>
+        <p class="ct-m">${s.fam} · ${s.pow}</p>
+        <a class="ct-btn" href="${wa(p.pageName, `Хочу пробник аромата ${s.name} (${s.no}).`)}" target="_blank" rel="noopener">Заказать пробник</a>
+      </div>
+    </article>`).join('\n    ')}
+    </div>
+    <p class="ct-mot">Названия — по&nbsp;мотивам известных ароматов</p>
+  </div>
+</section>`;
+}
+
+module.exports = { catalog, blogCards, article, contacts, nb, spacePage, schedule, weYou, SPACES, spaceGrid, spaceHow, hxHeader, pageTop, included, kits, device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
