@@ -173,6 +173,28 @@
     });
     t.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
     t.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    /* плашка-курсор: плавно идёт за мышью над лентой, над карточкой заявки прячется */
+    var cur = $('.ps-cur', ps);
+    if (cur && window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+      var cx = 0, cy = 0, x = 0, y = 0, raf = 0;
+      var loop = function () {
+        x += (cx - x) * .25; y += (cy - y) * .25;
+        cur.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+        raf = Math.abs(cx - x) + Math.abs(cy - y) > .3 ? requestAnimationFrame(loop) : 0;
+      };
+      t.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        cx = e.clientX; cy = e.clientY;
+        var on = !e.target.closest('.ps-cta');
+        if (on && !cur.classList.contains('on')) { x = cx; y = cy; }
+        cur.classList.toggle('on', on);
+        if (!raf) raf = requestAnimationFrame(loop);
+      });
+      t.addEventListener('pointerleave', function () { if (!drag) cur.classList.remove('on'); });
+      t.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse') cur.classList.add('down'); });
+      window.addEventListener('pointerup', function () { cur.classList.remove('down'); });
+      window.addEventListener('scroll', function () { if (!t.matches(':hover')) cur.classList.remove('on'); }, { passive: true });
+    }
   });
 
   /* Счётчики блока «Аромат и продажи»: от 0 до значения за 1,6 с, когда цифра появляется на экране */

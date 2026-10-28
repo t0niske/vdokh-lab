@@ -753,8 +753,16 @@ a.ct:hover{border-color:var(--ink)}
 @media (max-width:1180px){.ps-nav{display:flex}}
 .ps-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--ps-gut);padding:0 var(--ps-gut) 8px;scrollbar-width:none}
 .ps-track::-webkit-scrollbar{display:none}
-@media (hover:hover) and (pointer:fine){.ps-track{cursor:grab}}
-.ps-track.drag{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.ps-track.drag{scroll-snap-type:none;user-select:none}
+/* на компьютере вместо курсора над лентой — коричневая плашка со стрелками, подсказывает, что ленту можно тянуть */
+.ps-cur{display:none}
+@media (hover:hover) and (pointer:fine){
+  .ps-track{cursor:none}
+  .ps-cta{cursor:auto}.ps-cta a{cursor:pointer}
+  .ps-cur{position:fixed;left:0;top:0;z-index:60;display:grid;place-items:center;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:20px;background:rgba(74,63,55,.84);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#F4F0EA;box-shadow:0 12px 30px -12px rgba(42,37,34,.55);pointer-events:none;opacity:0;scale:.5;transition:opacity .25s,scale .3s cubic-bezier(.2,.8,.2,1)}
+  .ps-cur.on{opacity:1;scale:1}
+  .ps-cur.on.down{scale:.86}
+}
 .ps-track.drag .ps-card{pointer-events:none}
 .ps-card{position:relative;flex:none;width:clamp(300px,31vw,450px);aspect-ratio:3/4;border-radius:var(--ps-r);overflow:hidden;scroll-snap-align:start;background:#2A2522;color:#fff}
 .ps-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s}
