@@ -78,7 +78,7 @@ function header(p) {
 /* На телефоне — закреплённая нижняя панель «WhatsApp · Позвонить», без всплывающих окон */
 function mbar(p) {
   return `<div class="mbar" aria-label="Связаться">
-  <a class="mbar-wa" href="${wa(p.pageName)}" target="_blank" rel="noopener">${icon('wa')}WhatsApp</a>
+  <a class="mbar-wa" href="${p.noCta ? '/#zayavka' : '#zayavka'}">Оставить заявку</a>
   <a class="mbar-ph" href="tel:${C.phoneRaw}">${icon('phone')}Позвонить</a>
 </div>`;
 }
