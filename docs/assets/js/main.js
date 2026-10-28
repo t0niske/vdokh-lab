@@ -124,6 +124,18 @@
     });
   });
 
+  /* Счётчики блока «Аромат и продажи»: от 0 до значения за 1,6 с, когда цифра появляется на экране */
+  var cnt = $$('.sp-n[data-to]');
+  if (cnt.length && 'IntersectionObserver' in window && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    var runCnt = function (el) {
+      var to = +el.getAttribute('data-to'), pre = el.getAttribute('data-pre') || '', suf = el.getAttribute('data-suf') || '', t0 = null;
+      var step = function (t) { if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 1600); el.textContent = pre + Math.round(to * (1 - Math.pow(1 - k, 3))) + suf; if (k < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    };
+    var cio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { runCnt(e.target); cio.unobserve(e.target); } }); }, { threshold: .6 });
+    cnt.forEach(function (el) { cio.observe(el); });
+  }
+
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
     $$('.sec-head, .ots > *, .pts > *, .steps > li, .devs > *, .zones > *, .arts > *, .kits > *, .cmp-r, .how > li').forEach(function (el, i) { el.classList.add('rv'); el.style.transitionDelay = (i % 4) * 50 + 'ms'; io.observe(el); });

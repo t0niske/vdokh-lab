@@ -579,8 +579,8 @@ a.ct:hover{border-color:var(--ink)}
 
 /* ── Главная: блок «О нас» (согласован 28.10.2026, макет design/arome-home/about.html, вариант A, аура 1) ──
    Крупный аппарат уходит низом под плитки с цифрами; за ним «дышит» оранжевое свечение и расходятся мягкие кольца,
-   как на airlife (3 круга, 5 с, задержки 0 / 0,5 / 1,5 с). Акцент пока оранжевый — --ab-acc. */
-.ab{--ab-acc:#EE6A2C;--ab-r:26px;/* радиус как у вкладок первого экрана */--ab-f:"Inter Tight",system-ui,sans-serif;--ab-s:"Playfair Display",Georgia,serif;--ab-gut:clamp(20px,4.2vw,64px);
+   как на airlife (3 круга, 5 с, задержки 0 / 0,5 / 1,5 с). Акцент коричневый (28.10) — --ab-acc. */
+.ab{--ab-acc:#4A3F37;--ab-r:26px;/* радиус как у вкладок первого экрана */--ab-f:"Inter Tight",system-ui,sans-serif;--ab-s:"Playfair Display",Georgia,serif;--ab-gut:clamp(20px,4.2vw,64px);
   position:relative;overflow:hidden;background:#F4F3EF;color:#1A1714;font-family:var(--ab-f);padding-top:64px}
 .ab-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;max-width:1440px;margin:0 auto;padding:0 var(--ab-gut)}
 .ab-k{margin:0;font-size:18px;color:#8A847C;text-transform:lowercase}
@@ -588,8 +588,8 @@ a.ct:hover{border-color:var(--ink)}
 .ab-dev{position:relative;display:grid;place-items:end center;height:450px;margin:0 0 24px}
 .ab-img{position:relative;z-index:2;width:auto;height:430px;filter:drop-shadow(0 40px 50px rgba(40,28,16,.22))}
 .ab-aura{position:absolute;left:0;right:0;top:8%;height:100%;display:grid;place-items:center;z-index:1;pointer-events:none}
-.ab-aura b{position:absolute;width:860px;height:860px;border-radius:50%;background:radial-gradient(closest-side,rgba(238,106,44,.62) 0%,rgba(242,128,64,.42) 30%,rgba(247,170,116,.2) 58%,rgba(250,210,180,.07) 80%,rgba(244,243,239,0) 100%);animation:ab-breathe 5s ease-in-out infinite}
-.ab-aura i{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(closest-side,rgba(238,106,44,0) 58%,rgba(238,106,44,.38) 84%,rgba(246,170,110,.14) 95%,rgba(238,106,44,0) 100%);animation:ab-ring 5s cubic-bezier(.22,.61,.36,1) infinite}
+.ab-aura b{position:absolute;width:860px;height:860px;border-radius:50%;background:radial-gradient(closest-side,rgba(122,88,62,.55) 0%,rgba(150,112,82,.38) 30%,rgba(186,154,124,.18) 58%,rgba(214,196,176,.07) 80%,rgba(244,243,239,0) 100%);animation:ab-breathe 5s ease-in-out infinite}
+.ab-aura i{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(closest-side,rgba(122,88,62,0) 58%,rgba(122,88,62,.32) 84%,rgba(170,136,106,.12) 95%,rgba(122,88,62,0) 100%);animation:ab-ring 5s cubic-bezier(.22,.61,.36,1) infinite}
 .ab-aura i:nth-child(3){animation-delay:.5s}.ab-aura i:nth-child(4){animation-delay:1.5s}
 @keyframes ab-ring{0%{transform:scale(1);opacity:1}100%{transform:scale(3);opacity:0}}
 @keyframes ab-breathe{50%{transform:scale(1.06)}}
@@ -623,3 +623,53 @@ a.ct:hover{border-color:var(--ink)}
   .ab-st span{font-size:14px}
 }
 @media (prefers-reduced-motion:reduce){.ab-aura b,.ab-aura i{animation:none}}
+
+/* ── Главная: блок «Аромат и продажи» (согласован 28.10.2026, макет design/arome-home/sales-list.html) ──
+   Строки «название — что изучали — → результат», счётчики (main.js), коричневый акцент --acc. */
+.sp{background:#F4F3EF;color:#2A2522;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45;--acc:#4A3F37;--acc2:#5C4F45;--ink:#2A2522;--ink2:#5A534D;--ink3:#8A847C;--line:#DCD7CE;--f:"Inter Tight",system-ui,sans-serif;--s:"Playfair Display",Georgia,serif;--gut:clamp(20px,4.2vw,64px)}
+
+
+.sp h2,.sp h3,.sp p{margin:0}
+.sp{padding:96px 0}
+.sp-wrap{max-width:1440px;margin:0 auto;padding:0 var(--gut)}
+.sp-k{font-size:18px;color:var(--ink3)}.sp-k::before{content:"["}.sp-k::after{content:"]"}
+.sp-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:end;margin:22px 0 56px}
+.sp-h{text-wrap:wrap;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px)}
+.sp-h em{display:block;font-family:var(--s);font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
+.sp-lead{color:var(--ink2);font-size:clamp(16px,1.2vw,18px);max-width:52ch}
+
+/* строки как в референсе: номер+название капсом | описание | → результат */
+.sp-rows{border-top:1px solid var(--line)}
+.sp-row{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,1.1fr);gap:40px;padding:34px 0;border-bottom:1px solid var(--line);align-items:start}
+.sp-row h3{font-size:clamp(22px,2vw,30px);font-weight:600;letter-spacing:-.01em;line-height:1.08;text-transform:uppercase;color:#3B3632}
+.sp-row p{font-size:clamp(16px,1.25vw,19px);line-height:1.4;color:var(--ink2)}
+.sp-row .sp-res{color:var(--ink)}
+.sp-row .sp-res::before{content:"→ ";color:var(--acc)}
+.sp-row .sp-res b{font-weight:600}
+.sp-row .sp-src{display:block;margin-top:10px;font-size:13px;color:var(--ink3);text-decoration:none}
+.sp-row .sp-src:hover{color:var(--ink)}
+
+/* счётчики */
+.sp-stats{display:flex;justify-content:space-between;gap:40px;margin-top:72px}
+.sp-stats>div{flex:none}
+.sp-n{font-size:clamp(72px,7vw,112px);font-weight:600;letter-spacing:-.045em;line-height:1;color:#2A2522;font-variant-numeric:tabular-nums}
+.sp-stats p{margin-top:20px;font-size:clamp(16px,1.25vw,19px);line-height:1.4;color:var(--ink2)}
+.sp-cta{display:flex;flex-direction:column;align-items:center;gap:18px;margin-top:64px}
+.sp-btn{display:inline-flex;align-items:center;justify-content:center;height:72px;padding:0 64px;border-radius:18px;background:var(--acc);color:#fff;font:500 18px/1 var(--f);text-decoration:none}
+.sp-btn:hover{background:var(--acc2)}
+.sp-cta-n{font-size:15px;color:var(--ink2)}
+.sp-cta-n b{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:999px;background:var(--acc);color:#fff;font-size:13.5px;font-weight:600;margin:0 4px}
+.sp .sp-note{margin:28px auto 0;max-width:860px;text-align:center;font-size:13.5px;line-height:1.5;color:var(--ink3)}
+
+@media (max-width:900px){
+  .sp{padding:64px 0}
+  .sp-top{grid-template-columns:minmax(0,1fr);gap:16px;margin-bottom:32px}
+  .sp-h{font-size:36px}
+  .sp-row{grid-template-columns:minmax(0,1fr);gap:10px;padding:24px 0}
+  .sp-row h3{font-size:21px}
+  .sp-row p{font-size:16px}
+  .sp-stats{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;margin-top:48px}
+  .sp-n{font-size:64px}
+  .sp-stats p{margin-top:10px;font-size:15px}
+  .sp-btn{width:100%;height:62px;padding:0 20px}
+}

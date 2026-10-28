@@ -152,6 +152,47 @@ function register(site) {
   </div>
 </section>
 
+<section class="sp" id="prodazhi">
+  <div class="sp-wrap">
+    <p class="sp-k">аромат и&nbsp;продажи</p>
+    <div class="sp-top">
+      <h2 class="sp-h">Как&nbsp;аромат <em>может помочь продажам</em></h2>
+      <p class="sp-lead">Подходящий аромат может повлиять на&nbsp;впечатление от&nbsp;товаров, желание купить и&nbsp;время, проведённое в&nbsp;магазине. Эти эффекты изучают в&nbsp;реальных торговых пространствах и&nbsp;экспериментах.</p>
+    </div>
+
+    <div class="sp-rows">
+      <div class="sp-row">
+        <h3>01. Тратят больше</h3>
+        <p>Эксперимент в&nbsp;магазине товаров для&nbsp;дома: 18&nbsp;дней, больше 400&nbsp;покупателей, лёгкий апельсиновый аромат</p>
+        <p class="sp-res">Результат: когда в&nbsp;зале был аромат, покупатели тратили <b>в&nbsp;среднем на&nbsp;20% больше</b><a class="sp-src" href="https://doi.org/10.1016/j.jretai.2012.08.002" target="_blank" rel="noopener">Herrmann и&nbsp;др., Journal of Retailing, 2013</a></p>
+      </div>
+      <div class="sp-row">
+        <h3>02. Охотнее покупают</h3>
+        <p>Обзор 64&nbsp;научных исследований о&nbsp;приятных ароматах в&nbsp;магазинах</p>
+        <p class="sp-res">Результат: с&nbsp;приятным ароматом у&nbsp;людей <b>выше желание купить</b><a class="sp-src" href="https://doi.org/10.1177/0022242919881137" target="_blank" rel="noopener">Roschk, Hosseinpour, Journal of Marketing, 2020</a></p>
+      </div>
+      <div class="sp-row">
+        <h3>03. Дольше выбирают</h3>
+        <p>Тот же&nbsp;обзор: как&nbsp;аромат меняет поведение покупателей в&nbsp;зале</p>
+        <p class="sp-res">Результат: покупатели <b>дольше остаются в&nbsp;зале</b> и&nbsp;выше оценивают товары<a class="sp-src" href="https://doi.org/10.1177/0022242919881137" target="_blank" rel="noopener">Roschk, Hosseinpour, Journal of Marketing, 2020</a></p>
+      </div>
+    </div>
+
+    <div class="sp-stats">
+      <div><div class="sp-n" data-to="20" data-pre="+" data-suf="%">+20%</div><p>больше тратили покупатели<br>в&nbsp;эксперименте с&nbsp;ароматом</p></div>
+      <div><div class="sp-n" data-to="400" data-suf="+">400+</div><p>посетителей участвовали<br>в&nbsp;исследовании магазина</p></div>
+      <div><div class="sp-n" data-to="64">64</div><p>научные публикации<br>вошли в&nbsp;обзор</p></div>
+      <div><div class="sp-n" data-to="3">3</div><p>дня бесплатного теста<br>в&nbsp;вашем помещении</p></div>
+    </div>
+
+    <div class="sp-cta">
+      <a class="sp-btn" href="#">Подобрать аромат для&nbsp;бизнеса</a>
+      <p class="sp-cta-n">Сначала подберём аромат и&nbsp;дадим <b>3&nbsp;дня</b> бесплатно проверить его&nbsp;у вас</p>
+    </div>
+    <p class="sp-note">Это&nbsp;результаты исследований, а&nbsp;не обещание роста продаж: эффект зависит от&nbsp;аромата, пространства и&nbsp;интенсивности. Бесплатный тест показывает, как&nbsp;аромат и&nbsp;система работают у&nbsp;вас; чтобы измерить влияние на&nbsp;продажи, нужен отдельный период наблюдения.</p>
+  </div>
+</section>
+
 <section class="sec podbor" id="podbor">
   <div class="wrap hero-g">
     <div class="hero-a">
