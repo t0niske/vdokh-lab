@@ -1,5 +1,5 @@
 /* Сборка Aromé: node build.js → docs/ (GitHub Pages публикует папку docs).
-   Домен: поменяйте origin и base (для своего домена base: '/'). */
+   SITE=prod node build.js → dist-prod/ для своего домена (base '/'), выкладка — deploy.sh. */
 const fs = require('fs');
 const path = require('path');
 const { createSite } = require('./lib/engine');
@@ -14,11 +14,13 @@ const VD = {
   places: UI.PK.map(p => ({ slug: p.slug, name: p.label, odors: p.odors, setup: p.setup, url: p.url }))
 };
 
+const PROD = process.env.SITE === 'prod';
 const site = createSite({
   root: __dirname,
   name: 'Aromé',
-  origin: 'https://t0niske.github.io',
-  base: '/vdokh-lab/',
+  origin: PROD ? 'https://arome-marketing.kz' : 'https://t0niske.github.io',
+  base: PROD ? '/' : '/vdokh-lab/',
+  out: PROD ? 'dist-prod' : 'docs',
   description: 'Ароматизация помещений для бизнеса в Астане',
   themeColor: '#F4F3EF',
   ogImage: 'og',
