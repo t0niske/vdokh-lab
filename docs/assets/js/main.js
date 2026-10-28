@@ -119,10 +119,9 @@
     window.open(wa(msg), '_blank', 'noopener');
   });
 
-  /* ── Заявка на главной: имя, телефон, пространство → готовое сообщение в WhatsApp ── */
-  var lf = $('#lf-form');
-  if (lf) {
-    var lfPhone = $('#lf-phone'), lfOk = $('#lf-ok');
+  /* ── Заявка (блок внизу главной и окно): имя, телефон, пространство → готовое сообщение в WhatsApp ── */
+  $$('[data-lf]').forEach(function (lf) {
+    var lfPhone = $('.lf-phone', lf), lfOk = $('.lf-agree', lf);
     /* телефон в виде (700) 000-00-00 */
     lfPhone.addEventListener('input', function () {
       var d = lfPhone.value.replace(/\D/g, '').replace(/^[78](?=\d{10})/, '').slice(0, 10), v = '';
@@ -136,16 +135,36 @@
     lfOk.addEventListener('change', function () { lfOk.parentNode.classList.remove('err'); });
     lf.addEventListener('submit', function (e) {
       e.preventDefault();
-      var digits = lfPhone.value.replace(/\D/g, ''), sp = $('input[name="lf-space"]:checked', lf), name = $('#lf-name').value.trim();
+      var digits = lfPhone.value.replace(/\D/g, ''), sp = $('input[type="radio"]:checked', lf), name = $('.lf-name', lf).value.trim();
       var bad = false;
       if (digits.length !== 10) { lfPhone.parentNode.classList.add('err'); bad = true; }
       if (!lfOk.checked) { lfOk.parentNode.classList.add('err'); bad = true; }
       if (bad) { (digits.length !== 10 ? lfPhone : lfOk).focus(); return; }
       var msg = 'Заявка на тест ' + D.trialDays + ' дня бесплатно.' + (name ? '\nИмя: ' + name : '') + '\nТелефон: +7 ' + lfPhone.value + (sp ? '\nПространство: ' + sp.value : '');
-      track('form_submit', { space: sp ? sp.value : '' });
+      track('form_submit', { space: sp ? sp.value : '', where: lf.closest('.rq') ? 'modal' : 'block' });
       track('test_request', { via: 'form' });
       window.open(wa(msg), '_blank', 'noopener');
     });
+  });
+
+  /* ── Окно заявки: кнопки «Оставить заявку», «Подобрать решение» и другие ссылки на #zayavka открывают его на месте ── */
+  var rq = $('#rq');
+  if (rq) {
+    var rqLast = null;
+    var rqOpen = function (from) {
+      rqLast = from || null;
+      rq.hidden = false; document.body.classList.add('rq-open');
+      if (document.body.classList.contains('menu-open')) { document.body.classList.remove('menu-open'); burger.setAttribute('aria-expanded', false); }
+      setTimeout(function () { var f = $('.lf-name', rq); if (f && window.innerWidth > 900) f.focus(); }, 60);
+      track('form_open', { from: from ? (from.className || from.textContent).toString().slice(0, 40) : '' });
+    };
+    var rqClose = function () { rq.hidden = true; document.body.classList.remove('rq-open'); if (rqLast) rqLast.focus(); };
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href$="#zayavka"], [data-rq]') : null;
+      if (a && !a.closest('.rq')) { e.preventDefault(); rqOpen(a); return; }
+      if (e.target.closest && e.target.closest('[data-rq-close]')) rqClose();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !rq.hidden) rqClose(); });
   }
 
   /* ── Объявление для собрания жильцов: скопировать текст ── */

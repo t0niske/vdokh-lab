@@ -135,7 +135,7 @@ function register(site) {
   <div class="hx-txt">
     <h1><span class="hx-s1">Ароматизация помещений</span><span class="hx-s2">для бизнеса в&nbsp;Астане</span></h1>
     <p class="hx-lead">Подберём аромат под характер вашего бизнеса, установим оборудование в&nbsp;вентиляцию и&nbsp;возьмём обслуживание на&nbsp;себя</p>
-    <div class="hx-btns"><a class="hx-btn hx-btn-a" href="${UI.wa(this.pageName, 'Хочу тест 3 дня.')}" target="_blank" rel="noopener" data-test>Попробовать 3 дня бесплатно</a><a class="hx-btn hx-btn-g" href="/ceny/">Посмотреть стоимость</a></div>
+    <div class="hx-btns"><a class="hx-btn hx-btn-a" href="#zayavka" data-test>Попробовать 3 дня бесплатно</a><a class="hx-btn hx-btn-g" href="/ceny/">Посмотреть стоимость</a></div>
   </div>
   <p class="hx-word" aria-hidden="true">Aromé</p>
   <div class="hx-tb" aria-hidden="true"><span class="hx-num">01 <em>/ 03</em></span><span class="hx-name">Салоны красоты и SPA</span><span class="hx-bars"><i class="on"></i><i></i><i></i></span></div>
@@ -193,7 +193,7 @@ ${UI.device()}
     </div>
 
     <div class="sp-cta">
-      <a class="sp-btn" href="#">Подобрать аромат для&nbsp;бизнеса</a>
+      <a class="sp-btn" href="#zayavka">Подобрать аромат для&nbsp;бизнеса</a>
       <p class="sp-cta-n">Сначала подберём аромат и&nbsp;дадим <b>3&nbsp;дня</b> бесплатно проверить его&nbsp;у вас</p>
     </div>
     <p class="sp-note">Это&nbsp;результаты исследований, а&nbsp;не обещание роста продаж: эффект зависит от&nbsp;аромата, пространства и&nbsp;интенсивности. Бесплатный тест показывает, как&nbsp;аромат и&nbsp;система работают у&nbsp;вас; чтобы измерить влияние на&nbsp;продажи, нужен отдельный период наблюдения</p>

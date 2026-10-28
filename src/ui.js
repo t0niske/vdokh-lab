@@ -157,6 +157,7 @@ ${p.body}
 ${p.noCta ? '' : p.leadForm ? leadForm(p) : cta(p, p.cta || {})}
 </main>
 ${footer()}
+${reqModal(p)}
 ${mbar(p)}
 <script src="/assets/js/data.js"></script>
 <script src="/assets/js/main.js"></script>
@@ -395,27 +396,44 @@ function method() {
 /* Заявка в стиле главной (согласована 28.10.2026, макет design/arome-home/cta.html): фон — стена с тенями от окна,
    по центру карточка с фото нот и формой. Форма собирает сообщение и открывает WhatsApp. */
 const LF_SPACES = ['Магазин', 'Салон и SPA', 'Отель', 'Ресторан', 'Офис', 'Автосалон', 'Другое'];
+/* Форма заявки — одна и та же в блоке внизу главной и во всплывающем окне (кнопки «Оставить заявку» и т. п.).
+   key разводит имена полей, чтобы две формы на одной странице не конфликтовали */
+function lfForm(p, key) {
+  return `<form class="lf-fm" data-lf novalidate>
+      <p class="lf-k">заявка</p>
+      <h2 class="lf-h" id="${key}-h">Попробуйте аромат <em>${D.trialDays}&nbsp;дня бесплатно</em></h2>
+      <p class="lf-lead">Расскажите о&nbsp;своём пространстве — подберём аромат и&nbsp;дадим ${D.trialDays}&nbsp;дня бесплатно проверить его у&nbsp;вас</p>
+      <div class="lf-fields">
+        <label class="lf-in"><span class="lf-sr">Ваше имя</span><input class="lf-name" type="text" autocomplete="name" placeholder="Ваше имя"></label>
+        <label class="lf-in lf-tel"><span class="lf-flag" aria-hidden="true"><i></i></span><b>+7</b><span class="lf-sr">Телефон</span><input class="lf-phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(700) 000-00-00" maxlength="15"></label>
+      </div>
+      <fieldset class="lf-pl"><legend>Ваше пространство</legend>
+        <div class="lf-chips">${LF_SPACES.map(s => `<label><input type="radio" name="${key}-space" value="${s}"><span>${s.replace(' и ', ' и&nbsp;')}</span></label>`).join('')}</div>
+      </fieldset>
+      <label class="lf-ok"><input class="lf-agree" type="checkbox"><i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span>Я&nbsp;соглашаюсь на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;<a href="/politika-konfidencialnosti/">политикой конфиденциальности</a></span></label>
+      <button class="lf-btn" type="submit">Оставить заявку</button>
+      <a class="lf-wa" href="${wa(p.pageName, 'Хочу подобрать аромат.')}" target="_blank" rel="noopener">или написать в&nbsp;WhatsApp</a>
+    </form>`;
+}
+const LF_IMG = p => `<div class="lf-ph"><img src="${site.url('assets/img/lead-notes.webp')}" alt="Белый чай, инжир, бергамот, кедр и флакон аромамасла на травертине" loading="lazy"></div>`;
 function leadForm(p) {
   return `<section class="lf" id="zayavka">
   <div class="lf-box">
-    <div class="lf-ph"><img src="${site.url('assets/img/lead-notes.webp')}" alt="Белый чай, инжир, бергамот, кедр и флакон аромамасла на травертине" loading="lazy"></div>
-    <form class="lf-fm" id="lf-form" novalidate>
-      <p class="lf-k">заявка</p>
-      <h2 class="lf-h">Попробуйте аромат <em>${D.trialDays}&nbsp;дня бесплатно</em></h2>
-      <p class="lf-lead">Расскажите о&nbsp;своём пространстве — подберём аромат и&nbsp;дадим ${D.trialDays}&nbsp;дня бесплатно проверить его у&nbsp;вас</p>
-      <div class="lf-fields">
-        <label class="lf-in"><span class="lf-sr">Ваше имя</span><input id="lf-name" type="text" autocomplete="name" placeholder="Ваше имя"></label>
-        <label class="lf-in lf-tel"><span class="lf-flag" aria-hidden="true"><i></i></span><b>+7</b><span class="lf-sr">Телефон</span><input id="lf-phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(700) 000-00-00" maxlength="15"></label>
-      </div>
-      <fieldset class="lf-pl"><legend>Ваше пространство</legend>
-        <div class="lf-chips">${LF_SPACES.map(s => `<label><input type="radio" name="lf-space" value="${s}"><span>${s.replace(' и ', ' и&nbsp;')}</span></label>`).join('')}</div>
-      </fieldset>
-      <label class="lf-ok"><input id="lf-ok" type="checkbox"><i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span>Я&nbsp;соглашаюсь на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;<a href="/politika-konfidencialnosti/">политикой конфиденциальности</a></span></label>
-      <button class="lf-btn" type="submit">Оставить заявку</button>
-      <a class="lf-wa" href="${wa(p.pageName, 'Хочу подобрать аромат.')}" target="_blank" rel="noopener">или написать в&nbsp;WhatsApp</a>
-    </form>
+    ${LF_IMG(p)}
+    ${lfForm(p, 'lf')}
   </div>
 </section>`;
+}
+/* Окно заявки: открывается вместо перехода к якорю #zayavka (main.js), есть на всех страницах */
+function reqModal(p) {
+  return `<div class="rq" id="rq" role="dialog" aria-modal="true" aria-labelledby="rq-h" hidden>
+  <div class="rq-bg" data-rq-close></div>
+  <div class="rq-box lf-box">
+    <button class="rq-x" type="button" data-rq-close aria-label="Закрыть"><i></i></button>
+    ${LF_IMG(p)}
+    ${lfForm(p, 'rq')}
+  </div>
+</div>`;
 }
 
 /* Заявка: WhatsApp и форма из трёх полей — где пахнет, площадь, телефон. o.place подставляет помещение. */

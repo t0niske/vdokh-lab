@@ -1168,3 +1168,30 @@ a.ct:hover{border-color:var(--ink)}
   .hx-req{display:inline-flex;align-items:center;height:42px;padding:0 16px;border-radius:999px;background:#4A3F37;color:#F4F0EA!important;font-size:14.5px;font-weight:500;white-space:nowrap}
 }
 @media (max-width:640px){.mbar{background:rgba(244,243,239,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top-color:#DCD7CE}.mbar a{border-radius:16px;font-family:"Inter Tight",system-ui,sans-serif;font-weight:500}}
+
+/* ── Окно заявки: та же карточка, что в блоке заявки, поверх затемнённой страницы ── */
+.rq{--lf-acc:#4A3F37;--lf-acc2:#5C4F45;--lf-ink:#2A2522;--lf-ink2:#5A534D;--lf-ink3:#8A847C;--lf-line:#DCD7CE;--lf-s:"Playfair Display",Georgia,serif;
+  position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:24px;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45;color:var(--lf-ink)}
+.rq[hidden]{display:none}
+.rq :where(h2,p){margin:0}
+.rq-bg{position:absolute;inset:0;background:rgba(26,20,16,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:rq-fade .25s ease}
+.rq-box{position:relative;width:100%;max-width:1080px;max-height:calc(100svh - 48px);overflow:auto;overscroll-behavior:contain;animation:rq-in .35s cubic-bezier(.2,.8,.2,1)}
+.rq-box .lf-fm{padding:44px 48px 36px}
+.rq-box .lf-h{font-size:clamp(32px,3vw,46px)}
+.rq-x{position:absolute;right:16px;top:16px;z-index:2;width:46px;height:46px;padding:0;border:0;border-radius:50%;background:#E8E2D8;cursor:pointer;transition:background .2s}
+.rq-x:hover{background:#DDD5C9}
+.rq-x i::before,.rq-x i::after{content:"";position:absolute;left:50%;top:50%;width:18px;height:1.6px;margin:-.8px 0 0 -9px;border-radius:1px;background:#4A3F37;transform:rotate(45deg)}
+.rq-x i::after{transform:rotate(-45deg)}
+.rq-open{overflow:hidden}
+@keyframes rq-fade{from{opacity:0}}
+@keyframes rq-in{from{opacity:0;transform:translateY(18px) scale(.98)}}
+@media (max-width:900px){
+  .rq{place-items:end stretch;padding:0}
+  .rq-box{max-height:94svh;border-radius:26px 26px 0 0;animation-name:rq-up}
+  .rq-box .lf-ph{display:none}
+  .rq-box .lf-fm{padding:30px 22px calc(26px + env(safe-area-inset-bottom,0px))}
+  .rq-box .lf-h{font-size:32px;padding-right:48px}
+  .rq-x{right:12px;top:12px;width:42px;height:42px}
+}
+@keyframes rq-up{from{transform:translateY(100%)}}
+@media (prefers-reduced-motion:reduce){.rq-bg,.rq-box{animation:none}}
