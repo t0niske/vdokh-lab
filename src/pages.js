@@ -127,7 +127,6 @@ function register(site) {
       <a class="hx-call" href="tel:${C.phoneRaw}" aria-label="Позвонить">${icon('phone')}</a>
       <a class="hx-wa" href="${UI.wa(this.pageName)}" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">${icon('wa')}<span>WhatsApp</span></a>
       <a class="hx-ul" href="#zayavka">Подобрать решение</a>
-      <a class="hx-req" href="#zayavka">Оставить заявку</a>
       <button class="hx-burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i></button>
     </div>
     <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${HX_NAV.map(hxLink).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
