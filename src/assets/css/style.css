@@ -1031,6 +1031,7 @@ a.ct:hover{border-color:var(--ink)}
 .et{--et-acc:#4A3F37;--et-ink:#2A2522;--et-ink2:#5A534D;--et-ink3:#8A847C;--et-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--et-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .pr+.et{padding-top:0}
+.et+.fq{padding-top:0}
 :where(.et) :where(h2,h3,p){margin:0}
 .et-wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"k h h" "s c1 c2" "c3 c4 .";gap:16px;max-width:1440px;margin:0 auto;padding:0 var(--et-gut)}
 .et-k{grid-area:k;font-size:18px;color:var(--et-ink3)}.et-k::before{content:"["}.et-k::after{content:"]"}
@@ -1067,7 +1068,8 @@ a.ct:hover{border-color:var(--ink)}
 }
 
 /* ── Главная: шапка всегда сверху. Над первым экраном — прозрачная, после прокрутки — светлая, тёмный текст ── */
-.hx-solid .hx-top{height:72px;background:rgba(244,243,239,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(42,37,34,.08)}
+/* стекло, как у прозрачной кнопки первого экрана: полупрозрачный фон, размытие и тонкая линия */
+.hx-solid .hx-top{height:72px;background:rgba(244,243,239,.72);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);box-shadow:inset 0 -1px 0 rgba(42,37,34,.1)}
 .hx-solid .hx-logo,.hx-solid .hx-r a{color:#2A2522}
 .hx-solid .hx-tab{height:72px;background:none}
 .hx-solid .hx-tab::before,.hx-solid .hx-tab::after{display:none}
@@ -1077,3 +1079,34 @@ a.ct:hover{border-color:var(--ink)}
 .hx-solid .hx-ul{border-bottom-color:#2A2522}
 .menu-open.hx-solid .hx-burger i{background:transparent;box-shadow:none}
 @media (max-width:900px){.hx-solid .hx-top{height:64px}}
+
+/* ── Подвал (28.10.2026): коричневая плашка, название крупными буквами внизу ── */
+.ft{padding:16px clamp(10px,1.2vw,18px) 0;background:#F4F3EF;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
+.ft-card{position:relative;overflow:hidden;border-radius:26px;background:linear-gradient(150deg,#5A4C41,#4A3F37 50%,#3D332C);color:#D9CFC3}
+.ft-card::before{content:"";position:absolute;right:-12%;top:-30%;width:60%;height:90%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,196,.16),rgba(255,226,196,0));pointer-events:none}
+.ft-g{position:relative;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.6fr) minmax(0,.8fr) minmax(0,1.3fr);gap:40px;padding:64px clamp(24px,3.4vw,52px) 0}
+.ft-h{margin:0;font-weight:600;font-size:clamp(30px,2.8vw,42px);letter-spacing:-.03em;line-height:.98;color:#F4F0EA}
+.ft-h em{display:block;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em}
+.ft-t{margin:16px 0 0;max-width:34ch;font-size:16px;color:#D9CFC3}
+.ft-btn{display:inline-flex;align-items:center;gap:9px;height:46px;margin-top:26px;padding:0 20px 0 16px;border:1px solid rgba(244,240,234,.4);border-radius:999px;color:#F4F0EA;font-size:15px;font-weight:500;text-decoration:none;transition:background .2s,color .2s}
+.ft-btn .ic{width:18px;height:18px}
+.ft-btn:hover{background:#F4F0EA;color:#2A2522}
+.ft-col{display:flex;flex-direction:column;gap:10px;font-size:15.5px}
+.ft-col a,.ft-col span{color:#D9CFC3;text-decoration:none}
+.ft-col a:hover{color:#F4F0EA;text-decoration:underline;text-underline-offset:3px}
+.ft-k{margin:0 0 6px;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#F4F0EA}
+.ft-k2{margin-top:22px}
+.ft-pl div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
+/* название по ширине плашки; нижняя часть букв уходит за край */
+.ft-word{position:relative;margin:56px 0 0;padding:0 clamp(16px,2vw,32px);font-weight:700;font-size:32.4vw;line-height:.74;letter-spacing:-.065em;color:#F4F0EA;white-space:nowrap;transform:translateY(9%);user-select:none}
+.ft-bot{display:flex;justify-content:space-between;gap:16px;padding:20px clamp(14px,2.2vw,36px) 26px;font-size:14px;color:#8A847C}
+.ft-bot a{color:inherit;text-decoration:none}
+.ft-bot a:hover{color:#2A2522}
+@media (max-width:1100px){.ft-g{grid-template-columns:repeat(3,minmax(0,1fr))}.ft-a{grid-column:1 / -1}}
+@media (max-width:700px){
+  .ft{padding:10px 10px 0}
+  .ft-g{grid-template-columns:minmax(0,1fr);gap:32px;padding:40px 22px 0}
+  .ft-pl div{grid-template-columns:minmax(0,1fr)}
+  .ft-word{margin-top:40px;font-size:31vw}
+  .ft-bot{flex-direction:column;gap:6px;padding-bottom:96px}
+}

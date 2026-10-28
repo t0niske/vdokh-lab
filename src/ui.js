@@ -83,16 +83,39 @@ function mbar(p) {
 </div>`;
 }
 
+/* Подвал (28.10.2026, по референсу): коричневая плашка, слева «Остались вопросы?», колонки связи и пространств,
+   внизу название крупными буквами, обрезанное краем плашки. разделы — те же, что в шапке; «Запахов» и адреса нет — только город */
 function footer() {
-  return `<footer class="ftr">
-  <div class="wrap ftr-in">
-    <div class="ftr-a"><a class="logo" href="/" aria-label="Aromé — на главную">${WORD}</a><p>Устранение запахов и ароматизация помещений в Астане. Ставим аппарат и заправляем маслом: он нейтрализует неприятный запах и наполняет помещение ароматом.</p></div>
-    <nav aria-label="Запахи"><p class="ftr-k">Запахи</p>${ODORS.map(o => `<a href="/zapahi/${o.slug}/">${o.short}</a>`).join('')}</nav>
-    <nav aria-label="Помещения"><p class="ftr-k">Помещения</p>${PLACES.map(o => `<a href="/pomeshcheniya/${o.slug}/">${o.name}</a>`).join('')}<a href="/osi/">Для ОСИ и УК</a><a href="/kvartira/">Для дома</a></nav>
-    <div><p class="ftr-k">Связь</p><address><a href="tel:${C.phoneRaw}">${C.phone}</a><a href="${waLink()}" target="_blank" rel="noopener">WhatsApp</a><a href="${C.map2gis}" target="_blank" rel="noopener">${C.address}</a><span>${C.hours}</span></address>
-    <p class="ftr-k ftr-k2">Компания</p><a href="/nejtralizator-zapaha/">Нейтрализатор запаха</a><a href="/kak-my-rabotaem/">Как работаем</a><a href="/ceny/">Цены</a><a href="/voprosy/">Вопросы</a><a href="/stati/">Статьи</a></div>
+  return `<footer class="ft">
+  <div class="ft-card">
+    <div class="ft-g">
+      <div class="ft-a">
+        <p class="ft-h">Остались <em>вопросы?</em></p>
+        <p class="ft-t">Напишите нам — подскажем аромат и&nbsp;решение для вашего пространства</p>
+        <a class="ft-btn" href="${waLink()}" target="_blank" rel="noopener">${icon('wa')}Написать</a>
+      </div>
+      <nav class="ft-col" aria-label="Меню">
+        <p class="ft-k">Меню</p>
+        <a href="/pomeshcheniya/">Пространства</a><a href="/aromaty/">Коллекция</a><a href="/kak-my-rabotaem/">Метод</a><a href="/ceny/">Цены</a><a href="/stati/">Блог</a>
+      </nav>
+      <div class="ft-col">
+        <p class="ft-k">Связь</p>
+        <a href="tel:${C.phoneRaw}">${C.phone}</a>
+        <a href="${waLink()}" target="_blank" rel="noopener">WhatsApp</a>
+        <span>Астана</span>
+        ${C.hours ? `<span>${C.hours}</span>` : ''}
+        <p class="ft-k ft-k2">Клиентам</p>
+        <a href="/voprosy/">Вопросы и&nbsp;ответы</a>
+        <a href="/nejtralizator-zapaha/">Нейтрализатор запаха</a>
+      </div>
+      <nav class="ft-col ft-pl" aria-label="Пространства">
+        <p class="ft-k">Пространства</p>
+        <div>${PLACES.map(o => `<a href="/pomeshcheniya/${o.slug}/">${o.name}</a>`).join('')}<a href="/osi/">Для ОСИ и&nbsp;УК</a><a href="/kvartira/">Для дома</a></div>
+      </nav>
+    </div>
+    <p class="ft-word" aria-hidden="true">Aromé</p>
   </div>
-  <div class="wrap ftr-bot"><span>© 2026 Aromé · Астана</span><a href="/politika-konfidencialnosti/">Политика конфиденциальности</a></div>
+  <div class="ft-bot"><span>© 2026 Aromé · Астана</span><a href="/politika-konfidencialnosti/">Политика конфиденциальности</a></div>
 </footer>`;
 }
 
@@ -126,7 +149,7 @@ ${analytics()}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Tenor+Sans&display=swap">
-${p.fonts ? `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?${p.fonts}&display=swap">` : ''}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?${p.fonts || 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500'}&display=swap">
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
