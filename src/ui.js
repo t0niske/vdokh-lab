@@ -667,6 +667,39 @@ function points(o) {
 }
 const spaceHow = () => points({ id: 'podbor', k: 'подбор', h: 'Как подбираем <em>аромат под&nbsp;пространство</em>', lead: `Три вещи, от&nbsp;которых зависит решение. Первые ${D.trialDays}&nbsp;дня — бесплатно, чтобы вы проверили аромат у&nbsp;себя`, list: SH });
 
+/* Цифры для бизнеса (согласовано 28.10.2026, макет design/arome-home/numbers-gen.js): только опубликованные исследования,
+   DOI проверены через Crossref. [цифра, что это, где измерено, источник, ссылка]. Первая карточка — коричневая */
+const SRC = {
+  herr: ['Herrmann и&nbsp;др., Journal of&nbsp;Retailing, 2013', 'https://doi.org/10.1016/j.jretai.2012.08.002'],
+  meta: ['Roschk, Hosseinpour, Journal of&nbsp;Marketing, 2020', 'https://doi.org/10.1177/0022242919881137'],
+  gue: ['Guéguen, Petr, Int. Journal of&nbsp;Hospitality Management, 2006', 'https://doi.org/10.1016/j.ijhm.2005.04.007'],
+  hotel: ['Denizci Guillet и&nbsp;др., Int. Journal of&nbsp;Hospitality &amp; Tourism Administration', 'https://doi.org/10.1080/15256480.2017.1359727'],
+  dent: ['Lehrner и&nbsp;др., Physiology &amp; Behavior, 2005', 'https://doi.org/10.1016/j.physbeh.2005.06.031']
+};
+const NUMS = {
+  herr: ['+20%', 'тратили покупатели', 'Эксперимент в&nbsp;магазине: 18&nbsp;дней, больше 400&nbsp;покупателей, простой апельсиновый аромат', SRC.herr],
+  up23: ['до +23%', 'рост трат', 'Оценка по&nbsp;64&nbsp;экспериментам — в&nbsp;лучших условиях: удачный аромат, подходящий месту', SRC.meta],
+  meta: ['3–15%', 'выше отклик гостей', 'Обзор 64&nbsp;экспериментов: настроение, оценки товаров и&nbsp;сервиса, намерение купить', SRC.meta],
+  gue20: ['+20%', 'трат на&nbsp;гостя', 'Ресторан во&nbsp;Франции, аромат лаванды: с&nbsp;17,5 до&nbsp;21,1&nbsp;€ на&nbsp;человека', SRC.gue],
+  gue15: ['+15%', 'дольше гости за&nbsp;столом', 'Там&nbsp;же: с&nbsp;91 до&nbsp;106&nbsp;минут при аромате лаванды', SRC.gue],
+  hotel: ['90%+', 'гостей заметили аромат', 'Отель сети класса люкс: фирменный аромат подаётся через кондиционирование в&nbsp;лобби, опрос 326&nbsp;гостей', SRC.hotel],
+  dent: ['200', 'пациентов в&nbsp;исследовании', 'Стоматология: ароматы апельсина и&nbsp;лаванды в&nbsp;зоне ожидания снизили тревожность и&nbsp;улучшили настроение', SRC.dent]
+};
+function numbers(s) {
+  const list = s.nums.map(k => NUMS[k]);
+  return `<section class="bz" id="dlya-biznesa">
+  <div class="bz-wrap">
+    <p class="bz-k">для бизнеса</p>
+    <div class="bz-top">
+      <h2 class="bz-h">Что получит <em>${s.who}</em></h2>
+      <p class="bz-lead">Цифры из&nbsp;опубликованных исследований — у&nbsp;каждой ссылка на&nbsp;источник</p>
+    </div>
+    <div class="bz-g bz-g${list.length}">${list.map(([n, l, d, [src, u]]) => `<article class="bz-c"><p class="bz-n">${n}</p><h3>${l}</h3><p class="bz-d">${d}</p><a class="bz-src" href="${u}" target="_blank" rel="noopener">${src}</a></article>`).join('')}</div>
+    <p class="bz-note">Цифры — из&nbsp;опубликованных исследований, а&nbsp;не&nbsp;обещание: результат зависит от&nbsp;аромата, пространства и&nbsp;интенсивности. Проверьте у&nbsp;себя — первые ${D.trialDays}&nbsp;дня бесплатно</p>
+  </div>
+</section>`;
+}
+
 /* Страница одного пространства (28.10.2026, по системе «Цен» и «Пространств»): верх с фото справа, что даёт аромат,
    зоны аромата через вентиляцию, типовой комплект с ценой из прайса, вопросы, другие пространства. Данные — src/spaces.js */
 function spacePage(p, s) {
@@ -683,7 +716,8 @@ function spacePage(p, s) {
   </div>
 </section>
 
-${points({ id: 'zachem', k: 'зачем аромат', h: 'Что даёт <em>аромат</em>', list: s.why.map(([t, d]) => [nb(t), nb(d)]) })}
+${points({ id: 'zachem', k: s.feel ? 'для гостей' : 'зачем аромат', h: s.feel ? `Что почувствуют <em>${s.feel}</em>` : 'Что даёт <em>аромат</em>', list: s.why.map(([t, d]) => [nb(t), nb(d)]) })}
+${s.nums ? numbers(s) : ''}
 
 <section class="sz" id="zony">
   <div class="sz-wrap">
