@@ -229,6 +229,24 @@
     }
   });
 
+  /* Аппарат: переключение Nova 300 / Nova 1000 и плюсы, открывающие карточки характеристик (открыта одна) */
+  $$('.dv').forEach(function (dv) {
+    var data = JSON.parse($('.dv-data', dv).textContent), hs = $$('.dv-hs', dv), tips = $$('.dv-tip', dv), tabs = $$('.dv-tabs button', dv);
+    var k = function (n) { return $('[data-k="' + n + '"]', dv); };
+    var open = function (i) {
+      hs.forEach(function (b, j) { var on = j === i; b.classList.toggle('on', on); b.setAttribute('aria-expanded', on); tips[j].classList.toggle('on', on); });
+    };
+    hs.forEach(function (b, i) { b.addEventListener('click', function () { open(b.classList.contains('on') ? -1 : i); }); });
+    tabs.forEach(function (b, i) {
+      b.addEventListener('click', function () {
+        var m = data[i];
+        tabs.forEach(function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b); });
+        k('lead').innerHTML = m.lead; k('name').textContent = m.n; k('num').textContent = m.n.split(' ')[1];
+        tips.forEach(function (el, j) { el.innerHTML = m.t[j]; });
+      });
+    });
+  });
+
   /* Счётчики блока «Аромат и продажи»: от 0 до значения за 1,6 с, когда цифра появляется на экране */
   var cnt = $$('.sp-n[data-to]');
   if (cnt.length && 'IntersectionObserver' in window && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {

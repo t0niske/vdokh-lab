@@ -325,6 +325,47 @@ function versus() {
 </section>`;
 }
 
+/* Аппарат (28.10.2026, макет design/arome-home/device-b.html): коричневая плашка, за аппаратом крупное название модели,
+   плюсы с пульсирующим кольцом открывают карточки характеристик. Характеристики — из паспортов Nova 300 и Nova 1000.
+   Порядок пунктов совпадает с плюсами: крышка, панель, кнопка сбоку, корпус, низ корпуса, ножки */
+const DV_SPOTS = [[57, 6, 'r', -2], [46, 62, 'l', 52], [9, 42, 'l', 34], [80, 40, 'r', 30], [18, 76, 'l', 68], [86, 92, 'r', 80]];
+const DV_MODELS = [
+  { n: 'Nova 300', lead: 'Компактный металлический диффузор для бутика, кофейни, офиса, клиники и&nbsp;ресепшн', t: [
+    ['Объём флакона', '200', 'мл', 'Расход масла — 0,5&nbsp;мл/ч ±&nbsp;0,2&nbsp;мл'],
+    ['Область покрытия', 'до 300', 'м²', 'Одним аппаратом'],
+    ['Питание', '8', 'W', 'DC 12V 0,5A'],
+    ['Материал', 'металл', '', 'Размер 160 × 86,5 × 205&nbsp;мм'],
+    ['Масса', '1,55', 'кг', ''],
+    ['Уровень шума', '&lt;35', 'дБ', 'Гости замечают аромат, а&nbsp;не&nbsp;технику']] },
+  { n: 'Nova 1000', lead: 'Мощный диффузор с&nbsp;управлением со&nbsp;смартфона для отеля, торгового зала, фитнес-клуба и&nbsp;лобби', t: [
+    ['Объём флакона', '800', 'мл', 'Расход масла — 3&nbsp;мл/ч ±&nbsp;0,2&nbsp;мл'],
+    ['Область покрытия', 'до 1000', 'м²', 'Управление со&nbsp;смартфона'],
+    ['Питание', '12', 'W', 'DC 12V 1A'],
+    ['Материал', 'металл', '', 'Размер 160 × 86,5 × 205&nbsp;мм'],
+    ['Масса', '3', 'кг', ''],
+    ['Уровень шума', '&lt;35', 'дБ', 'Гости замечают аромат, а&nbsp;не&nbsp;технику']] }
+];
+const dvTip = x => `<small>${x[0]}</small><b>${x[1]}${x[2] ? `<span>${x[2]}</span>` : ''}</b>${x[3] ? `<p>${x[3]}</p>` : ''}`;
+function device() {
+  const m = DV_MODELS[0];
+  return `<section class="dv" id="apparat">
+  <div class="dv-card">
+    <div class="dv-top">
+      <div><p class="dv-k">аппарат</p><p class="dv-lead" data-k="lead">${m.lead}</p></div>
+      <div class="dv-tabs" role="tablist" aria-label="Модель">${DV_MODELS.map((x, i) => `<button type="button" role="tab" aria-selected="${!i}"${i ? '' : ' class="on"'}>${x.n}</button>`).join('')}</div>
+    </div>
+    <p class="dv-word" aria-hidden="true" data-scroll-x>Nova <em data-k="num">300</em></p>
+    <div class="dv-stage">
+      <img class="dv-img" src="${site.url('assets/img/nova-cut.webp')}" alt="Аромамашина Nova" loading="lazy">
+      ${DV_SPOTS.map(([x, y], i) => `<button type="button" class="dv-hs" style="left:${x}%;top:${y}%" aria-label="${m.t[i][0]}" aria-expanded="false"><i></i></button>`).join('')}
+      ${DV_SPOTS.map(([, , side, top], i) => `<div class="dv-tip dv-${side}" style="top:${top}%">${dvTip(m.t[i])}</div>`).join('')}
+    </div>
+    <div class="dv-foot"><h2 class="dv-name" data-k="name">${m.n}</h2><p>Нажмите на&nbsp;+, чтобы узнать характеристики</p></div>
+  </div>
+  <script type="application/json" class="dv-data">${JSON.stringify(DV_MODELS.map(x => ({ n: x.n, lead: x.lead, t: x.t.map(dvTip) }))).replace(/</g, '\\u003c')}</script>
+</section>`;
+}
+
 /* «Как работает аппарат» (согласован 28.10.2026, макет design/arome-home/how.html): тонкая сетка с разрывами линий,
    в углах — коричневые скруглённые уголки, внизу шага номер и плашка с фактом из характеристик аппаратов */
 const METHOD = [
@@ -485,4 +526,4 @@ function spaces(p) {
 </section>`;
 }
 
-module.exports = { stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+module.exports = { device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

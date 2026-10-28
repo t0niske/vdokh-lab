@@ -156,6 +156,8 @@ function register(site) {
 
 ${UI.method()}
 
+${UI.device()}
+
 <section class="sp" id="prodazhi">
   <div class="sp-wrap">
     <p class="sp-k">аромат и&nbsp;продажи</p>
