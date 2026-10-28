@@ -1095,7 +1095,6 @@ a.ct:hover{border-color:var(--ink)}
 .ft-col a,.ft-col span{color:#D9CFC3;text-decoration:none}
 .ft-col a:hover{color:#F4F0EA;text-decoration:underline;text-underline-offset:3px}
 .ft-k{margin:0 0 6px;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#F4F0EA}
-.ft-k2{margin-top:22px}
 .ft-pl div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
 /* название по ширине плашки; нижняя часть букв уходит за край */
 .ft-word{position:relative;margin:56px 0 0;padding:0 clamp(16px,2vw,32px);font-weight:700;font-size:32.4vw;line-height:.74;letter-spacing:-.065em;color:#F4F0EA;white-space:nowrap;transform:translateY(9%);user-select:none}

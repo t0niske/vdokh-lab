@@ -104,9 +104,6 @@ function footer() {
         <a href="${waLink()}" target="_blank" rel="noopener">WhatsApp</a>
         <span>Астана</span>
         ${C.hours ? `<span>${C.hours}</span>` : ''}
-        <p class="ft-k ft-k2">Клиентам</p>
-        <a href="/voprosy/">Вопросы и&nbsp;ответы</a>
-        <a href="/nejtralizator-zapaha/">Нейтрализатор запаха</a>
       </div>
       <nav class="ft-col ft-pl" aria-label="Пространства">
         <p class="ft-k">Пространства</p>
