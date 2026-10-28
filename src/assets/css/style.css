@@ -853,3 +853,47 @@ a.ct:hover{border-color:var(--ink)}
   .lf-fields{margin-top:22px}
   .lf-in{height:56px}
 }
+
+/* ── Главная: «Как работает аппарат» (согласован 28.10.2026, макет design/arome-home/how.html) ── */
+.hw{--hw-acc:#4A3F37;--hw-ink:#2A2522;--hw-ink2:#5A534D;--hw-ink3:#8A847C;--hw-line:#D6D0C6;--hw-gut:clamp(20px,4.2vw,64px);
+  padding:96px 0;background:#F4F3EF;color:var(--hw-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
+.hw h2,.hw h3,.hw p{margin:0}
+.hw-wrap{max-width:1440px;margin:0 auto;padding:0 var(--hw-gut)}
+.hw-k{font-size:18px;color:var(--hw-ink3)}.hw-k::before{content:"["}.hw-k::after{content:"]"}
+.hw-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin:22px 0 48px}
+.hw-h{text-wrap:wrap;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px);color:var(--hw-ink)}
+.hw-h em{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;color:#8A7A6C}
+.hw-lead{max-width:44ch;color:var(--hw-ink2);font-size:clamp(16px,1.2vw,18px)}
+.hw-grid{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.hw-cell{position:relative;display:flex;flex-direction:column;min-height:440px;padding:52px 40px 40px}
+.hw-cell i{position:absolute;width:26%;height:30%;pointer-events:none}
+.hw-tl{left:0;top:0;border-top:1px solid var(--hw-line);border-left:1px solid var(--hw-line)}
+.hw-tr{right:0;top:0;border-top:1px solid var(--hw-line)}
+.hw-bl{left:0;bottom:0;border-bottom:1px solid var(--hw-line);border-left:1px solid var(--hw-line)}
+.hw-br{right:0;bottom:0;border-bottom:1px solid var(--hw-line)}
+.hw-cell:last-child .hw-tr,.hw-cell:last-child .hw-br{border-right:1px solid var(--hw-line)}
+.hw-grid::before,.hw-grid::after{content:"";position:absolute;z-index:1;width:20px;height:20px;background:var(--hw-acc)}
+.hw-grid::before{left:0;top:0;border-radius:0 0 20px 0}
+.hw-grid::after{right:0;bottom:0;border-radius:20px 0 0 0}
+.hw-cell h3{font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.08;color:var(--hw-ink)}
+.hw-cell p{margin-top:16px;color:var(--hw-ink3);font-size:16.5px;line-height:1.5;max-width:32ch}
+.hw-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:40px}
+.hw-n{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:34px;line-height:1;color:var(--hw-acc)}
+.hw-tag{padding:7px 13px;border:1px solid var(--hw-line);border-radius:999px;font-size:13.5px;color:var(--hw-ink2);white-space:nowrap}
+@media (max-width:1100px){
+  .hw-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hw-cell:nth-child(2) .hw-tr,.hw-cell:nth-child(2) .hw-br{border-right:1px solid var(--hw-line)}
+}
+@media (max-width:900px){
+  .hw{padding:64px 0}
+  .hw-top{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:28px}
+  .hw-h{font-size:38px}
+  .hw-grid{grid-template-columns:minmax(0,1fr)}
+  .hw-cell{min-height:0;padding:34px 24px 26px}
+  .hw-cell .hw-tr,.hw-cell .hw-br{border-right:1px solid var(--hw-line)}
+  .hw-cell i{height:38%}
+  .hw-cell h3{font-size:22px}
+  .hw-cell p{font-size:15.5px;margin-top:12px}
+  .hw-foot{padding-top:26px}
+  .hw-n{font-size:28px}
+}

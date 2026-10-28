@@ -197,12 +197,7 @@ ${UI.collection(this, COL.top())}
 
 ${UI.spaces(this)}
 
-<section class="sec">
-  <div class="wrap split split-img">
-    <div><p class="k">Как работает аппарат</p><h2 class="h2">Нейтрализует запах и&nbsp;держит аромат каждый день</h2>${how()}</div>
-    ${img('device', { cls: 'side-img side-tall' })}
-  </div>
-</section>
+${UI.method()}
 
 <section class="sec sec-dark">
   <div class="wrap">

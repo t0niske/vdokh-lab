@@ -212,6 +212,32 @@ function priceCard(p, setup, o = {}) {
 </div>`;
 }
 
+/* «Как работает аппарат» (согласован 28.10.2026, макет design/arome-home/how.html): тонкая сетка с разрывами линий,
+   в углах — коричневые скруглённые уголки, внизу шага номер и плашка с фактом из характеристик аппаратов */
+const METHOD = [
+  ['Подключаем к&nbsp;вентиляции', 'Ставим аппарат у&nbsp;вентиляции — аромат расходится по&nbsp;воздуховодам и&nbsp;ровно заполняет все залы, без «облака» у&nbsp;входа', 'до 1000 м² одним аппаратом'],
+  ['Работает по&nbsp;расписанию', 'Выпускает масло мелкими порциями по&nbsp;часам работы — с&nbsp;открытия до&nbsp;закрытия. Интенсивность настраиваем под площадь', 'Nova 1000 — со&nbsp;смартфона'],
+  ['Тихо и&nbsp;незаметно', 'Компактный металлический корпус и&nbsp;почти неслышная работа: гости замечают аромат, а&nbsp;не&nbsp;технику', 'шум менее 35 дБ'],
+  ['Масла и&nbsp;сервис — на&nbsp;нас', 'Подбираем аромат, меняем масла, следим за&nbsp;работой и&nbsp;заменяем аппарат при поломке', 'входит в&nbsp;подписку']
+];
+function method() {
+  return `<section class="hw" id="kak-rabotaet">
+  <div class="hw-wrap">
+    <p class="hw-k">метод</p>
+    <div class="hw-top">
+      <h2 class="hw-h">Как работает <em>аппарат</em></h2>
+      <p class="hw-lead">Аромат появляется в&nbsp;пространстве сам и&nbsp;держится весь день — без свечей, спреев и&nbsp;участия персонала</p>
+    </div>
+    <div class="hw-grid">
+      ${METHOD.map(([t, d, tag], i) => `<div class="hw-cell"><i class="hw-tl"></i><i class="hw-tr"></i><i class="hw-bl"></i><i class="hw-br"></i>
+        <h3>${t}</h3>
+        <p>${d}</p>
+        <div class="hw-foot"><span class="hw-n">0${i + 1}</span><span class="hw-tag">${tag}</span></div></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>`;
+}
+
 /* Заявка в стиле главной (согласована 28.10.2026, макет design/arome-home/cta.html): фон — стена с тенями от окна,
    по центру карточка с фото нот и формой. Форма собирает сообщение и открывает WhatsApp. */
 const LF_SPACES = ['Магазин', 'Салон и SPA', 'Отель', 'Ресторан', 'Офис', 'Автосалон', 'Другое'];
@@ -346,4 +372,4 @@ function spaces(p) {
 </section>`;
 }
 
-module.exports = { leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+module.exports = { method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
