@@ -1,12 +1,11 @@
-/* Страницы Aromé — устранение запахов и ароматизация помещений.
-   Мы ставим свой аппарат и заправляем маслом: он нейтрализует неприятный запах и наполняет помещение
-   ароматом. Ничего не ищем и не ремонтируем. Кластеры: «Запахи» (как убрать запах …), «Помещения»
-   (запах в кафе / подъезде …), «Нейтрализатор запаха», «Для ОСИ и УК», «Для дома», статьи. */
+/* Страницы Aromé — ароматизация пространств для бизнеса в Астане (позиционирование с 28.10.2026:
+   аромат создаёт атмосферу, а не убирает запахи). Главная, «Пространства» и 13 страниц форматов (src/spaces.js),
+   коллекция ароматов, «Метод», «Цены», блог, вопросы, контакты. Старые адреса «Запахов» ведут на «Пространства». */
 const D = require('../lib/data');
 const { esc } = require('../lib/engine');
 const UI = require('./ui');
 const ODORS = require('./odors');
-const PLACES = require('./places');
+const SPACE_PAGES = require('./spaces');
 const ARTICLES = require('./articles');
 const CFG = require('./config');
 const TX = require('./texts');
@@ -14,48 +13,9 @@ const COL = require('./collection');
 const { icon, OFFER, TRIAL, C } = UI;
 
 const HOME = ['Главная', ''];
-const odor = s => ODORS.find(o => o.slug === s);
-const place = s => PLACES.find(o => o.slug === s);
 const dateRu = d => new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).replace(' г.', '');
 const N300 = D.devices[0], N1000 = D.devices[1];
 const PM300 = D.perMonth(N300.plans[2]);
-const GAS = 'Если пахнет газом — не включайте свет, откройте окна, выйдите и звоните 104 или 112.';
-const oilLine = CFG.oilEffect ? ` ${esc(CFG.oilEffect)}` : '';
-
-/* Как работает аппарат — главное объяснение всего сайта */
-const HOW = [
-  ['clock', 'Распыляет масло по расписанию', 'Аппарат выпускает масло мелкими порциями каждые несколько минут — с открытия до закрытия, по часам работы помещения.'],
-  ['wind', 'Нейтрализует запах и даёт аромат', `Масло нейтрализует неприятный запах, а помещение наполняется приятным ароматом.${oilLine}`],
-  ['done', 'Каждый день, а не разово', 'В отличие от озонирования аппарат работает постоянно: запах, который копится за день, не успевает вернуться.'],
-  ['check', 'Без смеси запахов', 'Композицию подбираем чистую, без сладости, под ваш запах, а интенсивность — под площадь. «Туалета с цветами» не будет.']
-];
-const how = () => `<ul class="how">${HOW.map(([ic, t, d]) => `<li>${icon(ic, 'ic st-ic')}<div><h3>${t}</h3><p>${d}</p></div></li>`).join('')}</ul>`;
-
-const devices = () => `<div class="devs">${D.devices.map(d => `<article class="dev"><p class="k">до ${d.area} м²</p><h3>${d.name}</h3><p>${TX.lead[d.id]}</p><p class="dev-pm">от <b>${UI.pm(d)}</b> в месяц</p><ul class="dev-pl">${d.plans.map(p => `<li><span>${p.months} ${p.months === 1 ? 'месяц' : p.months < 5 ? 'месяца' : 'месяцев'}</span><b>${D.fmt(p.total)}</b></li>`).join('')}</ul></article>`).join('')}</div>`;
-
-/* Тест: отдельная плашка с кнопкой (событие test_request) */
-const trialBar = p => `<div class="trial">${icon('gift', 'ic trial-ic')}<div><b>${TRIAL}.</b> Поставим аппарат, а вы решите, оставлять ли его.${CFG.trial.terms ? ' ' + esc(CFG.trial.terms) + '.' : ''}</div><a class="btn btn-s" href="${UI.wa(p.pageName, `Хочу тест ${D.trialDays} дня бесплатно.`)}" target="_blank" rel="noopener" data-test>${icon('wa')}Хочу тест</a></div>`;
-
-/* Шаблон объявления для собрания жильцов — показываем на /osi/ и отдаём файлом (build.js) */
-const flats = CFG.osi.flatsExample;
-const OSI_TEMPLATE = `ОБЪЯВЛЕНИЕ ДЛЯ ЖИЛЬЦОВ
-
-Уважаемые соседи!
-
-В нашем подъезде постоянно неприятный запах: [у мусоропровода / в лифтовом холле / у входа]. Совет дома предлагает поставить аппарат-ароматизатор.
-
-Как это работает. Аппарат каждый день по расписанию распыляет масло: оно нейтрализует неприятный запах и наполняет подъезд приятным ароматом. Аппарат ставят в закрытом корпусе на высоте, вне досягаемости.
-
-Кто обслуживает. Компания Aromé по договору с ОСИ: аппарат, заправка маслом, настройка и замена при поломке входят в оплату. Каждый месяц — акт.
-
-Сколько стоит. От ${D.fmt(PM300)} в месяц за подъезд при оплате за 6 месяцев (${D.fmt(N300.plans[0].total)} при оплате помесячно). При ${flats} квартирах это около ${D.fmt(PM300 / flats)} в месяц с квартиры.
-
-Проверить до решения. ${TRIAL} — можно убедиться в результате до голосования.
-
-Голосование: [дата, время, место или ссылка на опрос в чате дома].
-
-Председатель ОСИ: ____________________
-`;
 
 function register(site) {
   const { add, img } = site;
@@ -172,7 +132,7 @@ ${UI.faqHome(homeFaq, this)}`;
   /* ── Запахи ── */
   /* ── Каталог ароматов (блок «Коллекция» на всю страницу, все 32) ── */
   add({
-    path: 'aromaty/', section: 'aromaty/', pageName: 'Каталог ароматов', noCta: false,
+    path: 'aromaty/', section: 'aromaty/', pageName: 'Каталог ароматов', leadForm: true,
     fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
     title: 'Каталог ароматов для бизнеса — 32 композиции | Aromé',
     description: 'Каталог ароматов Aromé для бизнеса в Астане: 32 композиции — отельные, свежие, цветочные, гурманские, SPA и парфюмерные. Ноты, где выбирают, пробники.',
@@ -184,95 +144,15 @@ ${UI.faqHome(homeFaq, this)}`;
     }
   });
 
-  add({
-    path: 'zapahi/', section: 'zapahi/',
-    title: `Как убрать неприятный запах в помещении: ${ODORS.length} частых случаев`,
-    description: 'Туалет, канализация, кухня, табак, сырость, пот, мусор, животные, химия, ремонт, гарь, «запах больницы»: что делает с каждым запахом аппарат с маслом и сколько это стоит.',
-    h1: 'Неприятные запахи в помещении',
-    breadcrumbs: [HOME, ['Запахи', 'zapahi/']],
-    schema: [site.schema.itemList(ODORS.map(o => [o.h1, `zapahi/${o.slug}/`]))],
-    get body() {
-      return UI.pageHead(this, { kicker: 'Справочник', lead: 'Выберите свой запах: расскажем, что сделает с ним аппарат, где его поставить, какие ароматы подходят и сколько это стоит.' }) + `
-<section class="sec sec-t"><div class="wrap"><div class="ots ots-l">${ODORS.map(o => `<a class="ot" href="/zapahi/${o.slug}/">${icon(o.icon, 'ic ot-ic')}<span class="ot-t">${o.h1}</span><span class="ot-d">${esc(o.brief[0])}</span>${icon('arrow', 'ic ot-go')}</a>`).join('')}</div></div></section>
-<section class="sec sec-alt"><div class="wrap split">
-  <div class="prose">
-    <h2>Почему освежитель не справляется</h2>
-    <p>Освежитель перекрывает запах резким облаком, которое оседает за минуты, и неприятный запах возвращается — уже вместе с химическим. Гости чувствуют это как «здесь что-то прячут».</p>
-    <p>Аппарат работает иначе: распыляет масло малыми порциями по расписанию весь день. Масло нейтрализует запах, а помещение пахнет чисто и ровно, без скачков.</p>
-  </div>
-  <div class="prose">
-    <h2>Не знаете, что выбрать</h2>
-    <p>Сравнили спрей, озонирование и аппарат в статье <a href="/stati/chem-ubrat-zapah-v-pomeshchenii/">«Чем убрать запах в помещении»</a>. Если запах возвращается каждый день, нужен аппарат.</p>
-    <p>Запахи по типам помещений — в разделе <a href="/pomeshcheniya/">«Помещения»</a>, для подъездов — <a href="/osi/">страница для ОСИ и УК</a>.</p>
-  </div>
-</div></section>`;
-    }
+  /* ── Запахи и нейтрализатор (28.10.2026): Aromé не занимается устранением запахов — старые адреса ведут на «Пространства» ── */
+  const gone = (path, name) => add({
+    path, noindex: true, noCta: true, redirect: 'pomeshcheniya/',
+    title: `${name} — страница переехала | Aromé`,
+    description: `Страница «${name}» больше не используется: Aromé занимается ароматизацией пространств для бизнеса. Переходим в раздел «Пространства».`
   });
-
-  ODORS.forEach(o => {
-    const p = `zapahi/${o.slug}/`;
-    const pm = UI.setupPm(o.setup);
-    add({
-      path: p, section: 'zapahi/', title: o.title, description: o.description, h1: o.h1,
-      breadcrumbs: [HOME, ['Запахи', 'zapahi/'], [o.name, p]],
-      schema: [site.schema.faq(o.faq), site.schema.service({ name: o.h1, description: o.description, type: 'Устранение неприятных запахов', low: PM300, high: N1000.plans[0].total }, p)],
-      cta: { place: o.places[0], title: `${o.short}? Напишите, где пахнет, — подберём аппарат`, wa: `Пишу про ${o.short.toLowerCase()}.` },
-      get body() {
-        return UI.pageHead(this, {
-          kicker: 'Запахи', icon: o.icon, lead: o.lead,
-          aside: `<aside class="brief"><p class="k">Цена</p><p class="brief-t">${UI.setupText(o.setup)} — от ${D.fmt(pm)} в месяц</p><p class="brief-d">${D.fmt(UI.setupMonth(o.setup))} помесячно · <b>${TRIAL.toLowerCase()}</b></p><a class="btn btn-s" href="${UI.wa(this.h1, `Пишу про ${o.short.toLowerCase()}.`)}" target="_blank" rel="noopener">${icon('wa')}Написать в WhatsApp</a></aside>`
-        }) + `
-<section class="sec sec-t">
-  <div class="wrap split split-img">
-    <div>
-      <h2 class="h2">Коротко</h2>
-      <ol class="causes">${o.brief.map(c => `<li>${c}</li>`).join('')}</ol>
-    </div>
-    ${img('odor-' + o.slug, { cls: 'side-img' })}
-  </div>
-</section>
-<section class="sec sec-alt">
-  <div class="wrap two">
-    <div class="card">
-      <p class="k">Что делает аппарат</p>
-      <h2 class="h3">${o.short}: масло, расписание, без «смеси»</h2>
-      <ul class="todo">${o.device.map(t => `<li>${icon('check')}<span>${t}</span></li>`).join('')}</ul>
-    </div>
-    <div class="card card-dark">
-      <p class="k k-l">Где ставим</p>
-      <h2 class="h3">Точка, интенсивность, расписание</h2>
-      <ul class="todo">${o.where.map(t => `<li>${icon('arrow')}<span>${t}</span></li>`).join('')}</ul>
-      <a class="btn" href="#zayavka">${icon('wa')}Подобрать аппарат</a>
-    </div>
-  </div>
-</section>
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Где встречается чаще</p><h2 class="h2">${o.short}: по типам помещений</h2></div></div>
-    <div class="pts pts-s">${o.places.slice(0, 4).map(s => UI.placeTile(place(s))).join('')}</div>
-  </div>
-</section>
-<section class="sec sec-alt">
-  <div class="wrap split">
-    <div><p class="k">Ароматы</p><h2 class="h2">Какие ароматы подходят</h2><p class="lead">Чистые композиции, которые не смешиваются с запахом и не утомляют за день. Аромат можно сменить при обслуживании.</p></div>
-    <ul class="srs">${o.scents.map(n => UI.scentRow(D.byN(n))).join('')}</ul>
-  </div>
-</section>
-<section class="sec">
-  <div class="wrap split">
-    <div>
-      <p class="k">Цена</p><h2 class="h2">Сколько стоит</h2>
-      <p class="lead">Обычно хватает: ${UI.setupText(o.setup)} — ${o.setup.note}. Аппарат, масло и обслуживание в подписке.</p>
-      <div class="honest"><p class="honest-k">Когда нужен ещё и мастер</p><p>${o.master}</p>${o.gas ? `<p class="honest-gas">${GAS}</p>` : ''}</div>
-    </div>
-    ${UI.priceCard(this, o.setup, { list: false })}
-  </div>
-</section>
-${UI.faq(o.faq, 'Частые вопросы', this)}
-${UI.related('Другие запахи', ODORS.filter(x => x !== o).map(x => [x.short, `zapahi/${x.slug}/`]))}`;
-      }
-    });
-  });
+  gone('zapahi/', 'Запахи');
+  ODORS.forEach(o => gone(`zapahi/${o.slug}/`, o.name));
+  gone('nejtralizator-zapaha/', 'Нейтрализатор запаха');
 
   /* ── Помещения ── */
   /* Пространства (вариант A, согласован 28.10.2026): все форматы карточками, «Как подбираем», заявка */
@@ -294,185 +174,14 @@ ${UI.spaceHow()}`;
     }
   });
 
-  PLACES.forEach(pl => {
-    const p = `pomeshcheniya/${pl.slug}/`;
-    const pm = UI.setupPm(pl.setup);
-    add({
-      path: p, section: 'pomeshcheniya/', title: pl.title, description: pl.description, h1: pl.h1,
-      breadcrumbs: [HOME, ['Пространства', 'pomeshcheniya/'], [pl.name, p]],
-      schema: [site.schema.faq(pl.faq), site.schema.service({ name: pl.h1, description: pl.description, type: 'Устранение неприятных запахов', low: pm, high: pm }, p)],
-      cta: { place: pl.slug, title: `${pl.name}: напишите, где пахнет, — подберём аппарат`, wa: `Помещение: ${pl.name.toLowerCase()}.` },
-      get body() {
-        return UI.pageHead(this, { kicker: 'Помещения', icon: pl.icon, lead: pl.lead, aside: img('place-' + pl.slug, { cls: 'phead-img', eager: true }) }) + `
-<section class="sec sec-t"><div class="wrap split">
-  <div class="prose">${pl.text.map(t => `<p>${t}</p>`).join('')}${pl.slug === 'zhk-podezd' ? '<p><b>Для председателей ОСИ и УК</b> — договор, цена за подъезд и готовое объявление для собрания жильцов на <a href="/osi/">отдельной странице</a>.</p>' : ''}</div>
-  ${UI.picker({ place: pl.slug, title: 'Что именно пахнет?' })}
-</div></section>
-<section class="sec sec-alt">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">По зонам</p><h2 class="h2">Где копится запах и что мы ставим</h2></div></div>
-    <div class="zones">${pl.zones.map((z, k) => `<article class="zone"><span class="zone-n">0${k + 1}</span><h3>${z.name}</h3><p class="zone-p"><b>Что пахнет</b>${z.problem}</p><p class="zone-s"><b>Что ставим</b>${z.sol}</p></article>`).join('')}</div>
-  </div>
-</section>
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Частые запахи</p><h2 class="h2">Что чаще всего пахнет: ${pl.name.toLowerCase()}</h2></div></div>
-    <div class="ots ots-s">${pl.odors.map(s => UI.odorTile(odor(s))).join('')}</div>
-  </div>
-</section>
-<section class="sec sec-alt">
-  <div class="wrap split">
-    <div><p class="k">Типовой комплект</p><h2 class="h2">Сколько это стоит</h2><p class="lead">Пример для типичного объекта: ${pl.setup.note}. Точный комплект считаем по описанию и планировке.</p><p class="note">Для бизнеса запах — это ещё и репутация: <a href="/stati/zapah-v-otzyvah-2gis/">как запах попадает в отзывы 2ГИС</a>.</p></div>
-    ${UI.priceCard(this, pl.setup)}
-  </div>
-</section>
-${UI.faq(pl.faq, 'Частые вопросы', this)}
-${UI.related('Другие помещения', PLACES.filter(x => x !== pl).map(x => [x.name, `pomeshcheniya/${x.slug}/`]))}`;
-      }
-    });
-  });
-
-  /* ── Нейтрализатор запаха ── */
-  const neutralFaq = [
-    TX.faq.mix,
-    ['Чем аппарат лучше геля или спрея?', 'Гель и спрей работают на маленькую комнату и выдыхаются за дни или минуты. Аппарат распыляет масло по расписанию на помещение до 300 или 1000 м² и работает каждый день, а заправляем его мы.'],
-    ['Можно ли купить аппарат?', 'Мы работаем по подписке: аппарат в аренду, масла и обслуживание включены. Так не нужно следить за заправкой и ремонтом.'],
-    TX.faq.safe
-  ];
-  add({
-    path: 'nejtralizator-zapaha/', section: '', pageName: 'Нейтрализатор запаха',
-    title: 'Нейтрализатор запаха для помещений: аппарат с маслом — Астана',
-    description: `Профессиональный нейтрализатор запаха для помещений: аппарат с маслом работает каждый день по расписанию на площадь до 1000 м². Подписка от ${UI.pm(N300)} в месяц.`,
-    h1: 'Нейтрализатор запаха для помещений',
-    breadcrumbs: [HOME, ['Нейтрализатор запаха', 'nejtralizator-zapaha/']],
-    schema: [site.schema.faq(neutralFaq), site.schema.service({ name: 'Нейтрализатор запаха для помещений', description: 'Аппарат с маслом нейтрализует запах по расписанию, по подписке', type: 'Нейтрализация запахов', low: PM300, high: N1000.plans[0].total }, 'nejtralizator-zapaha/')],
-    cta: { title: 'Подберём нейтрализатор под ваш запах и площадь', wa: 'Интересует нейтрализатор запаха.' },
-    get body() {
-      return UI.pageHead(this, { kicker: 'Аппарат и масло', lead: 'Не баллон и не гель, а аппарат, который весь день по расписанию распыляет масло: оно нейтрализует неприятный запах и наполняет помещение ароматом. Ставим, заправляем и обслуживаем сами.', aside: img('device', { cls: 'phead-img phead-tall', eager: true }) }) + `
-<section class="sec sec-t">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Чем отличается</p><h2 class="h2">Нейтрализатор, спрей, гель и озон</h2></div></div>
-    <div class="arts">
-      <div class="art"><span class="art-k">Спрей и автоосвежитель</span><span class="art-t">Облако на минуты</span><span class="art-d">Резко перекрывает запах и быстро оседает. Баллоны меняете сами, хватает на маленькую комнату.</span></div>
-      <div class="art"><span class="art-k">Гель и саше</span><span class="art-t">Слабо и недолго</span><span class="art-d">Работает на шкаф или маленький санузел, выдыхается за несколько дней, интенсивность не настроить.</span></div>
-      <div class="art"><span class="art-k">Озон и «сухой туман»</span><span class="art-t">Разово и без людей</span><span class="art-d">Глубокая обработка пустого помещения. Если запах приходит снова, через несколько дней всё повторяется.</span></div>
-    </div>
-  </div>
-</section>
-<section class="sec sec-alt">
-  <div class="wrap split">
-    <div><p class="k">Как работает</p><h2 class="h2">Постоянно, по расписанию, на всё помещение</h2>${how()}</div>
-    <div class="prose">
-      <h2>Аппарат и масло</h2>
-      <p><b>Nova 300</b> — для санузла, раздевалки, кабинета или зала до 300 м². <b>Nova 1000</b> — для зала, фойе или паркинга до 1000 м², расписание настраивается со смартфона.</p>
-      <p>Масло подбираем под запах: для туалета и канализации — свежие композиции, для кухни — цитрус и зелёный чай, для табака — древесные. Всего в каталоге 32 аромата.${oilLine}</p>
-      <p>Если запах от поломки — протечки, сломанного сифона, — нейтрализатор поможет, но источник лучше устранить мастеру.</p>
-    </div>
-  </div>
-</section>
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Цена</p><h2 class="h2">Нейтрализатор по подписке</h2></div><a class="more" href="/ceny/">Все цены${icon('arrow')}</a></div>
-    ${devices()}
-    ${trialBar(this)}
-  </div>
-</section>
-${UI.faq(neutralFaq, 'Частые вопросы', this)}`;
-    }
-  });
-
-  /* ── Для ОСИ и УК ── */
-  const osiFaq = [
-    ['Как оформляется работа с ОСИ?', 'Договор с ОСИ или управляющей компанией, оплата за выбранный период и акт каждый месяц.'],
-    ['Как убедить соседей?', 'Скачайте готовое объявление для собрания жильцов: в нём объяснено, как работает аппарат, сколько стоит подъезд и сколько выходит с квартиры.'],
-    ['Не украдут ли аппарат?', 'Ставим его в закрытом корпусе на высоте, вне досягаемости. Если аппарат сломают, заменим.'],
-    ['Можно ли сначала попробовать?', `Да: ${TRIAL.toLowerCase()}. Можно проверить результат до голосования.`]
-  ];
-  add({
-    path: 'osi/', section: '', pageName: 'Для ОСИ и УК',
-    title: 'Запах в подъезде: ароматизация дома по договору для ОСИ и УК',
-    description: `Ароматизация подъездов для ОСИ и управляющих компаний Астаны: аппарат у входа, в лифтовом холле и у мусоропровода. От ${D.fmt(PM300)} в месяц за подъезд, договор и акт.`,
-    h1: 'Ароматизация подъездов для ОСИ и УК',
-    breadcrumbs: [HOME, ['Для ОСИ и УК', 'osi/']],
-    schema: [site.schema.faq(osiFaq), site.schema.service({ name: 'Ароматизация подъездов для ОСИ и УК', description: 'Аппарат с маслом в подъезде по договору', type: 'Устранение неприятных запахов', low: PM300, high: N1000.plans[0].total }, 'osi/')],
-    cta: { place: 'zhk-podezd', title: 'Посчитаем ваш дом: сколько подъездов и где пахнет', wa: 'Я из ОСИ, хочу посчитать дом.' },
-    get body() {
-      return UI.pageHead(this, { kicker: 'Для ОСИ и УК', icon: 'building', lead: 'Жильцы жалуются на запах мусоропровода, мочи у входа или подвала? Ставим аппарат в подъезд по договору: он каждый день нейтрализует запах, а масла и обслуживание — наши.', aside: img('place-zhk-podezd', { cls: 'phead-img', eager: true }) }) + `
-<section class="sec sec-t">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Где ставим</p><h2 class="h2">Четыре точки, где в доме копится запах</h2></div></div>
-    <div class="zones">${[
-      ['Вход и тамбур', 'Моча, улица, первое впечатление', 'Nova 300 в закрытом корпусе'],
-      ['Лифтовые холлы', 'Запах мусоропровода и подвала поднимается лифтом', 'Nova 300 у лифтов первого этажа'],
-      ['У мусоропровода', 'Главный источник запаха летом', 'Nova 300 на площадке, летом интенсивнее'],
-      ['Паркинг', 'Выхлоп и сырость', 'Nova 1000 у выхода к лифтам']
-    ].map(([n, pr, s], k) => `<article class="zone"><span class="zone-n">0${k + 1}</span><h3>${n}</h3><p class="zone-p"><b>Что пахнет</b>${pr}</p><p class="zone-s"><b>Что ставим</b>${s}</p></article>`).join('')}</div>
-  </div>
-</section>
-<section class="sec sec-alt">
-  <div class="wrap split">
-    <div>
-      <p class="k">Цена за подъезд</p><h2 class="h2">Сколько стоит подъезд в месяц</h2>
-      <p class="lead">Обычно на подъезд хватает одного Nova 300 у входа или лифтового холла. При ${flats} квартирах это около ${D.fmt(PM300 / flats)} в месяц с квартиры.</p>
-      <div class="prose"><h3>Договор и акт</h3><p>Работаем по договору с ОСИ или управляющей компанией. Каждый месяц — акт. Аппарат, масла, настройка и замена при поломке входят в оплату, жильцам ничего делать не нужно.</p></div>
-    </div>
-    ${UI.priceCard(this, { n300: 1, n1000: 0, note: 'один подъезд' })}
-  </div>
-</section>
-<section class="sec" id="obyavlenie">
-  <div class="wrap split">
-    <div>
-      <p class="k">Для собрания жильцов</p><h2 class="h2">Готовое объявление для соседей</h2>
-      <p class="lead">Председателю нужно убедить соседей. Мы подготовили объявление: как работает аппарат, кто обслуживает, сколько стоит подъезд и квартира. Замените поля в квадратных скобках и распечатайте или отправьте в чат дома.</p>
-      <div class="hero-btns"><a class="btn" href="/assets/osi-obyavlenie.txt" download data-osi>${icon('download')}Скачать объявление</a><button class="btn btn-line" type="button" data-copy="#osi-text" data-osi>${icon('copy')}Скопировать текст</button></div>
-    </div>
-    <pre class="osi-t" id="osi-text">${esc(OSI_TEMPLATE)}</pre>
-  </div>
-</section>
-${UI.faq(osiFaq, 'Частые вопросы', this)}`;
-    }
-  });
-
-  /* ── Для дома ── */
-  const homeSetup = { n300: 1, n1000: 0, note: 'гостиная или прихожая' };
-  const flatFaq = [
-    ['Аппарат не будет шуметь ночью?', 'Он тихий, а на ночь расписание можно выключить: аппарат работает, когда вы дома и не спите.'],
-    ['Это безопасно для детей и питомцев?', 'Интенсивность ставим минимальную, композиции мягкие, а аппарат — вне досягаемости. Если кому-то мешает, меняем аромат без доплаты.'],
-    TX.faq.pipe,
-    ['Можно ли взять на месяц?', `Да, минимальный срок — месяц: ${D.fmt(N300.plans[0].total)} за Nova 300. При оплате за полгода — ${D.fmt(PM300)} в месяц.`]
-  ];
-  add({
-    path: 'kvartira/', section: '', pageName: 'Для дома',
-    title: 'Неприятный запах в квартире: табак, животные, сырость — Астана',
-    description: `Как убрать запах табака, животных или сырости в квартире: аппарат с маслом нейтрализует его каждый день. Nova 300 от ${UI.pm(N300)} в месяц, ${TRIAL.toLowerCase()}.`,
-    h1: 'Неприятный запах в квартире: табак, животные, сырость',
-    breadcrumbs: [HOME, ['Для дома', 'kvartira/']],
-    schema: [site.schema.faq(flatFaq), site.schema.service({ name: 'Устранение запаха в квартире', description: 'Аппарат с маслом для квартиры по подписке', type: 'Устранение неприятных запахов', low: PM300, high: N300.plans[0].total }, 'kvartira/')],
-    cta: { place: 'kvartira', title: 'Напишите, чем пахнет дома, — подберём аромат', wa: 'Пишу про запах в квартире.' },
-    get body() {
-      return UI.pageHead(this, { kicker: 'Для дома', icon: 'home', lead: 'Табак от прежних жильцов, кошка или собака, сырость в старом доме. Компактный аппарат каждый день нейтрализует запах и наполняет квартиру ароматом, а заправляем его мы.', aside: img('kvartira', { cls: 'phead-img', eager: true }) }) + `
-<section class="sec sec-t">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Чем пахнет дома</p><h2 class="h2">Три частых запаха в квартире</h2></div></div>
-    <div class="arts">${[
-      ['tabaka', 'Табак', 'Запах дыма въедается в шторы и мебель и пахнет даже после ремонта. Аппарат держит в квартире тёплый древесный аромат вместо прокуренного.'],
-      ['zhivotnyh', 'Животные', 'Кошачий лоток, собака после прогулки. Мягкий чистый аромат с минимальной интенсивностью нейтрализует запах и не раздражает питомца.'],
-      ['syrosti', 'Сырость', 'Затхлый запах в старом доме, на первом этаже или в ванной. Свежая композиция весь день держит ощущение проветренной квартиры.']
-    ].map(([s, t, d]) => `<a class="art" href="/zapahi/${s}/"><span class="art-k">${icon(odor(s).icon)} ${t}</span><span class="art-t">${odor(s).short}</span><span class="art-d">${d}</span></a>`).join('')}</div>
-  </div>
-</section>
-<section class="sec sec-alt">
-  <div class="wrap split">
-    <div>
-      <p class="k">Аппарат для квартиры</p><h2 class="h2">Один Nova 300 на квартиру</h2>
-      <div class="prose"><p>Аппарат ставим в гостиной или прихожей — оттуда аромат расходится по квартире. Он распыляет масло по расписанию: когда вы дома, чаще, ночью — по вашему выбору.</p><p>Масло подбираем под запах, заправляем и меняем аппарат при поломке. Вам не нужно покупать баллоны и следить за заправкой.</p><p>Если запах от протечки или сломанного сифона, аппарат с ним поможет, но саму поломку лучше устранить сантехнику.</p></div>
-    </div>
-    ${UI.priceCard(this, homeSetup)}
-  </div>
-</section>
-${UI.faq(flatFaq, 'Частые вопросы', this)}`;
-    }
-  });
+  /* ── Страницы пространств (28.10.2026): шаблон UI.spacePage, данные — src/spaces.js. Адреса старых помещений сохранены ── */
+  SPACE_PAGES.forEach(sp => add({
+    path: sp.path, section: 'pomeshcheniya/', pageName: sp.name, leadForm: true,
+    title: sp.title, description: sp.description, h1: sp.h1.replace(/<\/?em>/g, ''),
+    breadcrumbs: [HOME, ['Пространства', 'pomeshcheniya/'], [sp.name, sp.path]],
+    schema: [site.schema.faq(sp.faq), site.schema.service({ name: `Ароматизация: ${sp.name.toLowerCase()}`, description: sp.description, type: 'Ароматизация помещений', low: UI.setupPm(sp.setup), high: UI.setupMonth(sp.setup) }, sp.path)],
+    get body() { return UI.spacePage(this, sp); }
+  }));
 
   /* ── Метод (согласован 28.10.2026): как работает аппарат, расписание по часам, этапы, кто что делает, вопросы, заявка ── */
   const howFaq = [
@@ -537,30 +246,29 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
     }
   });
 
-  /* ── Статьи ── */
+  /* ── Блог (28.10.2026): карточки статей и шаблон статьи в новой системе ── */
+  const metaA = a => `${dateRu(a.date)} · ${a.read} мин чтения`;
+  const cardsA = list => list.map(a => Object.assign({ meta: metaA(a) }, a));
   add({
-    path: 'stati/', section: 'stati/',
-    title: 'Статьи о запахах в помещениях: чем убрать, отзывы, зима',
-    description: 'Статьи Aromé о неприятных запахах: чем убрать запах в помещении — спрей, озон или аппарат, как отвечать на отзывы о запахе в 2ГИС и почему зимой пахнет сильнее.',
-    h1: 'Статьи',
-    breadcrumbs: [HOME, ['Статьи', 'stati/']],
+    path: 'stati/', section: 'stati/', pageName: 'Блог', leadForm: true,
+    title: 'Блог Aromé: статьи для владельцев и управляющих',
+    description: 'Блог Aromé: практические статьи для владельцев и управляющих пространствами в Астане — об атмосфере, отзывах гостей и сезонных особенностях помещений.',
+    h1: 'Блог Aromé',
+    breadcrumbs: [HOME, ['Блог', 'stati/']],
     schema: [site.schema.itemList(ARTICLES.map(a => [a.title, `stati/${a.slug}/`]))],
     get body() {
-      return UI.pageHead(this, { kicker: 'Разбираемся в запахах', lead: 'Практические статьи для владельцев и управляющих: чем убрать запах, что делать с отзывами о запахе и как пережить зиму с закрытыми окнами.' }) + `
-<section class="sec sec-t"><div class="wrap"><div class="arts arts-l">${ARTICLES.map(a => `<a class="art" href="/stati/${a.slug}/"><span class="art-k">${dateRu(a.date)} · ${a.read} мин</span><span class="art-t">${a.h1}</span><span class="art-d">${esc(a.lead)}</span></a>`).join('')}</div></div></section>`;
+      return UI.pageTop(this, { h1: 'Блог <em>Aromé</em>', lead: 'Практические статьи для владельцев и&nbsp;управляющих: об&nbsp;атмосфере пространства, отзывах гостей и&nbsp;сезонных особенностях' }) + UI.blogCards(cardsA(ARTICLES));
     }
   });
 
   ARTICLES.forEach(a => {
     const p = `stati/${a.slug}/`;
     add({
-      path: p, section: 'stati/', title: a.title, description: a.description, h1: a.h1, ogType: 'article', updated: a.date,
-      breadcrumbs: [HOME, ['Статьи', 'stati/'], [a.h1, p]],
+      path: p, section: 'stati/', pageName: a.h1, leadForm: true, title: a.title, description: a.description, h1: a.h1, ogType: 'article', updated: a.date,
+      breadcrumbs: [HOME, ['Блог', 'stati/'], [a.h1, p]],
       schema: [site.schema.article(a, p)],
       get body() {
-        return UI.pageHead(this, { kicker: `${dateRu(a.date)} · ${a.read} мин чтения`, lead: a.lead }) + `
-<section class="sec sec-t"><div class="wrap narrow prose prose-art">${a.body}</div></section>
-${UI.related('Другие статьи', ARTICLES.filter(x => x !== a).map(x => [x.h1, `stati/${x.slug}/`]))}`;
+        return UI.article(this, a, metaA(a)) + UI.blogCards(cardsA(ARTICLES.filter(x => x !== a)), { id: 'drugie', k: 'другие статьи' });
       }
     });
     /* старые адреса заменённых статей → новая статья */
@@ -570,43 +278,36 @@ ${UI.related('Другие статьи', ARTICLES.filter(x => x !== a).map(x =>
     }));
   });
 
-  /* ── Вопросы ── */
+  /* ── Вопросы (28.10.2026): все ответы в новом списке с круглыми кнопками ── */
   const allFaq = [
-    TX.faq.mix, TX.faq.help, TX.faq.pipe, TX.faq.safe, TX.faq.start, priceFaq[0], priceFaq[1], TX.faq.contract, TX.faq.change,
-    ['Вы ищете причину запаха или ремонтируете?', 'Нет. Мы ставим аппарат и заправляем его маслом: он нейтрализует запах и наполняет помещение ароматом. Ремонт сантехники и вентиляции — работа мастеров.'],
-    ['Работаете ли вы с ОСИ и управляющими компаниями?', 'Да, обслуживаем подъезды по договору с актом каждый месяц. Цена за подъезд и объявление для собрания жильцов — на странице для ОСИ.'],
-    ['Можно ли поставить аппарат дома?', 'Да, один компактный Nova 300 на квартиру — для запаха табака, животных или сырости.']
-  ];
+    homeFaq[0], ...D.faq,
+    ['Можно ли платить помесячно?', `Да. Месяц ${N300.name} стоит ${D.fmt(N300.plans[0].total)}. При оплате за 3 или 6 месяцев цена в пересчёте на месяц ниже`],
+    ['Как часто вы приезжаете?', 'По графику заправки масла. Если аппарат сломался или аромат не подошёл, приедем вне графика'],
+    ['Работаете ли вы с ОСИ и управляющими компаниями?', 'Да, по договору с актом каждый месяц. Подробнее — на странице для ОСИ и УК'],
+    ['Можно ли поставить аппарат дома?', 'Да, компактный Nova 300 подходит для квартиры или дома']
+  ].map(([q, a]) => [q, UI.nb(a)]);
   add({
-    path: 'voprosy/', section: '',
-    title: 'Вопросы об устранении запахов и ароматизации — Aromé',
-    description: 'Ответы на частые вопросы: не будет ли смеси запахов, поможет ли аппарат, что входит в подписку, безопасность ароматов, тест 3 дня, договор и работа с ОСИ в Астане.',
+    path: 'voprosy/', section: '', pageName: 'Вопросы', leadForm: true,
+    title: 'Вопросы об ароматизации помещений — Aromé',
+    description: 'Ответы на частые вопросы об ароматизации: безопасность ароматов, оборудование, сроки запуска, договор, цена, обслуживание и бесплатный тест 3 дня.',
     h1: 'Вопросы и ответы',
     breadcrumbs: [HOME, ['Вопросы', 'voprosy/']],
-    schema: [site.schema.faq(allFaq)],
+    schema: [site.schema.faq(allFaq.map(([q, a]) => [q, a.replace(/&nbsp;/g, ' ')]))],
     get body() {
-      return UI.pageHead(this, { kicker: 'Помощь', lead: 'Собрали вопросы, которые чаще всего задают владельцы кафе, салонов, клиник, председатели ОСИ и жильцы. Если вашего нет — напишите в WhatsApp.' }) + `
-<section class="sec sec-t"><div class="wrap faq-w"><div class="faq">${allFaq.map(([q, a]) => `<details><summary><span>${esc(q)}</span>${icon('plus')}</summary><p>${a}</p></details>`).join('')}</div></div></section>`;
+      return UI.pageTop(this, { h1: 'Вопросы <em>и ответы</em>', lead: 'Собрали вопросы, которые чаще всего задают владельцы магазинов, салонов, отелей и&nbsp;ресторанов. Если вашего нет — напишите в&nbsp;WhatsApp' }) + UI.faqHome(allFaq, this, { bare: true });
     }
   });
 
   /* ── Контакты и служебные ── */
   add({
-    path: 'kontakty/', section: 'kontakty/',
-    title: 'Контакты Aromé — устранение запахов в помещениях, Астана',
-    description: `Контакты Aromé в Астане: ${C.phone}, WhatsApp, ${C.street}. Напишите, где пахнет, — подберём аппарат и установим в день обращения.`,
+    path: 'kontakty/', section: '', pageName: 'Контакты', leadForm: true,
+    title: 'Контакты Aromé — ароматизация помещений в Астане',
+    description: `Контакты Aromé в Астане: ${C.phone}, WhatsApp. Напишите о своём пространстве — подберём аромат и решение, первые 3 дня бесплатно.`,
     h1: 'Контакты',
     breadcrumbs: [HOME, ['Контакты', 'kontakty/']],
     schema: [site.schema.business(C)],
     get body() {
-      return UI.pageHead(this, { kicker: 'Связь', lead: 'Быстрее всего — WhatsApp: напишите, где пахнет и какая площадь. Ответим за 15 минут в рабочее время и подберём аппарат.' }) + `
-<section class="sec sec-t"><div class="wrap"><div class="cts">
-  <a class="ct" href="tel:${C.phoneRaw}"><span class="k">Телефон</span><b>${C.phone}</b></a>
-  <a class="ct" href="${UI.wa(this.h1)}" target="_blank" rel="noopener"><span class="k">WhatsApp</span><b>Написать</b></a>
-  <a class="ct" href="${C.map2gis}" target="_blank" rel="noopener"><span class="k">Адрес</span><b>${C.address}</b></a>
-  <div class="ct"><span class="k">Время работы</span><b>${C.hours}</b></div>
-</div></div></section>
-<section class="sec"><div class="wrap narrow prose"><h2>Что написать, чтобы мы быстрее подобрали аппарат</h2><ul><li>Тип помещения: туалет, кафе, подъезд, раздевалка, офис, квартира.</li><li>Примерную площадь.</li><li>Где и чем пахнет сильнее всего.</li><li>Хотите ли сначала тест — ${TRIAL.toLowerCase()}.</li></ul><p>Мы работаем по всей Астане. После установки аппарат обслуживает наш специалист: заправляет масло по графику и следит за работой.</p></div></section>`;
+      return UI.pageTop(this, { h1: 'Контакты <em>Aromé в&nbsp;Астане</em>', lead: 'Быстрее всего — WhatsApp: ответим и&nbsp;подскажем аромат и&nbsp;решение для вашего пространства. Работаем по&nbsp;всей Астане: подбираем аромат, устанавливаем аппарат и&nbsp;обслуживаем его по&nbsp;подписке' }) + UI.contacts(this);
     }
   });
   add({
@@ -616,14 +317,15 @@ ${UI.related('Другие статьи', ARTICLES.filter(x => x !== a).map(x =>
     h1: 'Политика конфиденциальности',
     breadcrumbs: [HOME, ['Политика', 'politika-konfidencialnosti/']],
     get body() {
-      return UI.pageHead(this, {}) + `<section class="sec sec-t"><div class="wrap narrow prose"><p>На этом сайте нет личных кабинетов и баз данных: ничего из того, что вы вводите в форму или подбор, не сохраняется на сервере. Форма лишь собирает текст, а отправляете его вы сами — через WhatsApp.</p><p>Помещение, площадь и телефон нужны нам только для ответа, установки и договора. Третьим лицам мы их не передаём, если этого не требует закон Республики Казахстан. Попросить удалить переписку можно по телефону ${C.phone}.</p></div></section>`;
+      return UI.pageTop(this, { h1: 'Политика <em>конфиденциальности</em>', lead: 'Какие данные мы получаем через формы и&nbsp;мессенджеры и&nbsp;как их используем' }) + `
+<section class="ar"><div class="ar-wrap"><div class="ar-body"><p>На этом сайте нет личных кабинетов и баз данных: ничего из того, что вы вводите в форму, не сохраняется на сервере. Форма лишь собирает текст, а отправляете его вы сами — через WhatsApp.</p><p>Имя, телефон и описание пространства нужны нам только для ответа, установки и договора. Третьим лицам мы их не передаём, если этого не требует закон Республики Казахстан. Попросить удалить переписку можно по телефону ${C.phone}.</p></div></div></section>`;
     }
   });
   add({
     path: '404.html', noindex: true, noCta: true,
-    title: 'Страница не найдена — Aromé', description: 'Такой страницы нет. Вернитесь на главную Aromé или выберите запах в справочнике.',
-    body: `<section class="phead nf"><div class="wrap"><p class="k">Ошибка 404</p><h1>Здесь ничем не пахнет</h1><p class="lead">Такой страницы нет. Вернитесь на главную или откройте справочник запахов.</p><div class="hero-btns"><a class="btn" href="/">На главную ${icon('arrow')}</a><a class="btn btn-line" href="/zapahi/">Справочник запахов</a></div></div></section>`
+    title: 'Страница не найдена — Aromé', description: 'Такой страницы нет. Вернитесь на главную Aromé или посмотрите пространства.',
+    body: `<section class="pg"><div class="pg-wrap"><p class="pg-k">ошибка 404</p><div class="pg-top"><h1 class="pg-h">Такой страницы <em>нет</em></h1><div class="pg-side"><p>Возможно, она переехала. Вернитесь на&nbsp;главную или посмотрите пространства</p><div class="sv-btns"><a class="sv-btn" href="/">На главную</a><a class="sv-btn2" href="/pomeshcheniya/">Пространства</a></div></div></div></div></section>`
   });
 }
 
-module.exports = { register, OSI_TEMPLATE };
+module.exports = { register };

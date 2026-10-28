@@ -255,13 +255,14 @@ function stages(o = {}) {
    Первый вопрос открыт. Точки в конце ответов убираем, как во всех новых блоках главной */
 function faqHome(list, p, o = {}) {
   const noDot = s => s.replace(/\.$/, '');
+  /* o.bare — только список: на странице «Вопросы» заголовок даёт верх страницы */
   return `<section class="fq" id="voprosy">
-  <div class="fq-wrap">
+  <div class="fq-wrap">${o.bare ? '' : `
     <p class="fq-k">вопросы</p>
     <div class="fq-top">
       <h2 class="fq-h">${o.h || 'Частые <em>вопросы</em>'}</h2>
       <p class="fq-lead">Не нашли ответ? <a href="${wa(p.pageName, 'У меня вопрос.')}" target="_blank" rel="noopener">Спросите в&nbsp;WhatsApp</a> — ответим и&nbsp;подскажем по&nbsp;вашему пространству</p>
-    </div>
+    </div>`}
     <div class="fq-list">${list.map(([q, a], i) => `<details class="fq-it"${i ? '' : ' open'}><summary><h3>${esc(noDot(q))}</h3><i aria-hidden="true"></i></summary><p>${noDot(a)}</p></details>`).join('')}</div>
   </div>
 </section>`;
@@ -300,11 +301,15 @@ function pricing(o = {}) {
 
 /* Верх внутренней страницы (вариант A, согласован 28.10.2026, макет design/arome-home/inner-gen.js):
    крошки в квадратных скобках строчными, H1 с курсивной второй строкой, справа текст. Плашки с фактами пользователь убрал */
+/* крошки строчными, но сокращения (SPA, ТРЦ, ЖК, ОСИ) остаются заглавными */
+const low = n => n.split(' ').map(w => /^[A-ZА-ЯЁ]{2,}$/.test(w) ? w : w.toLowerCase()).join(' ');
+const pgCrumbs = p => `<nav class="pg-k" aria-label="Хлебные крошки">${p.breadcrumbs.map(([n, h], i, a) => i < a.length - 1 ? `<a href="/${h}">${low(n)}</a>` : `<span aria-current="page">${low(n)}</span>`).join(' / ')}</nav>`;
+/* Неразрывный пробел после коротких слов и чисел («в&nbsp;зале», «до&nbsp;300&nbsp;м²») — для текстов из данных */
+const nb = s => [1, 2].reduce(t => t.replace(/(^|[\s«(—])([а-яёА-ЯЁA-Za-z0-9]{1,3}) (?=\S)/g, '$1$2&nbsp;'), s);
 function pageTop(p, o) {
-  const bc = p.breadcrumbs.map(([n, h], i, a) => i < a.length - 1 ? `<a href="/${h}">${n.toLowerCase()}</a>` : `<span aria-current="page">${n.toLowerCase()}</span>`).join(' / ');
   return `<section class="pg">
   <div class="pg-wrap">
-    <nav class="pg-k" aria-label="Хлебные крошки">${bc}</nav>
+    ${pgCrumbs(p)}
     <div class="pg-top">
       <h1 class="pg-h">${o.h1}</h1>
       <div class="pg-side">
@@ -573,14 +578,14 @@ function collection(p, list, o = {}) {
 /* Пространства: лента карточек-фото со стеклянной плашкой, последняя — коричневая карточка с заявкой.
    У магазинов и автосалонов своих страниц нет — ведут к заявке. */
 /* Все пространства (28.10.2026): первые 6 — лента на главной, все — страница /pomeshcheniya/, выпадающее меню шапки и подвал.
-   [фото, название, ссылка, alt, что даёт аромат, где ставим]. У магазинов и автосалонов своей страницы нет — открывается заявка */
+   [фото, название, ссылка, alt, что даёт аромат, где ставим]. Страница каждого — src/spaces.js */
 const SPACES = [
-  ['sp-shop', 'Магазины и&nbsp;шоурумы', '#zayavka', 'Бутик с вешалками и травертиновым подиумом', 'Аромат делает зал узнаваемым и&nbsp;располагает задержаться у&nbsp;витрин и&nbsp;в&nbsp;примерочных', ['вход', 'торговый зал', 'примерочные']],
+  ['sp-shop', 'Магазины и&nbsp;шоурумы', '/pomeshcheniya/magaziny/', 'Бутик с вешалками и травертиновым подиумом', 'Аромат делает зал узнаваемым и&nbsp;располагает задержаться у&nbsp;витрин и&nbsp;в&nbsp;примерочных', ['вход', 'торговый зал', 'примерочные']],
   ['sp-spa', 'Салоны красоты и&nbsp;SPA', '/pomeshcheniya/salon-krasoty/', 'Ресепшен салона красоты и SPA', 'Спокойный аромат на&nbsp;ресепшене и&nbsp;в&nbsp;зоне ожидания настраивает на&nbsp;отдых ещё до&nbsp;процедуры', ['ресепшен', 'зона ожидания', 'SPA-зона']],
   ['sp-hotel', 'Отели', '/pomeshcheniya/gostinica/', 'Лобби бутик-отеля', 'Фирменный аромат лобби гости запоминают вместе с&nbsp;отелем и&nbsp;узнают при следующем визите', ['лобби', 'коридоры', 'ресторан и&nbsp;лаунж']],
   ['sp-rest', 'Рестораны и&nbsp;кафе', '/pomeshcheniya/restoran-kafe/', 'Зал ресторана вечером', 'Аромат встречает у&nbsp;входа и&nbsp;не&nbsp;спорит с&nbsp;кухней — у&nbsp;столов его не&nbsp;ставим', ['вход и&nbsp;гардероб', 'лаунж', 'санузлы']],
   ['sp-office', 'Офисы и&nbsp;бизнес-центры', '/pomeshcheniya/ofis/', 'Лобби бизнес-центра', 'Чистый деловой аромат в&nbsp;лобби и&nbsp;на&nbsp;ресепшене — первое впечатление для гостей и&nbsp;кандидатов', ['лобби', 'ресепшен', 'переговорные']],
-  ['sp-auto', 'Автосалоны', '#zayavka', 'Шоурум автосалона', 'Аромат шоурума поддерживает ощущение премиального сервиса, пока клиент выбирает автомобиль', ['шоурум', 'клиентская зона', 'зона выдачи']],
+  ['sp-auto', 'Автосалоны', '/pomeshcheniya/avtosalony/', 'Шоурум автосалона', 'Аромат шоурума поддерживает ощущение премиального сервиса, пока клиент выбирает автомобиль', ['шоурум', 'клиентская зона', 'зона выдачи']],
   ['sx-toj', 'Тойханы и&nbsp;банкетные залы', '/pomeshcheniya/tojhana/', 'Банкетный зал, накрытый к празднику', 'Праздничный, но&nbsp;не&nbsp;сладкий аромат встречает гостей в&nbsp;фойе и&nbsp;держится весь вечер', ['фойе', 'банкетный зал', 'санузлы']],
   ['sx-zhk', 'ЖК и&nbsp;подъезды', '/pomeshcheniya/zhk-podezd/', 'Лобби жилого комплекса с консьержем', 'Чистый аромат во&nbsp;входной группе и&nbsp;лифтовых холлах — дом встречает жильцов и&nbsp;гостей', ['вход', 'лифтовой холл', 'паркинг']],
   ['sx-fit', 'Фитнес-клубы', '/pomeshcheniya/fitnes/', 'Ресепшен фитнес-клуба', 'Свежий бодрый аромат на&nbsp;ресепшене и&nbsp;в&nbsp;зале, отдельный аппарат для&nbsp;раздевалок', ['ресепшен', 'зал', 'раздевалки']],
@@ -647,15 +652,72 @@ const SH = [
   ['Площадь и&nbsp;вентиляция', `Под&nbsp;площадь подбираем ${D.devices[0].name} до&nbsp;${D.devices[0].area}&nbsp;м² или ${D.devices[1].name} до&nbsp;${D.devices[1].area}&nbsp;м² и&nbsp;подключаем к&nbsp;вентиляции`],
   ['Часы работы', 'Настраиваем расписание и&nbsp;интенсивность: аромат есть, пока открыто, и&nbsp;не&nbsp;утомляет к&nbsp;вечеру']
 ];
-function spaceHow() {
-  return `<section class="sh" id="podbor">
+/* Три пункта с курсивными номерами (sh-*): «Как подбираем» на странице пространств, «Что даёт аромат» на страницах пространства */
+function points(o) {
+  return `<section class="sh" id="${o.id}">
   <div class="sh-wrap">
-    <p class="sh-k">подбор</p>
+    <p class="sh-k">${o.k}</p>
     <div class="sh-top">
-      <h2 class="sh-h">Как подбираем <em>аромат под&nbsp;пространство</em></h2>
-      <p class="sh-lead">Три вещи, от&nbsp;которых зависит решение. Первые ${D.trialDays}&nbsp;дня — бесплатно, чтобы вы проверили аромат у&nbsp;себя</p>
+      <h2 class="sh-h">${o.h}</h2>
+      ${o.lead ? `<p class="sh-lead">${o.lead}</p>` : ''}
     </div>
-    <ol class="sh-list">${SH.map(([t, d], i) => `<li><i>${num(i)}</i><h3>${t}</h3><p>${d}</p></li>`).join('')}</ol>
+    <ol class="sh-list">${o.list.map(([t, d], i) => `<li><i>${num(i)}</i><h3>${t}</h3><p>${d}</p></li>`).join('')}</ol>
+  </div>
+</section>`;
+}
+const spaceHow = () => points({ id: 'podbor', k: 'подбор', h: 'Как подбираем <em>аромат под&nbsp;пространство</em>', lead: `Три вещи, от&nbsp;которых зависит решение. Первые ${D.trialDays}&nbsp;дня — бесплатно, чтобы вы проверили аромат у&nbsp;себя`, list: SH });
+
+/* Страница одного пространства (28.10.2026, по системе «Цен» и «Пространств»): верх с фото справа, что даёт аромат,
+   где ставим, типовой комплект с ценой из прайса, вопросы, другие пространства. Данные — src/spaces.js */
+function spacePage(p, s) {
+  const pm = setupPm(s.setup), month = setupMonth(s.setup);
+  return `<section class="sv">
+  <div class="sv-wrap">
+    <div class="sv-txt">
+      ${pgCrumbs(p)}
+      <h1 class="pg-h">${s.h1}</h1>
+      <p class="sv-lead">${nb(s.lead)}</p>
+      <div class="sv-btns"><a class="sv-btn" href="#zayavka">Подобрать аромат</a><a class="sv-btn2" href="/ceny/">Цены</a></div>
+    </div>
+    <div class="sv-ph"><img src="${site.url(`assets/img/${s.img}.webp`)}" alt="${esc(s.name)}" loading="eager"><span>${setupText(s.setup)} · <b>от ${D.fmt(pm)} в&nbsp;месяц</b></span></div>
+  </div>
+</section>
+
+${points({ id: 'zachem', k: 'зачем аромат', h: 'Что даёт <em>аромат</em>', list: s.why.map(([t, d]) => [nb(t), nb(d)]) })}
+
+<section class="sz" id="gde">
+  <div class="sz-wrap">
+    <p class="sz-k">где ставим</p>
+    <h2 class="sz-h">Где ставим <em>аппарат</em></h2>
+    <div class="sz-g">${s.zones.map(([t, d], i) => `<article class="sz-c"><i>${num(i)}</i><h3>${nb(t)}</h3><p>${nb(d)}</p></article>`).join('')}</div>
+  </div>
+</section>
+
+<section class="sk" id="komplekt">
+  <div class="sk-wrap">
+    <div class="sk-card">
+      <div class="sk-l">
+        <p class="sk-k">типовой комплект</p>
+        <h2 class="sk-h">Обычно <em>хватает</em></h2>
+        <p class="sk-set">${setupText(s.setup)}</p>
+        <p class="sk-note">${nb(s.setup.note)}. Точный комплект подскажем после заявки — по&nbsp;планировке и&nbsp;вентиляции</p>
+      </div>
+      <div class="sk-r">
+        <p class="sk-pm">${D.fmt(pm)}<span>в&nbsp;месяц при подписке на&nbsp;6&nbsp;месяцев</span></p>
+        <p class="sk-m">${D.fmt(month)} при оплате помесячно · первые ${D.trialDays}&nbsp;дня бесплатно</p>
+        <a class="sk-btn" href="#zayavka">Оставить заявку</a>
+        <a class="sk-all" href="/ceny/">Все цены<i>→</i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+${faqHome(s.faq.map(([q, a]) => [q, nb(a)]), p)}
+
+<section class="so" id="drugie">
+  <div class="so-wrap">
+    <p class="so-k">другие пространства</p>
+    <div class="so-l">${SPACES.filter(x => x[2] !== '/' + s.path).map(([, n, h]) => `<a href="${h}">${n}</a>`).join('')}</div>
   </div>
 </section>`;
 }
@@ -708,4 +770,40 @@ function weYou() {
 </section>`;
 }
 
-module.exports = { schedule, weYou, SPACES, spaceGrid, spaceHow, hxHeader, pageTop, included, kits, device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+/* Блог (28.10.2026): карточки статей в 3 колонки — номер, дата и время чтения, заголовок, лид, «Читать» */
+function blogCards(list, o = {}) {
+  return `<section class="bl" id="${o.id || 'stati'}">
+  <div class="bl-wrap">${o.k ? `
+    <p class="bl-k">${o.k}</p>` : ''}
+    <div class="bl-g">${list.map((a, i) => `<a class="bl-c" href="/stati/${a.slug}/"><span class="bl-n">${num(i)}</span><span class="bl-m">${a.meta}</span><h2>${a.h1}</h2><p>${nb(a.lead)}</p><span class="sx-go">Читать<i>→</i></span></a>`).join('')}</div>
+  </div>
+</section>`;
+}
+/* Статья: крошки, дата, заголовок и лид в узкой колонке, ниже — текст */
+function article(p, a, meta) {
+  return `<section class="pg ar-top">
+  <div class="pg-wrap">
+    ${pgCrumbs(p)}
+    <div class="ar-head"><p class="ar-m">${meta}</p><h1 class="ar-h">${a.h1}</h1><p class="ar-lead">${nb(a.lead)}</p></div>
+  </div>
+</section>
+<section class="ar"><div class="ar-wrap"><div class="ar-body">${a.body}</div></div></section>`;
+}
+/* Контакты: карточки связи (без адреса — только город) и что написать в заявке */
+function contacts(p) {
+  const cards = [
+    ['телефон', C.phone, `tel:${C.phoneRaw}`],
+    ['whatsapp', 'Написать', wa(p.pageName)],
+    ['город', 'Астана'],
+    C.hours ? ['время работы', C.hours] : null
+  ].filter(Boolean);
+  const ASK = [['Формат и площадь', 'Магазин, салон, отель, ресторан или офис — и примерная площадь'], ['Часы работы', 'Чтобы настроить расписание аромата под ваш день'], ['Впечатление', 'Какое настроение хотите создать: спокойное, свежее, праздничное']];
+  return `<section class="kc" id="svyaz">
+  <div class="kc-wrap">
+    <div class="kc-g">${cards.map(([k, v, h]) => h ? `<a class="kc-c" href="${h}"${h.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}><span>${k}</span><b>${v}</b><i>→</i></a>` : `<div class="kc-c"><span>${k}</span><b>${v}</b></div>`).join('')}</div>
+  </div>
+</section>
+${points({ id: 'chto-napisat', k: 'заявка', h: 'Что написать, <em>чтобы быстрее подобрать аромат</em>', lead: 'Достаточно пары строк в&nbsp;WhatsApp или в&nbsp;форме ниже — остальное уточним сами', list: ASK.map(([t, d]) => [t, nb(d)]) })}`;
+}
+
+module.exports = { blogCards, article, contacts, nb, spacePage, schedule, weYou, SPACES, spaceGrid, spaceHow, hxHeader, pageTop, included, kits, device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

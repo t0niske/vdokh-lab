@@ -5,7 +5,7 @@ const path = require('path');
 const { createSite } = require('./lib/engine');
 const D = require('./lib/data');
 const UI = require('./src/ui');
-const { register, OSI_TEMPLATE } = require('./src/pages');
+const { register } = require('./src/pages');
 
 /* Подбору решения в браузере нужны краткие данные о запахах и помещениях, номер WhatsApp сайта */
 const VD = {
@@ -14,15 +14,12 @@ const VD = {
   places: UI.PK.map(p => ({ slug: p.slug, name: p.label, odors: p.odors, setup: p.setup, url: p.url }))
 };
 
-/* Объявление для собрания жильцов (/osi/) — файл для скачивания; BOM, чтобы Блокнот открыл UTF-8 */
-fs.writeFileSync(path.join(__dirname, 'src', 'assets', 'osi-obyavlenie.txt'), '﻿' + OSI_TEMPLATE.replace(/\n/g, '\r\n'));
-
 const site = createSite({
   root: __dirname,
   name: 'Aromé',
   origin: 'https://t0niske.github.io',
   base: '/vdokh-lab/',
-  description: 'Устранение запахов и ароматизация помещений в Астане',
+  description: 'Ароматизация помещений для бизнеса в Астане',
   themeColor: '#FFFFFF',
   ogImage: 'og',
   images: require('./src/images'),
@@ -30,6 +27,6 @@ const site = createSite({
 });
 UI.init(site);
 register(site);
-/* Имя страницы для метки в WhatsApp: «…страница «Запах в туалете: как убрать»» */
+/* Имя страницы для метки в WhatsApp: «…страница «Салоны красоты и SPA»» */
 site.pages.forEach(p => { p.pageName = p.pageName || p.h1 || p.title; });
 site.build(UI.layout);
