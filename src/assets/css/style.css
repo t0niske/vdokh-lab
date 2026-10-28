@@ -511,7 +511,7 @@ a.ct:hover{border-color:var(--ink)}
 .hx-lines span{position:absolute;left:50%;top:78%;width:34px;height:34px;transform:translate(-50%,-50%)}
 .hx-lines span::before,.hx-lines span::after{content:"";position:absolute;background:rgba(255,255,255,.7)}
 .hx-lines span::before{left:16px;top:0;width:1.5px;height:34px}.hx-lines span::after{top:16px;left:0;height:1.5px;width:34px}
-.hx-top{position:absolute;left:0;right:0;top:0;height:92px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--hx-gut);z-index:3}
+.hx-top{position:fixed;left:0;right:0;top:0;height:92px;display:flex;align-items:center;justify-content:space-between;padding:0 var(--hx-gut);z-index:50;transition:height .3s,background .3s,box-shadow .3s}
 .hx-logo{font-weight:700;font-size:28px;letter-spacing:-.045em;text-decoration:none;color:#fff}
 .hx-tab{position:absolute;left:50%;top:0;transform:translateX(-50%);display:flex;gap:4px;align-items:center;height:64px;padding:0 22px;background:var(--hx-paper);color:var(--hx-acc-fg);border-radius:0 0 26px 26px}
 .hx-tab::before,.hx-tab::after{content:"";position:absolute;top:0;width:26px;height:26px}
@@ -1065,3 +1065,15 @@ a.ct:hover{border-color:var(--ink)}
   .et-c h3{margin-top:22px!important;font-size:22px}
   .et-c p{font-size:15.5px}
 }
+
+/* ── Главная: шапка всегда сверху. Над первым экраном — прозрачная, после прокрутки — светлая, тёмный текст ── */
+.hx-solid .hx-top{height:72px;background:rgba(244,243,239,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(42,37,34,.08)}
+.hx-solid .hx-logo,.hx-solid .hx-r a{color:#2A2522}
+.hx-solid .hx-tab{height:72px;background:none}
+.hx-solid .hx-tab::before,.hx-solid .hx-tab::after{display:none}
+.hx-solid .hx-call,.hx-solid .hx-burger{border-color:rgba(42,37,34,.18);color:#2A2522}
+.hx-solid .hx-burger i{background:#2A2522;box-shadow:0 -6px 0 #2A2522,0 6px 0 #2A2522}
+.hx-solid .hx-wa{background:#4A3F37;border-color:#4A3F37;color:#F4F0EA!important}
+.hx-solid .hx-ul{border-bottom-color:#2A2522}
+.menu-open.hx-solid .hx-burger i{background:transparent;box-shadow:none}
+@media (max-width:900px){.hx-solid .hx-top{height:64px}}

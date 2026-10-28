@@ -48,6 +48,9 @@
       $('.hx-name', hx).textContent = hxNames[hxI];
       $$('.hx-bars i', hx).forEach(function (b, k) { b.className = k < hxI ? 'done' : k === hxI ? 'on' : ''; });
     }, 7000);
+    /* шапка закреплена сверху: после прокрутки становится светлой */
+    var hxSolid = function () { document.body.classList.toggle('hx-solid', window.scrollY > 40); };
+    window.addEventListener('scroll', hxSolid, { passive: true }); hxSolid();
     if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { document.body.classList.toggle('past-hx', !es[0].isIntersecting); }, { threshold: .15 }).observe(hx);
     else document.body.classList.add('past-hx');
   }
