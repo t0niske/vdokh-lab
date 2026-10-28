@@ -28,14 +28,6 @@ const OFFER = {
 
 const icon = (n, cls = 'ic') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
 
-/* Логотип — слово AROMÉ шрифтом Tenor Sans, как вордмарк в референсе; весь остальной текст — Golos Text.
-   Штатное É на мелком кегле читается как È, поэтому ударение над E рисуется отдельной чертой. */
-const WORD = '<span class="logo-w" aria-hidden="true">Arom<span class="logo-e">e</span></span>';
-
-/* Меню по стратегии: Запахи · Помещения · Цены · Как работаем и кнопка «Написать в WhatsApp» */
-const NAV_L = [['запахи', 'zapahi/'], ['помещения', 'pomeshcheniya/']];
-const NAV_R = [['цены', 'ceny/'], ['как работаем', 'kak-my-rabotaem/']];
-const NAV_M = [...NAV_L, ...NAV_R, ['для ОСИ и УК', 'osi/'], ['для дома', 'kvartira/'], ['статьи', 'stati/'], ['контакты', 'kontakty/']];
 
 /* Подбор «Где пахнет?»: первыми — частые случаи из стратегии. Ссылка — на страницу помещения;
    у «Дома» своя страница и свой комплект. */
@@ -55,24 +47,23 @@ const PK = [
   return Object.assign({ url: `pomeshcheniya/${x.slug}/`, odors: pl && pl.odors, setup: pl && pl.setup }, x);
 });
 
-function header(p) {
-  const link = ([n, h]) => `<a href="/${h}"${p.section === h ? ' aria-current="true"' : ''}>${n}</a>`;
-  return `<a class="skip" href="#main">К содержанию</a>
-<p class="ann"><span class="ann-x">${OFFER.start} <span class="ann-d">·</span> ответим</span><span class="ann-m">Ответим</span> за 15 минут</p>
-<header class="hdr" id="hdr">
-  <div class="hdr-in">
-    <div class="hdr-l">
-      <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">${icon('menu')}${icon('close', 'ic ic-x')}<span>меню</span></button>
-      <nav class="hdr-nav" aria-label="Разделы">${NAV_L.map(link).join('')}</nav>
+/* Шапка (согласована 27.10.2026): логотип, меню во вкладке, звонок, WhatsApp, «Подобрать решение».
+   На главной лежит внутри первого экрана и светлеет после прокрутки, на внутренних страницах сразу светлая
+   (body.hx-solid). Текущий раздел подчёркнут. «Коллекция» — каталог ароматов /aromaty/ */
+const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'aromaty/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/']];
+function hxHeader(p) {
+  const link = ([n, h]) => `<a href="/${h}"${p.section && p.section === h ? ' aria-current="page"' : ''}>${n}</a>`;
+  return `<header class="hx-top">
+    <a class="hx-logo" href="/" aria-label="Aromé — на главную">Aromé</a>
+    <nav class="hx-tab" aria-label="Разделы">${HX_NAV.map(link).join('')}</nav>
+    <div class="hx-r">
+      <a class="hx-call" href="tel:${C.phoneRaw}" aria-label="Позвонить">${icon('phone')}</a>
+      <a class="hx-wa" href="${wa(p.pageName)}" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">${icon('wa')}<span>WhatsApp</span></a>
+      <a class="hx-ul" href="#zayavka">Подобрать решение</a>
+      <button class="hx-burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i></button>
     </div>
-    <a class="logo" href="/" aria-label="Aromé — на главную">${WORD}</a>
-    <div class="hdr-r">
-      <nav class="hdr-nav" aria-label="Сервис">${NAV_R.map(link).join('')}</nav>
-      <a class="hdr-cta" href="${wa(p.pageName)}" target="_blank" rel="noopener">${icon('wa')}<span>Написать в WhatsApp</span></a>
-    </div>
-  </div>
-  <nav class="menu" id="menu" aria-label="Основное меню">${NAV_M.map(link).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
-</header>`;
+    <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${HX_NAV.map(link).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
+  </header>`;
 }
 
 /* На телефоне — закреплённая нижняя панель «WhatsApp · Позвонить», без всплывающих окон */
@@ -150,8 +141,9 @@ ${analytics()}
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
-<body class="${p.bodyClass || ''}" data-page="${esc(p.pageName)}">
-${p.ownHeader ? '<a class="skip" href="#main">К содержанию</a>' : header(p)}
+<body class="${p.ownHeader ? p.bodyClass || '' : `hx-solid pg-body${p.bodyClass ? ' ' + p.bodyClass : ''}`}" data-page="${esc(p.pageName)}">
+<a class="skip" href="#main">К содержанию</a>
+${p.ownHeader ? '' : hxHeader(p)}
 <main id="main">
 ${p.body}
 ${p.noCta ? '' : p.leadForm ? leadForm(p) : cta(p, p.cta || {})}
@@ -254,13 +246,13 @@ function stages() {
 
 /* Вопросы на главной (по референсу 28.10.2026): список во всю ширину, справа круглая кнопка «+», у открытого — «×».
    Первый вопрос открыт. Точки в конце ответов убираем, как во всех новых блоках главной */
-function faqHome(list, p) {
+function faqHome(list, p, o = {}) {
   const noDot = s => s.replace(/\.$/, '');
   return `<section class="fq" id="voprosy">
   <div class="fq-wrap">
     <p class="fq-k">вопросы</p>
     <div class="fq-top">
-      <h2 class="fq-h">Частые <em>вопросы</em></h2>
+      <h2 class="fq-h">${o.h || 'Частые <em>вопросы</em>'}</h2>
       <p class="fq-lead">Не нашли ответ? <a href="${wa(p.pageName, 'У меня вопрос.')}" target="_blank" rel="noopener">Спросите в&nbsp;WhatsApp</a> — ответим и&nbsp;подскажем по&nbsp;вашему пространству</p>
     </div>
     <div class="fq-list">${list.map(([q, a], i) => `<details class="fq-it"${i ? '' : ' open'}><summary><h3>${esc(noDot(q))}</h3><i aria-hidden="true"></i></summary><p>${noDot(a)}</p></details>`).join('')}</div>
@@ -275,14 +267,15 @@ const PR_CARD = {
   nova1000: { photo: 'pr-large', alt: 'Просторное лобби отеля с колоннами из травертина', tag: 'Большое пространство', for: 'Лобби отеля, торговый зал, ресторан', dark: true }
 };
 const months = n => n + ' ' + (n === 1 ? 'месяц' : n < 5 ? 'месяца' : 'месяцев');
-function pricing() {
-  return `<section class="pr" id="ceny">
-  <div class="pr-wrap">
+/* o.bare — без подписи и заголовка: на странице «Цены» их заменяет верх страницы */
+function pricing(o = {}) {
+  return `<section class="pr" id="${o.bare ? 'podpiska' : 'ceny'}">
+  <div class="pr-wrap">${o.bare ? '' : `
     <p class="pr-k">цены</p>
     <div class="pr-top">
       <h2 class="pr-h">Стоимость <em>подписки</em></h2>
       <p class="pr-lead">Аппарат в&nbsp;аренду, масла, настройка и&nbsp;обслуживание — в&nbsp;одной цене. Первые ${D.trialDays}&nbsp;дня бесплатно</p>
-    </div>
+    </div>`}
     <div class="pr-grid">
       ${D.devices.map(d => { const c = PR_CARD[d.id]; return `<div class="pr-ph"><img src="${site.url(`assets/img/${c.photo}.webp`)}" alt="${c.alt}" loading="lazy"><span>${c.tag} · <b>до ${d.area} м²</b></span></div>
       <article class="pr-card${c.dark ? ' pr-dk' : ''}">
@@ -294,6 +287,70 @@ function pricing() {
         <a class="pr-btn" href="#zayavka">Оставить заявку</a>
       </article>`; }).join('\n      ')}
     </div>
+  </div>
+</section>`;
+}
+
+/* Верх внутренней страницы (вариант A, согласован 28.10.2026, макет design/arome-home/inner-gen.js):
+   крошки в квадратных скобках строчными, H1 с курсивной второй строкой, справа текст и плашки с фактами */
+function pageTop(p, o) {
+  const bc = p.breadcrumbs.map(([n, h], i, a) => i < a.length - 1 ? `<a href="/${h}">${n.toLowerCase()}</a>` : `<span aria-current="page">${n.toLowerCase()}</span>`).join(' / ');
+  return `<section class="pg">
+  <div class="pg-wrap">
+    <nav class="pg-k" aria-label="Хлебные крошки">${bc}</nav>
+    <div class="pg-top">
+      <h1 class="pg-h">${o.h1}</h1>
+      <div class="pg-side">
+        <p>${o.lead}</p>${o.facts ? `
+        <div class="pg-facts">${o.facts.map(f => `<span>${f}</span>`).join('')}</div>` : ''}
+      </div>
+    </div>
+  </div>
+</section>`;
+}
+
+/* Что входит в подписку (страница «Цены»): слева заголовок, справа 6 пунктов в две колонки с курсивными номерами */
+const INCL = [
+  ['Аппарат Nova', 'Металлический диффузор на&nbsp;время подписки — оборудование покупать не&nbsp;нужно'],
+  ['Подбор аромата', 'Пробники композиций из&nbsp;коллекции под&nbsp;характер вашего бизнеса'],
+  ['Установка', 'Подключаем аппарат к&nbsp;вентиляции и&nbsp;настраиваем расписание под&nbsp;часы работы'],
+  ['Масла', 'Заправляем аромамасло по&nbsp;графику — следить за&nbsp;уровнем не&nbsp;нужно'],
+  ['Сервис', 'Проверяем работу и&nbsp;заменяем аппарат при поломке'],
+  ['Смена аромата', 'Захотите другой аромат — поменяем при ближайшем визите без доплаты']
+];
+function included() {
+  return `<section class="inc" id="chto-vhodit">
+  <div class="inc-wrap">
+    <div>
+      <p class="inc-k">что входит</p>
+      <h2 class="inc-h">Всё для аромата <em>в&nbsp;одной подписке</em></h2>
+      <p class="inc-lead">Вам не&nbsp;нужно ничего покупать и&nbsp;заправлять — за&nbsp;аппаратом и&nbsp;ароматом следим мы</p>
+    </div>
+    <ol class="inc-list">${INCL.map(([t, d], i) => `<li><i>0${i + 1}</i><h3>${t}</h3><p>${d}</p></li>`).join('')}</ol>
+  </div>
+</section>`;
+}
+
+/* Какой комплект нужен (страница «Цены»): строки по площади, цена в месяц при подписке на 6 месяцев — из прайса */
+function kits() {
+  const [n300, n1000] = D.devices, m6 = d => D.perMonth(d.plans[2]);
+  const rows = [
+    ['Бутик, кофейня, салон, офис', `до ${n300.area} м²`, `1 × ${n300.name}`, D.fmt(m6(n300))],
+    ['Ресторан, лобби отеля, торговый зал', `до ${n1000.area} м²`, `1 × ${n1000.name}`, D.fmt(m6(n1000))],
+    ['Несколько залов или этажей', `больше ${n1000.area} м²`, `${n1000.name} + ${n300.name}`, 'от ' + D.fmt(m6(n1000) + m6(n300))]
+  ];
+  return `<section class="kn" id="komplekt">
+  <div class="kn-wrap">
+    <p class="kn-k">сколько аппаратов</p>
+    <div class="kn-top">
+      <h2 class="kn-h">Какой комплект <em>нужен вашему пространству</em></h2>
+      <p class="kn-lead">Считаем по&nbsp;площади. Точный комплект подскажем после заявки — по&nbsp;планировке и&nbsp;вентиляции</p>
+    </div>
+    <div class="kn-tb" role="table" aria-label="Комплект аппаратов по площади">
+      <div class="kn-row kn-th" role="row"><span role="columnheader">Пространство</span><span role="columnheader">Площадь</span><span role="columnheader">Комплект</span><span class="kn-pr" role="columnheader">В&nbsp;месяц</span></div>
+      ${rows.map(([s, a, k, pr]) => `<div class="kn-row" role="row"><span class="kn-sp" role="cell">${s}</span><span class="kn-ar" role="cell">${a}</span><span class="kn-set" role="cell">${k}</span><span class="kn-pr" role="cell">${pr}<small>в&nbsp;месяц</small></span></div>`).join('\n      ')}
+    </div>
+    <div class="kn-foot"><p class="kn-note">Цена в&nbsp;месяц при подписке на&nbsp;6&nbsp;месяцев</p><a class="kn-btn" href="#zayavka">Рассчитать для моего пространства</a></div>
   </div>
 </section>`;
 }
@@ -544,4 +601,4 @@ function spaces(p) {
 </section>`;
 }
 
-module.exports = { device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+module.exports = { hxHeader, pageTop, included, kits, device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

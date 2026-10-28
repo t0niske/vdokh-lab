@@ -88,10 +88,6 @@ const OSI_TEMPLATE = `ОБЪЯВЛЕНИЕ ДЛЯ ЖИЛЬЦОВ
 Председатель ОСИ: ____________________
 `;
 
-/* Меню первого экрана главной (согласовано 27.10.2026). «Коллекция» — каталог ароматов /aromaty/. */
-const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'aromaty/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/']];
-const hxLink = ([n, h]) => `<a href="/${h}">${n}</a>`;
-
 function register(site) {
   const { add, img } = site;
 
@@ -120,17 +116,7 @@ function register(site) {
   <div class="hx-sl" data-scroll-x>${img('hero-s1', { cls: 'hx-i', eager: true })}${img('hero-s2', { cls: 'hx-i' })}${img('hero-s3', { cls: 'hx-i' })}</div>
   <div class="hx-shade"></div>
   <div class="hx-lines" aria-hidden="true"><span></span></div>
-  <header class="hx-top">
-    <a class="hx-logo" href="/" aria-label="Aromé — на главную">Aromé</a>
-    <nav class="hx-tab" aria-label="Разделы">${HX_NAV.map(hxLink).join('')}</nav>
-    <div class="hx-r">
-      <a class="hx-call" href="tel:${C.phoneRaw}" aria-label="Позвонить">${icon('phone')}</a>
-      <a class="hx-wa" href="${UI.wa(this.pageName)}" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">${icon('wa')}<span>WhatsApp</span></a>
-      <a class="hx-ul" href="#zayavka">Подобрать решение</a>
-      <button class="hx-burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i></button>
-    </div>
-    <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${HX_NAV.map(hxLink).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
-  </header>
+  ${UI.hxHeader(this)}
   <div class="hx-txt">
     <h1><span class="hx-s1">Ароматизация помещений</span><span class="hx-s2">для бизнеса в&nbsp;Астане</span></h1>
     <p class="hx-lead">Подберём аромат под характер вашего бизнеса, установим оборудование в&nbsp;вентиляцию и&nbsp;возьмём обслуживание на&nbsp;себя</p>
@@ -558,36 +544,35 @@ ${UI.faq(howFaq, 'Частые вопросы', this)}`;
     }
   });
 
-  /* ── Цены ── */
+  /* ── Цены (вариант A, согласован 28.10.2026): верх страницы, карточки цен с главной, что входит, комплект по площади,
+     вопросы о цене и заявка. Без точек в конце текстов ── */
   const priceFaq = [
-    ['Можно ли сначала попробовать?', `Да: ${TRIAL.toLowerCase()}. Поставим аппарат, а вы решите, оставлять ли его.`],
-    ['Нужно ли покупать аппарат?', 'Нет. Аппарат выдаётся в аренду, масла и обслуживание входят в подписку.'],
-    TX.faq.contract,
-    ['Можно ли поставить аппарат только в туалет?', 'Да, это частый случай. Одного компактного Nova 300 хватает на санузел с несколькими кабинками.']
+    ['Можно ли сначала попробовать?', `Да, первые ${D.trialDays}&nbsp;дня бесплатно. Поставим аппарат с&nbsp;выбранным ароматом, а&nbsp;вы решите, оставлять&nbsp;ли его`],
+    ['Нужно ли покупать аппарат?', 'Нет. Аппарат выдаётся на&nbsp;время подписки, масла, установка и&nbsp;обслуживание входят в&nbsp;цену'],
+    ['Можно ли платить помесячно?', `Да. Месяц ${N300.name} стоит ${D.fmt(N300.plans[0].total)}. При оплате за&nbsp;3 или 6&nbsp;месяцев цена в&nbsp;пересчёте на&nbsp;месяц ниже`],
+    ['Как оформляется работа?', 'Договор с&nbsp;ИП или ТОО и&nbsp;оплата за&nbsp;выбранный период'],
+    ['Если аромат не понравится?', 'Скажите нам — при ближайшем визите поставим другую композицию без доплаты']
   ];
   add({
-    path: 'ceny/', section: 'ceny/',
-    title: 'Цены на устранение запахов и ароматизацию в Астане — Aromé',
-    description: `Цены на устранение запахов: Nova 300 от ${UI.pm(N300)}, Nova 1000 от ${UI.pm(N1000)} в месяц. Аренда аппарата, масла и обслуживание в подписке, ${TRIAL.toLowerCase()}.`,
-    h1: 'Цены',
+    path: 'ceny/', section: 'ceny/', pageName: 'Цены', leadForm: true,
+    title: 'Цены на ароматизацию помещений для бизнеса в Астане — Aromé',
+    description: `Подписка на ароматизацию для бизнеса: ${N300.name} от ${UI.pm(N300)}, ${N1000.name} от ${UI.pm(N1000)} в месяц. Аппарат, масла, установка и обслуживание включены, ${TRIAL.toLowerCase()}.`,
+    h1: 'Цены на ароматизацию для бизнеса в Астане',
     breadcrumbs: [HOME, ['Цены', 'ceny/']],
-    schema: [site.schema.faq(priceFaq), site.schema.service({ name: 'Устранение неприятных запахов в помещениях', description: 'Аппарат с маслом и обслуживание по подписке', low: PM300, high: N1000.plans[2].total }, 'ceny/')],
+    schema: [site.schema.faq(priceFaq.map(([q, a]) => [q, a.replace(/&nbsp;/g, ' ')])), site.schema.service({ name: 'Ароматизация помещений для бизнеса', description: 'Аппарат, аромамасла, установка и обслуживание по подписке', type: 'Ароматизация помещений', low: PM300, high: N1000.plans[2].total }, 'ceny/')],
     get body() {
-      return UI.pageHead(this, { kicker: 'Подписка', lead: 'Вы не покупаете оборудование. Платите за подписку: аппарат в аренду, масла, настройка и обслуживание. Чем длиннее срок, тем ниже цена в месяц.' }) + `
-<section class="sec sec-t"><div class="wrap">${devices()}<p class="note">${TX.included.join(' · ')}.</p>${trialBar(this)}</div></section>
-<section class="sec sec-alt">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Примеры</p><h2 class="h2">Типовые комплекты по помещениям</h2></div></div>
-    <div class="kits">${[...PLACES.map(pl => [pl.icon, pl.name, pl.setup, `pomeshcheniya/${pl.slug}/`]), ['home', 'Квартира', homeSetup, 'kvartira/']].map(([ic, n, s, h]) => `<a class="kit" href="/${h}"><span class="kit-t">${icon(ic)}${n}</span><span class="kit-n">${s.note}</span><span class="kit-s">${UI.setupText(s)}</span><b class="kit-p">${D.fmt(UI.setupPm(s))}<small> / мес</small></b></a>`).join('')}</div>
-    <p class="note">Цена в месяц при подписке на 6 месяцев. Подъезды для ОСИ — <a href="/osi/">цена за подъезд</a>.</p>
-  </div>
-</section>
-<section class="sec"><div class="wrap narrow prose">
-  <h2>Из чего складывается цена</h2>
-  <p>Цена зависит только от числа и типа аппаратов и срока подписки. Nova 300 закрывает помещение до 300 м² или отдельный санузел, раздевалку, кабинет. Nova 1000 — зал до 1000 м², лобби, фойе тойханы или паркинг.</p>
-  <p>Каждое закрытое помещение — туалет, раздевалка, коридор этажа — обычно получает свой аппарат: аромат плохо проходит через закрытые двери. Сколько аппаратов нужно, скажем по описанию: где пахнет и какая площадь.</p>
-</div></section>
-${UI.faq(priceFaq, 'Частые вопросы', this)}`;
+      return UI.pageTop(this, {
+        h1: 'Цены на&nbsp;ароматизацию <em>для бизнеса в&nbsp;Астане</em>',
+        lead: 'Вы&nbsp;не покупаете оборудование: аппарат, масла, установка и&nbsp;обслуживание входят в&nbsp;подписку. Чем длиннее срок, тем ниже цена в&nbsp;месяц',
+        facts: [`<b>от ${UI.pm(N300)}</b> в&nbsp;месяц`, `<b>${D.trialDays} дня</b> бесплатно`]
+      }) + `
+${UI.pricing({ bare: true })}
+
+${UI.included()}
+
+${UI.kits()}
+
+${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}`;
     }
   });
 
