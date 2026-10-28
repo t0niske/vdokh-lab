@@ -143,6 +143,11 @@
       var msg = 'Заявка на тест ' + D.trialDays + ' дня бесплатно.' + (name ? '\nИмя: ' + name : '') + '\nТелефон: +7 ' + lfPhone.value + (sp ? '\nПространство: ' + sp.value : '');
       track('form_submit', { space: sp ? sp.value : '', where: lf.closest('.rq') ? 'modal' : 'block' });
       track('test_request', { via: 'form' });
+      /* заявка в систему: на своём домене /api/lead пересылается сервером в CRM; на github.io просто 404 */
+      try {
+        fetch('/api/lead', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, phone: '+7' + digits, space: sp ? sp.value : '', page: document.title }) }).catch(function () {});
+      } catch (err) {}
       window.open(wa(msg), '_blank', 'noopener');
     });
   });
