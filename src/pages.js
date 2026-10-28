@@ -252,12 +252,12 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
   add({
     path: 'stati/', section: 'stati/', pageName: 'Блог', leadForm: true,
     title: 'Блог Aromé: статьи для владельцев и управляющих',
-    description: 'Блог Aromé: практические статьи для владельцев и управляющих пространствами в Астане — об атмосфере, отзывах гостей и сезонных особенностях помещений.',
+    description: 'Блог Aromé: статьи для владельцев и управляющих — как выбрать аромат для бизнеса, что показывают исследования об аромате и продажах, как проходит тест.',
     h1: 'Блог Aromé',
     breadcrumbs: [HOME, ['Блог', 'stati/']],
     schema: [site.schema.itemList(ARTICLES.map(a => [a.title, `stati/${a.slug}/`]))],
     get body() {
-      return UI.pageTop(this, { h1: 'Блог <em>Aromé</em>', lead: 'Практические статьи для владельцев и&nbsp;управляющих: об&nbsp;атмосфере пространства, отзывах гостей и&nbsp;сезонных особенностях' }) + UI.blogCards(cardsA(ARTICLES));
+      return UI.pageTop(this, { h1: 'Блог <em>Aromé</em>', lead: 'Статьи для владельцев и&nbsp;управляющих: как выбрать аромат, что говорят исследования и&nbsp;как проверить аромат у&nbsp;себя' }) + UI.blogCards(cardsA(ARTICLES));
     }
   });
 
