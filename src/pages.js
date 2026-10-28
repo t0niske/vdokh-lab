@@ -144,7 +144,7 @@ function register(site) {
   <div class="ab-g">
     <div class="ab-l">
       <p class="ab-k">о нас</p>
-      <div class="ab-dev"><div class="ab-aura" aria-hidden="true" data-scroll-x><b></b><i></i><i></i><i></i></div>${img('nova-cut', { cls: 'ab-img' })}</div>
+      <div class="ab-map"><img class="ab-kz" src="/assets/img/kz-map.svg" alt="Карта Казахстана с отметкой Астаны" width="2796" height="1532" loading="lazy"><span class="ab-pin" style="left:60.7%;top:29.8%"><i aria-hidden="true"></i><b>Астана</b></span></div>
     </div>
     <div class="ab-txt">
       <h2 class="ab-h">Aromé — ароматизация, <em>о которой не нужно думать</em></h2>

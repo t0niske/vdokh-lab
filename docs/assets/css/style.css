@@ -588,14 +588,17 @@ a.ct:hover{border-color:var(--ink)}
 .ab-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;max-width:1440px;margin:0 auto;padding:0 var(--ab-gut)}
 .ab-k{margin:0;font-size:18px;color:#8A847C;text-transform:lowercase}
 .ab-k::before{content:"["}.ab-k::after{content:"]"}
-.ab-dev{position:relative;display:grid;place-items:end center;height:450px;margin:0 0 24px}
-.ab-img{position:relative;z-index:2;width:auto;height:430px;filter:drop-shadow(0 40px 50px rgba(40,28,16,.22))}
-.ab-aura{position:absolute;left:0;right:0;top:8%;height:100%;display:grid;place-items:center;z-index:1;pointer-events:none}
-.ab-aura b{position:absolute;width:860px;height:860px;border-radius:50%;background:radial-gradient(closest-side,rgba(122,88,62,.55) 0%,rgba(150,112,82,.38) 30%,rgba(186,154,124,.18) 58%,rgba(214,196,176,.07) 80%,rgba(244,243,239,0) 100%);animation:ab-breathe 5s ease-in-out infinite}
-.ab-aura i{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(closest-side,rgba(122,88,62,0) 58%,rgba(122,88,62,.32) 84%,rgba(170,136,106,.12) 95%,rgba(122,88,62,0) 100%);animation:ab-ring 5s cubic-bezier(.22,.61,.36,1) infinite}
-.ab-aura i:nth-child(3){animation-delay:.5s}.ab-aura i:nth-child(4){animation-delay:1.5s}
-@keyframes ab-ring{0%{transform:scale(1);opacity:1}100%{transform:scale(3);opacity:0}}
-@keyframes ab-breathe{50%{transform:scale(1.06)}}
+/* карта Казахстана из точек (.gfx/kz-map.js) уходит за левый край, как в референсе; Астана — коричневая точка с пульсом */
+.ab-l{display:flex;flex-direction:column}
+.ab-map{position:relative;margin:auto 0 auto calc(-1 * var(--ab-gut));padding:28px 0}
+.ab-kz{display:block;width:100%;height:auto}
+.ab-pin{position:absolute;display:flex;align-items:center;gap:12px;transform:translate(-9px,-50%)}
+.ab-pin i{position:relative;flex:none;width:18px;height:18px;border-radius:50%;background:var(--ab-acc);box-shadow:0 0 0 5px rgba(74,63,55,.18)}
+.ab-pin i::before,.ab-pin i::after{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(74,63,55,.35);animation:ab-pin 2.6s ease-out infinite}
+.ab-pin i::after{animation-delay:1.3s}
+@keyframes ab-pin{0%{transform:scale(1);opacity:.9}100%{transform:scale(4);opacity:0}}
+.ab-pin b{padding:8px 14px;border-radius:999px;background:rgba(251,250,247,.9);box-shadow:0 10px 24px -12px rgba(42,37,34,.4);font-size:15px;font-weight:600;color:#2A2522;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.ab-pin i::before,.ab-pin i::after{animation:none}}
 .ab-txt{position:relative;z-index:2;padding:24px 0 24px;align-self:center}
 .ab-h{margin:0 0 26px;text-wrap:wrap;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px)}
 .ab-h em{display:block;font-family:var(--ab-s);font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
@@ -605,14 +608,11 @@ a.ct:hover{border-color:var(--ink)}
 @media (max-width:900px){
   .ab{padding:64px 0 8px}
   .ab-g{grid-template-columns:minmax(0,1fr);gap:0}
-  .ab-dev{height:340px;margin:0 0 24px}
-  .ab-img{height:310px}
-  .ab-aura b{width:480px;height:480px}
-  .ab-aura i{width:170px;height:170px}
+  .ab-map{margin:24px 0 28px calc(-1 * var(--ab-gut))}
+  .ab-pin b{font-size:13.5px;padding:6px 11px}
   .ab-txt{padding:10px 0 56px}
   .ab-h{font-size:36px}
 }
-@media (prefers-reduced-motion:reduce){.ab-aura b,.ab-aura i{animation:none}}
 
 /* ── Главная: блок «Аромат и продажи» (согласован 28.10.2026, макет design/arome-home/sales-list.html) ──
    Строки «название — что изучали — → результат», счётчики (main.js), коричневый акцент --acc. */
