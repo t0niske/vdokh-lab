@@ -122,6 +122,12 @@ function analytics() {
   return s;
 }
 
+/* Версия в адресах стилей и скриптов (?v=…) — хэш их содержимого: GitHub Pages кэширует файлы до 10 минут,
+   и без версии браузер после публикации показывает новую страницу со старыми стилями */
+const VER = require('crypto').createHash('md5')
+  .update(['css/style.css', 'js/main.js'].map(f => require('fs').readFileSync(require('path').join(__dirname, 'assets', f))).join(''))
+  .digest('hex').slice(0, 8);
+
 function layout(p, head) {
   /* Переадресация со старых адресов (статьи, заменённые новой); адрес в meta относительный — base его не переписывает */
   if (p.redirect) return `<!doctype html>
@@ -129,7 +135,7 @@ function layout(p, head) {
 <head>
 ${head}
 <meta http-equiv="refresh" content="0; url=${'../'.repeat(p.path.split('/').filter(Boolean).length)}${p.redirect}">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css?v=${VER}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body><main class="wrap nf"><h1>Страница переехала</h1><p class="lead"><a href="/${p.redirect}">Перейти на новую страницу</a></p></main></body>
@@ -144,7 +150,7 @@ ${analytics()}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Tenor+Sans&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?${p.fonts || 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500'}&display=swap">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css?v=${VER}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 </head>
 <body class="${p.ownHeader ? p.bodyClass || '' : `hx-solid pg-body${p.bodyClass ? ' ' + p.bodyClass : ''}`}" data-page="${esc(p.pageName)}">
@@ -157,8 +163,8 @@ ${p.noCta ? '' : p.leadForm ? leadForm(p) : cta(p, p.cta || {})}
 ${footer()}
 ${reqModal(p)}
 ${mbar(p)}
-<script src="/assets/js/data.js"></script>
-<script src="/assets/js/main.js"></script>
+<script src="/assets/js/data.js?v=${VER}"></script>
+<script src="/assets/js/main.js?v=${VER}"></script>
 </body>
 </html>`;
 }
