@@ -1579,3 +1579,18 @@ a.kc-c:hover i{transform:translateX(4px)}
   .kc-c{min-height:0;padding:22px 20px;border-radius:22px}
   .kc-c b{margin-top:6px;font-size:21px}
 }
+
+/* ── Зоны аромата (28.10.2026): аромат идёт через вентиляцию — у зоны настроение и семейство ароматов, а не место аппарата ── */
+.sz-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin:22px 0 44px}
+.sz .sz-h{margin:0!important}
+.sz-lead{max-width:42ch;color:#5A534D;font-size:18px}
+.sz-c p{margin-bottom:6px!important}
+.sz-f{align-self:flex-start;margin-top:auto;padding:6px 12px;border-radius:999px;border:1px solid #E1DBD1;font-size:13px;color:#5A534D}
+.sz-c i{margin-bottom:22px}
+.sz-c h3{margin-top:0}
+@media (max-width:900px){
+  .sz-top{flex-direction:column;align-items:flex-start;gap:16px;margin:16px 0 24px}
+  .sz-lead{font-size:16px}
+  .sz-c i{margin-bottom:10px}
+  .sz-f{margin-top:6px}
+}
