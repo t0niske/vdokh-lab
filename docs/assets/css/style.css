@@ -753,6 +753,9 @@ a.ct:hover{border-color:var(--ink)}
 @media (max-width:1180px){.ps-nav{display:flex}}
 .ps-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--ps-gut);padding:0 var(--ps-gut) 8px;scrollbar-width:none}
 .ps-track::-webkit-scrollbar{display:none}
+@media (hover:hover) and (pointer:fine){.ps-track{cursor:grab}}
+.ps-track.drag{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.ps-track.drag .ps-card{pointer-events:none}
 .ps-card{position:relative;flex:none;width:clamp(300px,31vw,450px);aspect-ratio:3/4;border-radius:var(--ps-r);overflow:hidden;scroll-snap-align:start;background:#2A2522;color:#fff}
 .ps-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s}
 .ps-card:hover>img{transform:scale(1.04)}

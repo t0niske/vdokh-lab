@@ -150,6 +150,29 @@
     var step = function (d) { t.scrollBy({ left: d * ($('.ps-card', t).offsetWidth + 16), behavior: 'smooth' }); };
     t.addEventListener('scroll', upd, { passive: true }); window.addEventListener('resize', upd); upd();
     if (nav.length) { nav[0].addEventListener('click', function () { step(-1); }); nav[1].addEventListener('click', function () { step(1); }); }
+    /* мышью ленту можно тянуть; после перетаскивания клик по карточке не срабатывает, лента доводится до ближайшей карточки */
+    var drag = null, moved = false;
+    t.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      drag = { x: e.clientX, left: t.scrollLeft }; moved = false;
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var dx = e.clientX - drag.x;
+      if (!moved && Math.abs(dx) > 5) { moved = true; t.classList.add('drag'); }
+      if (moved) t.scrollLeft = drag.left - dx;
+    });
+    window.addEventListener('pointerup', function () {
+      if (!drag) return;
+      drag = null;
+      if (!moved) return;
+      var l = t.scrollLeft; t.classList.remove('drag'); t.scrollLeft = l;
+      var c = $$('.ps-card', t), best = 0, pad = parseFloat(getComputedStyle(t).paddingLeft);
+      c.forEach(function (x, i) { if (Math.abs(x.offsetLeft - pad - l) < Math.abs(c[best].offsetLeft - pad - l)) best = i; });
+      t.scrollTo({ left: c[best].offsetLeft - pad, behavior: 'smooth' });
+    });
+    t.addEventListener('click', function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
+    t.addEventListener('dragstart', function (e) { e.preventDefault(); });
   });
 
   /* Счётчики блока «Аромат и продажи»: от 0 до значения за 1,6 с, когда цифра появляется на экране */
