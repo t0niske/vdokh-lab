@@ -256,10 +256,10 @@ function collection(p, list, o = {}) {
   <div class="kl-l">
     <p class="kl-k">коллекция</p>
     <${H} class="kl-h">${o.title || 'Ароматы <em>для вашего пространства</em>'}</${H}>
-    <p class="kl-lead">${o.lead || 'Выберите аромат — покажем, какой он и&nbsp;где раскрывается лучше всего.'}</p>
-    <div class="kl-list" role="tablist" aria-label="Ароматы">${list.map((s, i) => `<button type="button" class="kl-it${i ? '' : ' on'}" role="tab" aria-selected="${!i}" data-i="${i}"><em>${s.no}</em>${esc(s.name)}<small>${s.famLow}</small></button>`).join('')}</div>
+    <p class="kl-lead">${o.lead || 'Выберите аромат — покажем, какой он и&nbsp;где раскрывается лучше всего'}</p>
+    <div class="kl-list" role="tablist" aria-label="Ароматы">${list.map((s, i) => `<button type="button" class="kl-it${i ? '' : ' on'}" role="tab" aria-selected="${!i}" data-i="${i}"><em>${s.no}</em>${esc(s.name)}</button>`).join('')}</div>
     ${o.page ? '' : '<a class="kl-all" href="/aromaty/">Смотреть все 32 аромата →</a>'}
-    <p class="kl-mot">Названия — по&nbsp;мотивам известных ароматов.</p>
+    <p class="kl-mot">Названия — по&nbsp;мотивам известных ароматов</p>
   </div>
   <div class="kl-r" data-scroll-x>
     ${photos.map((ph, i) => `<img class="kl-ph${ph === first.photo ? ' on' : ''}" data-ph="${ph}" src="${site.url(`assets/img/${ph}.webp`)}" alt="${ALT[ph]}"${i ? ' loading="lazy"' : ''}>`).join('')}

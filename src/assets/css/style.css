@@ -692,7 +692,6 @@ a.ct:hover{border-color:var(--ink)}
 .kl-it{display:flex;align-items:center;gap:16px;width:100%;padding:20px 0;border:0;border-bottom:1px solid rgba(244,240,234,.18);background:none;font:500 clamp(17px,1.4vw,21px)/1.2 var(--kl-f);letter-spacing:.01em;text-transform:uppercase;text-align:left;color:rgba(244,240,234,.48);cursor:pointer;transition:color .25s}
 .kl-it:hover{color:#F4F0EA}
 .kl-it em{min-width:42px;font-style:normal;font-size:13px;letter-spacing:.04em;color:rgba(244,240,234,.42)}
-.kl-it small{margin-left:auto;font-size:13px;letter-spacing:0;text-transform:none;color:rgba(244,240,234,.42)}
 .kl-it.on{color:#F4F0EA;border-bottom:2px solid #F4F0EA}
 .kl-it.on em,.kl-it.on small{color:#D9CFC3}
 .kl-it:focus-visible{outline:2px solid #F4F0EA;outline-offset:2px}
