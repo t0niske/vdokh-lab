@@ -518,7 +518,10 @@ a.ct:hover{border-color:var(--ink)}
 .hx-tab::before{left:-26px;background:radial-gradient(circle at 0 100%,transparent 26px,var(--hx-paper) 26.5px)}
 .hx-tab::after{right:-26px;background:radial-gradient(circle at 100% 100%,transparent 26px,var(--hx-paper) 26.5px)}
 .hx-tab a{padding:10px 12px;font-size:15px;font-weight:500;border-radius:12px;text-decoration:none;color:inherit}
-.hx-tab a:hover{background:rgba(26,23,20,.06)}
+/* наведение — подчёркивание коричневым акцентом, выезжает от центра */
+.hx-tab a{position:relative}
+.hx-tab a::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;border-radius:2px;background:#4A3F37;transform:scaleX(0);transition:transform .25s ease}
+.hx-tab a:hover::after,.hx-tab a:focus-visible::after{transform:scaleX(1)}
 .hx-r{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500}
 .hx-r a{color:#fff;text-decoration:none}
 .hx-call,.hx-burger{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;background:none;color:#fff;cursor:pointer;padding:0}
