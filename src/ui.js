@@ -292,7 +292,7 @@ function pricing(o = {}) {
 }
 
 /* Верх внутренней страницы (вариант A, согласован 28.10.2026, макет design/arome-home/inner-gen.js):
-   крошки в квадратных скобках строчными, H1 с курсивной второй строкой, справа текст и плашки с фактами */
+   крошки в квадратных скобках строчными, H1 с курсивной второй строкой, справа текст. Плашки с фактами пользователь убрал */
 function pageTop(p, o) {
   const bc = p.breadcrumbs.map(([n, h], i, a) => i < a.length - 1 ? `<a href="/${h}">${n.toLowerCase()}</a>` : `<span aria-current="page">${n.toLowerCase()}</span>`).join(' / ');
   return `<section class="pg">
@@ -301,8 +301,7 @@ function pageTop(p, o) {
     <div class="pg-top">
       <h1 class="pg-h">${o.h1}</h1>
       <div class="pg-side">
-        <p>${o.lead}</p>${o.facts ? `
-        <div class="pg-facts">${o.facts.map(f => `<span>${f}</span>`).join('')}</div>` : ''}
+        <p>${o.lead}</p>
       </div>
     </div>
   </div>

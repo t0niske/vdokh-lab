@@ -1205,7 +1205,7 @@ a.ct:hover{border-color:var(--ink)}
 .hx-tab a[aria-current]::after{transform:scaleX(1)}
 @media (max-width:900px){.pg-body{--hdr:64px}}
 
-/* ── Верх внутренней страницы: [крошки], H1 с курсивной второй строкой, справа текст и плашки ── */
+/* ── Верх внутренней страницы: [крошки], H1 с курсивной второй строкой, справа текст ── */
 .pg{--pg-ink:#2A2522;--pg-ink2:#5A534D;--pg-ink3:#8A847C;--pg-s:"Playfair Display",Georgia,serif;--pg-gut:clamp(20px,4.2vw,64px);
   padding:84px 0 64px;background:#F4F3EF;color:var(--pg-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 :where(.pg,.inc,.kn) :where(h1,h2,h3,p,ol,ul){margin:0}
@@ -1216,9 +1216,6 @@ a.ct:hover{border-color:var(--ink)}
 .pg-h{font-weight:600;letter-spacing:-.045em;line-height:.9;font-size:clamp(44px,5vw,76px);color:inherit}
 .pg-h em{display:block;font-family:var(--pg-s);font-style:italic;font-weight:400;letter-spacing:-.015em;font-size:1.04em;line-height:.98;margin-top:4px}
 .pg-side p{color:var(--pg-ink2);font-size:18px}
-.pg-facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
-.pg-facts span{padding:12px 16px;border-radius:14px;background:#FBFAF7;border:1px solid #E6E1D8;font-size:15px;color:var(--pg-ink2)}
-.pg-facts b{font-weight:600;color:var(--pg-ink)}
 .pg+.pr{padding-top:0}
 
 /* ── Что входит в подписку: слева заголовок, справа 6 пунктов в две колонки ── */
@@ -1264,8 +1261,6 @@ a.ct:hover{border-color:var(--ink)}
   .pg-h{font-size:44px}
   .pg-k{font-size:15px}
   .pg-side p{font-size:16px}
-  .pg-facts{margin-top:18px}
-  .pg-facts span{font-size:14px;padding:10px 14px}
   .inc{padding:64px 0}
   .pr+.inc{padding-top:0}
   .inc-wrap{grid-template-columns:minmax(0,1fr);gap:28px}
