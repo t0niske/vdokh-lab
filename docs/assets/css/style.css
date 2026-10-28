@@ -991,3 +991,38 @@ a.ct:hover{border-color:var(--ink)}
   .pr-card h3{font-size:40px}
   .pr-ph+.pr-card{margin-bottom:14px}
 }
+
+/* ── Главная: вопросы (28.10.2026, по референсу: список во всю ширину, круглая кнопка +/×) ── */
+.fq{--fq-acc:#4A3F37;--fq-ink:#2A2522;--fq-ink2:#5A534D;--fq-ink3:#8A847C;--fq-line:#DCD7CE;--fq-gut:clamp(20px,4.2vw,64px);
+  padding:96px 0;background:#F4F3EF;color:var(--fq-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
+:where(.fq) :where(h2,h3,p){margin:0}
+.fq-wrap{max-width:1440px;margin:0 auto;padding:0 var(--fq-gut)}
+.fq-k{font-size:18px;color:var(--fq-ink3)}.fq-k::before{content:"["}.fq-k::after{content:"]"}
+.fq-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin:22px 0 40px}
+.fq-h{text-wrap:wrap;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px);color:var(--fq-ink)}
+.fq-h em{display:block;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
+.fq-lead{max-width:40ch;color:var(--fq-ink2);font-size:clamp(16px,1.2vw,18px)}
+.fq-lead a{color:var(--fq-ink);text-decoration:underline;text-underline-offset:3px}
+.fq-list{border-top:1px solid var(--fq-line)}
+.fq-it{border-bottom:1px solid var(--fq-line)}
+.fq-it summary{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:26px 0;list-style:none;cursor:pointer}
+.fq-it summary::-webkit-details-marker{display:none}
+.fq-it h3{font-size:clamp(19px,1.6vw,24px);font-weight:600;letter-spacing:-.02em;line-height:1.2;color:var(--fq-ink)}
+/* круглая кнопка: плюс из двух полосок, у открытого вопроса поворачивается в крестик и становится коричневой */
+.fq-it i{position:relative;flex:none;width:60px;height:60px;border-radius:50%;background:#E8E2D8;transition:background .25s,transform .35s cubic-bezier(.2,.8,.2,1)}
+.fq-it i::before,.fq-it i::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:1.6px;margin:-.8px 0 0 -11px;border-radius:1px;background:var(--fq-acc);transition:background .25s}
+.fq-it i::after{transform:rotate(90deg)}
+.fq-it summary:hover i{background:#DDD5C9}
+.fq-it[open] i{background:var(--fq-acc);transform:rotate(45deg)}
+.fq-it[open] i::before,.fq-it[open] i::after{background:#F4F0EA}
+.fq-it p{max-width:96ch;padding:0 84px 30px 0;color:var(--fq-ink2);font-size:17px;line-height:1.55}
+@media (max-width:900px){
+  .fq{padding:64px 0}
+  .fq-top{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:24px}
+  .fq-h{font-size:36px}
+  .fq-it summary{padding:20px 0;gap:16px}
+  .fq-it h3{font-size:18px}
+  .fq-it i{width:46px;height:46px}
+  .fq-it i::before,.fq-it i::after{width:18px;margin-left:-9px}
+  .fq-it p{padding:0 0 22px;font-size:15.5px}
+}

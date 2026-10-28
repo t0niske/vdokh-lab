@@ -212,6 +212,22 @@ function priceCard(p, setup, o = {}) {
 </div>`;
 }
 
+/* Вопросы на главной (по референсу 28.10.2026): список во всю ширину, справа круглая кнопка «+», у открытого — «×».
+   Первый вопрос открыт. Точки в конце ответов убираем, как во всех новых блоках главной */
+function faqHome(list, p) {
+  const noDot = s => s.replace(/\.$/, '');
+  return `<section class="fq" id="voprosy">
+  <div class="fq-wrap">
+    <p class="fq-k">вопросы</p>
+    <div class="fq-top">
+      <h2 class="fq-h">Частые <em>вопросы</em></h2>
+      <p class="fq-lead">Не нашли ответ? <a href="${wa(p.pageName, 'У меня вопрос.')}" target="_blank" rel="noopener">Спросите в&nbsp;WhatsApp</a> — ответим и&nbsp;подскажем по&nbsp;вашему пространству</p>
+    </div>
+    <div class="fq-list">${list.map(([q, a], i) => `<details class="fq-it"${i ? '' : ' open'}><summary><h3>${esc(noDot(q))}</h3><i aria-hidden="true"></i></summary><p>${noDot(a)}</p></details>`).join('')}</div>
+  </div>
+</section>`;
+}
+
 /* Цены (согласованы 28.10.2026, макет design/arome-home/price.html): фото небольшого помещения → Nova 300,
    фото большого → Nova 1000 коричневой карточкой. Суммы — из data.js (прайс PDF) */
 const PR_CARD = {
@@ -430,4 +446,4 @@ function spaces(p) {
 </section>`;
 }
 
-module.exports = { pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+module.exports = { faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

@@ -96,16 +96,24 @@ function register(site) {
   const { add, img } = site;
 
   /* ── Главная ── */
+  /* вопросы главной — про атмосферу и подписку; ответы — из data.js, без обещаний роста продаж */
+  const FQ = q => D.faq.find(f => f[0] === q);
   const homeFaq = [
-    TX.faq.mix, TX.faq.help, TX.faq.pipe, TX.faq.safe,
-    ['Сколько это стоит?', `Аппарат в аренду с маслами и обслуживанием — от ${UI.pm(N300)} в месяц при оплате за 6 месяцев или ${D.fmt(N300.plans[0].total)} помесячно. ${TRIAL}.`]
+    ['Как аромат влияет на продажи?', 'Подходящий аромат делает пространство комфортнее: гости дольше остаются и&nbsp;выше оценивают товары и&nbsp;сервис. Это показывают исследования, но&nbsp;эффект зависит от&nbsp;аромата, пространства и&nbsp;интенсивности — поэтому начинаем с&nbsp;бесплатного теста'],
+    FQ('Нужно ли покупать оборудование?'),
+    FQ('Сколько диффузоров нужно на помещение?'),
+    ['Сколько это стоит?', `Подписка на&nbsp;Nova 300 — от&nbsp;${UI.pm(N300)} в&nbsp;месяц при оплате за&nbsp;6&nbsp;месяцев или ${D.fmt(N300.plans[0].total)} помесячно. Аппарат, масла и&nbsp;обслуживание включены, первые ${D.trialDays}&nbsp;дня бесплатно`],
+    FQ('Как быстро запускается ароматизация?'),
+    FQ('Что, если аромат не подойдёт?'),
+    FQ('Безопасны ли ароматы для людей и животных?'),
+    FQ('Как заключается договор?')
   ];
   add({
     path: '', section: '', priority: '1.0', bodyClass: 'home', pageName: 'Главная', ownHeader: true, leadForm: true,
     fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
     title: 'Ароматизация помещений для бизнеса в Астане | Aromé',
     description: `Ароматизация помещений для бизнеса в Астане: подбор аромата, установка в вентиляцию и обслуживание. От ${UI.pm(N300)} в месяц, тест 3 дня бесплатно.`,
-    schema: [site.schema.website(), site.schema.business(C), site.schema.faq(homeFaq)],
+    schema: [site.schema.website(), site.schema.business(C), site.schema.faq(homeFaq.map(([q, a]) => [q, a.replace(/&nbsp;/g, ' ')]))],
     get body() {
       return `
 <section class="hx" id="hx">
@@ -209,7 +217,7 @@ ${UI.pricing()}
     ${steps()}
   </div>
 </section>
-${UI.faq(homeFaq, 'Частые вопросы', this)}`;
+${UI.faqHome(homeFaq, this)}`;
     }
   });
 
