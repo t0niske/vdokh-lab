@@ -118,7 +118,7 @@ function register(site) {
     <div class="hx-r">
       <a class="hx-call" href="tel:${C.phoneRaw}" aria-label="Позвонить">${icon('phone')}</a>
       <a class="hx-wa" href="${UI.wa(this.pageName)}" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">${icon('wa')}<span>WhatsApp</span></a>
-      <a class="hx-ul" href="#podbor">Подобрать решение</a>
+      <a class="hx-ul" href="#zayavka">Подобрать решение</a>
       <button class="hx-burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i></button>
     </div>
     <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${HX_NAV.map(hxLink).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
@@ -190,26 +190,6 @@ function register(site) {
       <p class="sp-cta-n">Сначала подберём аромат и&nbsp;дадим <b>3&nbsp;дня</b> бесплатно проверить его&nbsp;у вас</p>
     </div>
     <p class="sp-note">Это&nbsp;результаты исследований, а&nbsp;не обещание роста продаж: эффект зависит от&nbsp;аромата, пространства и&nbsp;интенсивности. Бесплатный тест показывает, как&nbsp;аромат и&nbsp;система работают у&nbsp;вас; чтобы измерить влияние на&nbsp;продажи, нужен отдельный период наблюдения.</p>
-  </div>
-</section>
-
-<section class="sec podbor" id="podbor">
-  <div class="wrap hero-g">
-    <div class="hero-a">
-      <p class="k">Где пахнет?</p>
-      <h2 class="h2">Подберём аппарат и&nbsp;аромат под ваше помещение</h2>
-      <p class="lead">Выберите, где и чем пахнет: покажем, что сделает аппарат, где его поставим и сколько это стоит. Масла и обслуживание — наши.</p>
-      <ul class="ticks">${[OFFER.start, OFFER.reply, OFFER.trial].map(t => `<li>${icon('check')}${t}</li>`).join('')}</ul>
-      <div class="hero-btns"><a class="btn" href="${UI.wa(this.pageName)}" target="_blank" rel="noopener">${icon('wa')}Написать в WhatsApp</a><a class="btn btn-line" href="/ceny/">Цены</a></div>
-    </div>
-    ${UI.picker({ cls: 'pk-hero' })}
-  </div>
-</section>
-
-<section class="sec sec-alt">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Какой запах</p><h2 class="h2">${ODORS.length} запахов, с которыми к нам приходят</h2></div><a class="more" href="/zapahi/">Все запахи${icon('arrow')}</a></div>
-    <div class="ots ots-home">${ODORS.map(UI.odorTile).join('')}<a class="ot ot-q" href="/stati/chem-ubrat-zapah-v-pomeshchenii/">${icon('search', 'ic ot-ic')}<span class="ot-t">Спрей, озон или аппарат?</span><span class="ot-d">Чем убрать запах в помещении и что выбрать, если он возвращается</span>${icon('arrow', 'ic ot-go')}</a></div>
   </div>
 </section>
 
