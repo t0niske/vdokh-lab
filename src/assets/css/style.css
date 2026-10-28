@@ -584,7 +584,7 @@ a.ct:hover{border-color:var(--ink)}
    Крупный аппарат уходит низом под плитки с цифрами; за ним «дышит» оранжевое свечение и расходятся мягкие кольца,
    как на airlife (3 круга, 5 с, задержки 0 / 0,5 / 1,5 с). Акцент коричневый (28.10) — --ab-acc. */
 .ab{--ab-acc:#4A3F37;--ab-r:26px;/* радиус как у вкладок первого экрана */--ab-f:"Inter Tight",system-ui,sans-serif;--ab-s:"Playfair Display",Georgia,serif;--ab-gut:clamp(20px,4.2vw,64px);
-  position:relative;overflow:hidden;background:#F4F3EF;color:#1A1714;font-family:var(--ab-f);padding-top:64px}
+  position:relative;overflow:hidden;background:#F4F3EF;color:#1A1714;font-family:var(--ab-f);padding:64px 0 clamp(64px,7vw,100px)}
 .ab-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;max-width:1440px;margin:0 auto;padding:0 var(--ab-gut)}
 .ab-k{margin:0;font-size:18px;color:#8A847C;text-transform:lowercase}
 .ab-k::before{content:"["}.ab-k::after{content:"]"}
@@ -602,28 +602,15 @@ a.ct:hover{border-color:var(--ink)}
 .ab-txt p{color:#4A443E;font-size:clamp(16px,1.2vw,18px);line-height:1.45;max-width:58ch}
 .ab-txt p+p{margin-top:14px}
 .ab-m{border-left:2px solid var(--ab-acc);padding-left:20px;font-family:var(--ab-s);font-style:italic;line-height:1.25!important;color:#1A1714!important}
-.ab-st{position:relative;z-index:3;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;max-width:1440px;margin:0 auto;padding:0 var(--ab-gut) clamp(64px,7vw,100px)}
-.ab-st>div{display:flex;flex-direction:column;justify-content:flex-end;min-height:190px;padding:26px 28px;background:#fff;border-radius:var(--ab-r);position:relative}
-.ab-st>div:nth-child(even){background:#ECEAE4}
-.ab-st>div::before{content:"";position:absolute;left:28px;top:28px;width:10px;height:10px;border-radius:50%;background:var(--ab-acc)}
-.ab-st b{font-size:clamp(40px,3.4vw,52px);font-weight:600;letter-spacing:-.045em;line-height:1}
-.ab-st small{font-size:.5em;letter-spacing:-.02em;margin-left:4px}
-.ab-st span{margin-top:8px;color:#857C73;font-size:15px;line-height:1.4;max-width:22ch}
 @media (max-width:900px){
-  .ab{padding-top:64px}
+  .ab{padding:64px 0 8px}
   .ab-g{grid-template-columns:minmax(0,1fr);gap:0}
   .ab-dev{height:340px;margin:0 0 24px}
-  .ab-st{gap:10px;padding-bottom:64px}
   .ab-img{height:310px}
   .ab-aura b{width:480px;height:480px}
   .ab-aura i{width:170px;height:170px}
   .ab-txt{padding:10px 0 56px}
   .ab-h{font-size:36px}
-  .ab-st{grid-template-columns:1fr 1fr}
-  .ab-st>div{min-height:150px;padding:20px 18px;border-radius:22px}
-  .ab-st>div::before{left:18px;top:20px}
-  .ab-st b{font-size:36px}
-  .ab-st span{font-size:14px}
 }
 @media (prefers-reduced-motion:reduce){.ab-aura b,.ab-aura i{animation:none}}
 
