@@ -51,18 +51,24 @@ const PK = [
    На главной лежит внутри первого экрана и светлеет после прокрутки, на внутренних страницах сразу светлая
    (body.hx-solid). Текущий раздел подчёркнут. «Коллекция» — каталог ароматов /aromaty/ */
 const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'aromaty/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/']];
+/* «Пространства»: на компьютере — выпадающая панель по наведению и фокусу, в меню телефона — раскрывающийся список */
+const CHEV = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function hxHeader(p) {
-  const link = ([n, h]) => `<a href="/${h}"${p.section && p.section === h ? ' aria-current="page"' : ''}>${n}</a>`;
+  const cur = h => p.section && p.section === h ? ' aria-current="page"' : '';
+  const link = ([n, h]) => `<a href="/${h}"${cur(h)}>${n}</a>`;
+  const tab = x => x[1] !== 'pomeshcheniya/' ? link(x) : `<div class="hx-dd"><a href="/${x[1]}"${cur(x[1])} aria-haspopup="true">${x[0]}${CHEV}</a>
+      <div class="hx-ddp"><div class="hx-ddh"><span>все форматы</span><a href="/${x[1]}">Все пространства<i>→</i></a></div><div class="hx-ddl">${spaceLinks()}</div></div></div>`;
+  const mob = x => x[1] !== 'pomeshcheniya/' ? link(x) : `<details class="hx-msub"><summary>${x[0]}</summary><div><a href="/${x[1]}">Все пространства</a>${spaceLinks()}</div></details>`;
   return `<header class="hx-top">
     <a class="hx-logo" href="/" aria-label="Aromé — на главную">Aromé</a>
-    <nav class="hx-tab" aria-label="Разделы">${HX_NAV.map(link).join('')}</nav>
+    <nav class="hx-tab" aria-label="Разделы">${HX_NAV.map(tab).join('')}</nav>
     <div class="hx-r">
       <a class="hx-call" href="tel:${C.phoneRaw}" aria-label="Позвонить">${icon('phone')}</a>
       <a class="hx-wa" href="${wa(p.pageName)}" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">${icon('wa')}<span>WhatsApp</span></a>
       <a class="hx-ul" href="#zayavka">Подобрать решение</a>
       <button class="hx-burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i></button>
     </div>
-    <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${HX_NAV.map(link).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
+    <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${HX_NAV.map(mob).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
   </header>`;
 }
 
@@ -98,7 +104,7 @@ function footer() {
       </div>
       <nav class="ft-col ft-pl" aria-label="Пространства">
         <p class="ft-k">Пространства</p>
-        <div>${PLACES.map(o => `<a href="/pomeshcheniya/${o.slug}/">${o.name}</a>`).join('')}<a href="/osi/">Для ОСИ и&nbsp;УК</a><a href="/kvartira/">Для дома</a></div>
+        <div>${spaceLinks()}</div>
       </nav>
     </div>
     <p class="ft-word" aria-hidden="true">Aromé</p>
@@ -564,14 +570,24 @@ function collection(p, list, o = {}) {
 
 /* Пространства: лента карточек-фото со стеклянной плашкой, последняя — коричневая карточка с заявкой.
    У магазинов и автосалонов своих страниц нет — ведут к заявке. */
+/* Все пространства (28.10.2026): первые 6 — лента на главной, все — страница /pomeshcheniya/, выпадающее меню шапки и подвал.
+   [фото, название, ссылка, alt, что даёт аромат, где ставим]. У магазинов и автосалонов своей страницы нет — открывается заявка */
 const SPACES = [
-  ['sp-shop', 'Магазины и&nbsp;шоурумы', '#zayavka', 'Бутик с вешалками и травертиновым подиумом'],
-  ['sp-spa', 'Салоны красоты и&nbsp;SPA', '/pomeshcheniya/salon-krasoty/', 'Ресепшен салона красоты и SPA'],
-  ['sp-hotel', 'Отели', '/pomeshcheniya/gostinica/', 'Лобби бутик-отеля'],
-  ['sp-rest', 'Рестораны и&nbsp;кафе', '/pomeshcheniya/restoran-kafe/', 'Зал ресторана вечером'],
-  ['sp-office', 'Офисы и&nbsp;бизнес-центры', '/pomeshcheniya/ofis/', 'Лобби бизнес-центра'],
-  ['sp-auto', 'Автосалоны', '#zayavka', 'Шоурум автосалона']
+  ['sp-shop', 'Магазины и&nbsp;шоурумы', '#zayavka', 'Бутик с вешалками и травертиновым подиумом', 'Аромат делает зал узнаваемым и&nbsp;располагает задержаться у&nbsp;витрин и&nbsp;в&nbsp;примерочных', ['вход', 'торговый зал', 'примерочные']],
+  ['sp-spa', 'Салоны красоты и&nbsp;SPA', '/pomeshcheniya/salon-krasoty/', 'Ресепшен салона красоты и SPA', 'Спокойный аромат на&nbsp;ресепшене и&nbsp;в&nbsp;зоне ожидания настраивает на&nbsp;отдых ещё до&nbsp;процедуры', ['ресепшен', 'зона ожидания', 'SPA-зона']],
+  ['sp-hotel', 'Отели', '/pomeshcheniya/gostinica/', 'Лобби бутик-отеля', 'Фирменный аромат лобби гости запоминают вместе с&nbsp;отелем и&nbsp;узнают при следующем визите', ['лобби', 'коридоры', 'ресторан и&nbsp;лаунж']],
+  ['sp-rest', 'Рестораны и&nbsp;кафе', '/pomeshcheniya/restoran-kafe/', 'Зал ресторана вечером', 'Аромат встречает у&nbsp;входа и&nbsp;не&nbsp;спорит с&nbsp;кухней — у&nbsp;столов его не&nbsp;ставим', ['вход и&nbsp;гардероб', 'лаунж', 'санузлы']],
+  ['sp-office', 'Офисы и&nbsp;бизнес-центры', '/pomeshcheniya/ofis/', 'Лобби бизнес-центра', 'Чистый деловой аромат в&nbsp;лобби и&nbsp;на&nbsp;ресепшене — первое впечатление для гостей и&nbsp;кандидатов', ['лобби', 'ресепшен', 'переговорные']],
+  ['sp-auto', 'Автосалоны', '#zayavka', 'Шоурум автосалона', 'Аромат шоурума поддерживает ощущение премиального сервиса, пока клиент выбирает автомобиль', ['шоурум', 'клиентская зона', 'зона выдачи']],
+  ['sx-toj', 'Тойханы и&nbsp;банкетные залы', '/pomeshcheniya/tojhana/', 'Банкетный зал, накрытый к празднику', 'Праздничный, но&nbsp;не&nbsp;сладкий аромат встречает гостей в&nbsp;фойе и&nbsp;держится весь вечер', ['фойе', 'банкетный зал', 'санузлы']],
+  ['sx-zhk', 'ЖК и&nbsp;подъезды', '/pomeshcheniya/zhk-podezd/', 'Лобби жилого комплекса с консьержем', 'Чистый аромат во&nbsp;входной группе и&nbsp;лифтовых холлах — дом встречает жильцов и&nbsp;гостей', ['вход', 'лифтовой холл', 'паркинг']],
+  ['sx-fit', 'Фитнес-клубы', '/pomeshcheniya/fitnes/', 'Ресепшен фитнес-клуба', 'Свежий бодрый аромат на&nbsp;ресепшене и&nbsp;в&nbsp;зале, отдельный аппарат для&nbsp;раздевалок', ['ресепшен', 'зал', 'раздевалки']],
+  ['sx-clinic', 'Клиники и&nbsp;ветклиники', '/pomeshcheniya/klinika/', 'Зона ожидания частной клиники', 'Мягкий спокойный аромат в&nbsp;зоне ожидания — в&nbsp;кабинетах его не&nbsp;ставим', ['ресепшен', 'зона ожидания', 'коридоры']],
+  ['sx-wc', 'Туалеты ТРЦ и&nbsp;АЗС', '/pomeshcheniya/obshchestvennyj-tualet/', 'Санузел торгового центра с травертиновой столешницей', 'Аромат держится весь день при&nbsp;большом потоке — санузел не&nbsp;портит впечатление о&nbsp;месте', ['мужской', 'женский', 'тамбур']],
+  ['sx-osi', 'Для ОСИ и&nbsp;УК', '/osi/', 'Входная группа многоквартирного дома', 'Ароматизация подъездов по&nbsp;договору с&nbsp;актом каждый месяц — обслуживание берём на&nbsp;себя', ['подъезды', 'лифтовые холлы', 'договор и&nbsp;акт']],
+  ['sx-home', 'Для дома', '/kvartira/', 'Гостиная городской квартиры вечером', 'Компактный Nova 300 для квартиры или дома — аромат в&nbsp;гостиной и&nbsp;прихожей', ['гостиная', 'прихожая']]
 ];
+const spaceLinks = () => SPACES.map(([, n, h]) => `<a href="${h}">${n}</a>`).join('');
 function spaces(p) {
   return `<section class="ps" id="prostranstva">
   <div class="ps-wrap">
@@ -583,7 +599,7 @@ function spaces(p) {
     </div>
   </div>
   <div class="ps-track" data-scroll-x>
-    ${SPACES.map(([img, n, h, alt]) => `<a class="ps-card" href="${h}"><img src="${site.url(`assets/img/${img}.webp`)}" alt="${alt}" loading="lazy">
+    ${SPACES.slice(0, 6).map(([img, n, h, alt]) => `<a class="ps-card" href="${h}"><img src="${site.url(`assets/img/${img}.webp`)}" alt="${alt}" loading="lazy">
       <div class="ps-gl"><h3>${n}</h3><span class="ps-go">Посмотреть<i>→</i></span></div></a>`).join('\n    ')}
     <div class="ps-card ps-cta">
       <div>
@@ -600,4 +616,46 @@ function spaces(p) {
 </section>`;
 }
 
-module.exports = { hxHeader, pageTop, included, kits, device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+/* Страница «Пространства» (вариант A, согласован 28.10.2026, макет design/arome-home/spaces-page-gen.js): карточки в 2 колонки —
+   фото с номером на стеклянной плашке, название, что даёт аромат, где ставим. Последняя ячейка — коричневая «другое пространство» */
+const num = i => String(i + 1).padStart(2, '0');
+function spaceGrid() {
+  return `<section class="sx" id="spisok">
+  <div class="sx-wrap">
+    <div class="sx-grid">
+    ${SPACES.map(([img, n, h, alt, d, z], i) => `<a class="sx-card" href="${h}">
+      <div class="sx-ph"><img src="${site.url(`assets/img/${img}.webp`)}" alt="${alt}" loading="${i < 2 ? 'eager' : 'lazy'}"><span class="sx-num">${num(i)}</span></div>
+      <div class="sx-body"><h2>${n}</h2><p>${d}</p><div class="sx-z">${z.map(t => `<span>${t}</span>`).join('')}</div><span class="sx-go">Посмотреть<i>→</i></span></div>
+    </a>`).join('\n    ')}
+    <div class="sx-more">
+      <div>
+        <p class="sx-k">другое пространство</p>
+        <h2>Не нашли <em>своё пространство?</em></h2>
+        <p>Расскажите о&nbsp;своём объекте — оценим возможность подключения к&nbsp;вентиляции и&nbsp;предложим решение</p>
+        <div class="sx-z"><span>банки</span><span>коворкинги</span><span>ювелирные салоны</span><span>шоурумы мебели</span><span>детские центры</span></div>
+      </div>
+      <a class="sx-btn" href="#zayavka">Оставить заявку</a>
+    </div>
+    </div>
+  </div>
+</section>`;
+}
+const SH = [
+  ['Характер бизнеса', 'Предлагаем композиции под&nbsp;стиль пространства и&nbsp;даём пробники — выбираете&nbsp;вы'],
+  ['Площадь и&nbsp;вентиляция', `Под&nbsp;площадь подбираем ${D.devices[0].name} до&nbsp;${D.devices[0].area}&nbsp;м² или ${D.devices[1].name} до&nbsp;${D.devices[1].area}&nbsp;м² и&nbsp;подключаем к&nbsp;вентиляции`],
+  ['Часы работы', 'Настраиваем расписание и&nbsp;интенсивность: аромат есть, пока открыто, и&nbsp;не&nbsp;утомляет к&nbsp;вечеру']
+];
+function spaceHow() {
+  return `<section class="sh" id="podbor">
+  <div class="sh-wrap">
+    <p class="sh-k">подбор</p>
+    <div class="sh-top">
+      <h2 class="sh-h">Как подбираем <em>аромат под&nbsp;пространство</em></h2>
+      <p class="sh-lead">Три вещи, от&nbsp;которых зависит решение. Первые ${D.trialDays}&nbsp;дня — бесплатно, чтобы вы проверили аромат у&nbsp;себя</p>
+    </div>
+    <ol class="sh-list">${SH.map(([t, d], i) => `<li><i>${num(i)}</i><h3>${t}</h3><p>${d}</p></li>`).join('')}</ol>
+  </div>
+</section>`;
+}
+
+module.exports = { SPACES, spaceGrid, spaceHow, hxHeader, pageTop, included, kits, device, stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

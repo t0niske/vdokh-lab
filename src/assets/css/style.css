@@ -1283,3 +1283,95 @@ a.ct:hover{border-color:var(--ink)}
   .kn-foot{flex-direction:column;align-items:stretch}
   .kn-btn{height:54px}
 }
+
+/* ── Шапка: выпадающее меню «Пространства» (28.10.2026) — по наведению и фокусу, на телефоне — раскрывающийся список ── */
+.hx-dd{position:relative}
+.hx-dd>a{display:inline-flex;align-items:center;gap:6px}
+.hx-dd>a svg{width:11px;height:11px;transition:transform .25s}
+.hx-dd:hover>a svg,.hx-dd:focus-within>a svg{transform:rotate(180deg)}
+.hx-ddp{position:absolute;left:50%;top:calc(100% + 14px);z-index:60;width:540px;padding:16px;border-radius:22px;background:#F4F3EF;color:#2A2522;
+  box-shadow:0 30px 60px -28px rgba(42,37,34,.38),0 0 0 1px rgba(42,37,34,.08);opacity:0;visibility:hidden;transform:translate(-50%,8px);transition:opacity .2s,transform .2s,visibility 0s .2s}
+.hx-ddp::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}
+.hx-dd:hover .hx-ddp,.hx-dd:focus-within .hx-ddp{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .2s,transform .2s}
+.hx-tab .hx-ddp a::after{display:none}
+.hx-ddh{display:flex;align-items:center;padding:4px 12px 12px;margin-bottom:6px;border-bottom:1px solid #E1DBD1;font-size:13.5px;color:#8A847C}
+.hx-ddh span::before{content:"["}.hx-ddh span::after{content:"]"}
+.hx-tab .hx-ddh a{margin-left:auto;padding:0 0 3px;font-size:14px;color:#2A2522;border-bottom:1.5px solid #2A2522;border-radius:0}
+.hx-ddh a i{font-style:normal;margin-left:6px}
+.hx-ddl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
+.hx-tab .hx-ddl a{padding:9px 12px;font-size:14.5px;border-radius:12px;transition:background .2s}
+.hx-tab .hx-ddl a:hover,.hx-tab .hx-ddl a:focus-visible{background:#E9E4DC}
+.hx-msub summary{display:flex;align-items:center;justify-content:space-between;padding:14px 12px;border-radius:12px;font-size:22px;font-weight:500;list-style:none;cursor:pointer}
+.hx-msub summary::-webkit-details-marker{display:none}
+.hx-msub summary::after{content:"";width:9px;height:9px;margin-right:6px;border-right:1.6px solid;border-bottom:1.6px solid;transform:translateY(-3px) rotate(45deg);transition:transform .25s}
+.hx-msub[open] summary::after{transform:translateY(2px) rotate(-135deg)}
+.hx-msub div{display:flex;flex-direction:column;padding:0 0 10px 12px}
+.menu .hx-msub div a{padding:9px 12px;font-size:17px;color:#5A534D}
+.menu .hx-msub div a:first-child{color:#2A2522}
+
+/* ── Страница «Пространства» (вариант A): карточки в 2 колонки, последняя ячейка коричневая ── */
+.sx{--sx-ink:#2A2522;--sx-ink2:#5A534D;--sx-s:"Playfair Display",Georgia,serif;--sx-gut:clamp(20px,4.2vw,64px);
+  padding:0 0 96px;background:#F4F3EF;color:var(--sx-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
+:where(.sx,.sh) :where(h2,h3,p,ol){margin:0}
+.pg+.sx{padding-top:0}
+.sx-wrap{max-width:1440px;margin:0 auto;padding:0 var(--sx-gut)}
+.sx-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.sx-card{display:flex;flex-direction:column;border-radius:26px;background:#FBFAF7;border:1px solid #E6E1D8;overflow:hidden;text-decoration:none;color:inherit}
+.sx-ph{position:relative;aspect-ratio:16/10;overflow:hidden;margin:8px 8px 0;border-radius:20px;background:#2A2522}
+.sx-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.sx-card:hover .sx-ph img{transform:scale(1.04)}
+.sx-num{position:absolute;left:14px;top:14px;padding:8px 14px;border-radius:14px;background:rgba(30,24,19,.32);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);color:#fff;font-family:var(--sx-s);font-style:italic;font-size:18px;line-height:1}
+.sx-body{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:26px 28px 30px;flex:1}
+.sx-body h2{font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1}
+.sx-body p{font-size:16.5px;color:var(--sx-ink2);max-width:46ch}
+.sx-z{display:flex;flex-wrap:wrap;gap:8px}
+.sx-body .sx-z{margin-bottom:8px}
+.sx-z span{padding:7px 13px;border-radius:999px;border:1px solid #E1DBD1;font-size:13.5px;color:var(--sx-ink2)}
+.sx-go{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-bottom:3px;border-bottom:1.5px solid var(--sx-ink);font-size:15px;font-weight:500}
+.sx-go i{font-style:normal;transition:transform .25s}
+.sx-card:hover .sx-go i{transform:translateX(4px)}
+.sx-more{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:44px 40px 40px;border-radius:26px;background:linear-gradient(150deg,#5A4C41,#4A3F37 55%,#3D332C);color:#F4F0EA}
+.sx-more::before{content:"";position:absolute;right:-160px;top:-160px;width:460px;height:460px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,196,.18),rgba(255,226,196,0));pointer-events:none}
+.sx-more>*{position:relative}
+.sx-k{font-size:16px;color:#BFB2A3}.sx-k::before{content:"["}.sx-k::after{content:"]"}
+.sx-more h2{margin-top:14px;font-size:clamp(32px,3vw,46px);font-weight:600;letter-spacing:-.035em;line-height:.95}
+.sx-more h2 em{display:block;font-family:var(--sx-s);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.sx-more p{margin-top:16px;max-width:46ch;color:#D9CFC3;font-size:16.5px}
+.sx-more .sx-z{margin-top:20px}
+.sx-more .sx-z span{border-color:rgba(244,240,234,.22);color:#E8E0D6}
+.sx-btn{display:flex;align-items:center;justify-content:center;height:56px;border-radius:18px;background:#F4F0EA;color:var(--sx-ink);font-size:15.5px;font-weight:500;text-decoration:none;transition:background .2s}
+.sx-btn:hover{background:#fff}
+
+/* ── Как подбираем аромат: три колонки с курсивными номерами ── */
+.sh{padding:0 0 96px;background:#F4F3EF;color:#2A2522;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
+.sh-wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4.2vw,64px)}
+.sh-k{font-size:18px;color:#8A847C}.sh-k::before{content:"["}.sh-k::after{content:"]"}
+.sh-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin:22px 0 44px}
+.sh-h{font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px);color:inherit}
+.sh-h em{display:block;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
+.sh-lead{max-width:40ch;color:#5A534D;font-size:18px}
+.sh-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px;border-top:1px solid #DCD7CE}
+.sh-list li{display:flex;flex-direction:column;gap:10px;padding-top:28px}
+.sh-list i{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#8A847C}
+.sh-list h3{margin-top:8px;font-size:22px;font-weight:600;letter-spacing:-.02em}
+.sh-list p{font-size:16px;color:#5A534D;max-width:36ch}
+
+@media (max-width:900px){
+  .sx{padding-bottom:64px}
+  .sx-grid{grid-template-columns:minmax(0,1fr);gap:12px}
+  .sx-body{padding:22px 20px 24px;gap:12px}
+  .sx-body h2{font-size:26px}
+  .sx-body p{font-size:15.5px}
+  .sx-more{padding:30px 22px 22px;gap:26px}
+  .sx-more h2{font-size:30px}
+  .sx-more p{font-size:15.5px}
+  .sh{padding-bottom:64px}
+  .sh-top{flex-direction:column;align-items:flex-start;gap:16px;margin:16px 0 24px}
+  .sh-h{font-size:36px}
+  .sh-lead{font-size:16px}
+  .sh-list{grid-template-columns:minmax(0,1fr);gap:0}
+  .sh-list li{padding:22px 0;border-bottom:1px solid #DCD7CE}
+  .sh-list i{font-size:24px}
+  .sh-list h3{font-size:19px;margin-top:4px}
+  .sh-list p{font-size:15px}
+}

@@ -306,21 +306,22 @@ ${UI.related('Другие запахи', ODORS.filter(x => x !== o).map(x => [x
   });
 
   /* ── Помещения ── */
+  /* Пространства (вариант A, согласован 28.10.2026): все форматы карточками, «Как подбираем», заявка */
   add({
-    path: 'pomeshcheniya/', section: 'pomeshcheniya/',
-    title: 'Запах в помещении по типам: кафе, подъезд, офис, раздевалка',
-    description: 'Ароматизация и устранение запахов по типам помещений Астаны: кафе, тойхана, подъезд ЖК, фитнес, клиника, салон красоты, туалеты ТРЦ, офис, гостиница.',
-    h1: 'Запахи и ароматизация по помещениям',
-    breadcrumbs: [HOME, ['Помещения', 'pomeshcheniya/']],
-    schema: [site.schema.itemList(PLACES.map(o => [o.h1, `pomeshcheniya/${o.slug}/`]))],
+    path: 'pomeshcheniya/', section: 'pomeshcheniya/', pageName: 'Пространства', leadForm: true,
+    title: 'Ароматизация пространств для бизнеса в Астане — Aromé',
+    description: 'Ароматизация магазинов, салонов и SPA, отелей, ресторанов, офисов, автосалонов, тойхан, ЖК и клиник в Астане: подбор аромата, установка и сервис.',
+    h1: 'Пространства под формат вашего бизнеса',
+    breadcrumbs: [HOME, ['Пространства', 'pomeshcheniya/']],
+    schema: [site.schema.itemList(UI.SPACES.filter(s => s[2].startsWith('/')).map(s => [s[1].replace(/&nbsp;/g, ' '), s[2].slice(1)]))],
     get body() {
-      return UI.pageHead(this, { kicker: 'Помещения', lead: 'В каждом типе помещения запах копится в своих зонах. Мы разобрали девять частых: зоны, что ставим в каждую и типовой комплект с ценой.' }) + `
-<section class="sec sec-t"><div class="wrap"><div class="pts">${PLACES.map(UI.placeTile).join('')}</div></div></section>
-<section class="sec sec-alt"><div class="wrap narrow prose">
-  <h2>Почему важен тип помещения</h2>
-  <p>Запах туалета в кафе и в подъезде похож, но аппарат ставят по-разному. В кафе он стоит в санузле и не должен спорить с едой, в подъезде — в закрытом корпусе у мусоропровода. В клинике аромат не ставят в кабинетах, а в салоне красоты — у маникюрных столов.</p>
-  <p>Если вашего помещения нет в списке — склад, автомойка, школа, магазин, — напишите в заявке, где пахнет и какая площадь. Подберём аппарат и масло так же, а для квартиры есть <a href="/kvartira/">отдельная страница</a>.</p>
-</div></section>`;
+      return UI.pageTop(this, {
+        h1: 'Пространства <em>под формат вашего бизнеса</em>',
+        lead: 'Аромат работает вместе с&nbsp;интерьером, светом и&nbsp;музыкой. Для&nbsp;каждого формата подбираем свою композицию, интенсивность и&nbsp;расписание'
+      }) + `
+${UI.spaceGrid()}
+
+${UI.spaceHow()}`;
     }
   });
 
@@ -329,7 +330,7 @@ ${UI.related('Другие запахи', ODORS.filter(x => x !== o).map(x => [x
     const pm = UI.setupPm(pl.setup);
     add({
       path: p, section: 'pomeshcheniya/', title: pl.title, description: pl.description, h1: pl.h1,
-      breadcrumbs: [HOME, ['Помещения', 'pomeshcheniya/'], [pl.name, p]],
+      breadcrumbs: [HOME, ['Пространства', 'pomeshcheniya/'], [pl.name, p]],
       schema: [site.schema.faq(pl.faq), site.schema.service({ name: pl.h1, description: pl.description, type: 'Устранение неприятных запахов', low: pm, high: pm }, p)],
       cta: { place: pl.slug, title: `${pl.name}: напишите, где пахнет, — подберём аппарат`, wa: `Помещение: ${pl.name.toLowerCase()}.` },
       get body() {
