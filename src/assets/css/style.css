@@ -1148,3 +1148,12 @@ a.ct:hover{border-color:var(--ink)}
   .dv-foot{flex-direction:column;align-items:flex-start;margin-top:150px}
 }
 @media (prefers-reduced-motion:reduce){.dv-card::before,.dv-hs::before,.dv-hs::after{animation:none}}
+/* на компьютере блок целиком помещается в экран: высота плашки — по высоте окна минус шапка,
+   описание с переключателем и название лежат поверх по углам, аппарат масштабируется по высоте */
+@media (min-width:901px){
+  .dv-card{display:grid;place-items:center;height:min(880px,calc(100svh - 96px));min-height:600px;padding:40px clamp(24px,4.2vw,64px)}
+  .dv-top{position:absolute;left:clamp(24px,4.2vw,64px);right:clamp(24px,4.2vw,64px);top:40px}
+  .dv-stage{width:min(420px,calc((min(880px,100svh - 96px) - 150px) * .757),calc((100svh - 96px - 150px) * .757));min-width:300px;margin:0}
+  .dv-foot{position:absolute;left:clamp(24px,4.2vw,64px);right:clamp(24px,4.2vw,64px);bottom:36px;margin:0}
+}
+@media (min-width:901px) and (max-width:1100px){.dv-lead{max-width:24ch;font-size:15px}.dv-foot p{max-width:16ch;text-align:right}}
