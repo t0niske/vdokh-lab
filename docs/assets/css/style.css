@@ -1693,3 +1693,7 @@ a.kc-c:hover i{transform:translateX(4px)}
 /* аромат по ссылке ?a=<slug> — короткая подсветка плашки; подпись про названия */
 .ct-c.hl{box-shadow:0 0 0 2px #4A3F37}
 .ct-mot{margin-top:22px;font-size:13px;color:#8A847C;text-align:center}
+
+/* «Метод»: блок «Аппарат» между «Как работает» и «Аромат по часам» */
+.dv+.rs{padding-top:96px}
+@media (max-width:900px){.dv+.rs{padding-top:64px}}

@@ -125,7 +125,7 @@ function analytics() {
 /* Версия в адресах стилей и скриптов (?v=…) — хэш их содержимого: GitHub Pages кэширует файлы до 10 минут,
    и без версии браузер после публикации показывает новую страницу со старыми стилями */
 const VER = require('crypto').createHash('md5')
-  .update(['css/style.css', 'js/main.js'].map(f => require('fs').readFileSync(require('path').join(__dirname, 'assets', f))).join(''))
+  .update(['css/style.css', 'js/main.js', 'favicon.svg'].map(f => require('fs').readFileSync(require('path').join(__dirname, 'assets', f))).join(''))
   .digest('hex').slice(0, 8);
 
 function layout(p, head) {
@@ -136,7 +136,9 @@ function layout(p, head) {
 ${head}
 <meta http-equiv="refresh" content="0; url=${'../'.repeat(p.path.split('/').filter(Boolean).length)}${p.redirect}">
 <link rel="stylesheet" href="/assets/css/style.css?v=${VER}">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.svg?v=${VER}" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=${VER}" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=${VER}">
 </head>
 <body><main class="wrap nf"><h1>Страница переехала</h1><p class="lead"><a href="/${p.redirect}">Перейти на новую страницу</a></p></main></body>
 </html>`;
@@ -151,7 +153,9 @@ ${analytics()}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Tenor+Sans&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?${p.fonts || 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500'}&display=swap">
 <link rel="stylesheet" href="/assets/css/style.css?v=${VER}">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.svg?v=${VER}" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=${VER}" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=${VER}">
 </head>
 <body class="${p.ownHeader ? p.bodyClass || '' : `hx-solid pg-body${p.bodyClass ? ' ' + p.bodyClass : ''}`}" data-page="${esc(p.pageName)}">
 <a class="skip" href="#main">К содержанию</a>

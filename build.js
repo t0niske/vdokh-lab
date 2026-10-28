@@ -20,7 +20,7 @@ const site = createSite({
   origin: 'https://t0niske.github.io',
   base: '/vdokh-lab/',
   description: 'Ароматизация помещений для бизнеса в Астане',
-  themeColor: '#FFFFFF',
+  themeColor: '#F4F3EF',
   ogImage: 'og',
   images: require('./src/images'),
   browserData: D.browserScript() + 'window.VD=' + JSON.stringify(VD) + ';\n'
