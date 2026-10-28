@@ -282,4 +282,41 @@ function collection(p, list, o = {}) {
 </section>`;
 }
 
-module.exports = { collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+/* Пространства: лента карточек-фото со стеклянной плашкой, последняя — коричневая карточка с заявкой.
+   У магазинов и автосалонов своих страниц нет — ведут к заявке. */
+const SPACES = [
+  ['sp-shop', 'Магазины и&nbsp;шоурумы', '#zayavka', 'Бутик с вешалками и травертиновым подиумом'],
+  ['sp-spa', 'Салоны красоты и&nbsp;SPA', '/pomeshcheniya/salon-krasoty/', 'Ресепшен салона красоты и SPA'],
+  ['sp-hotel', 'Отели', '/pomeshcheniya/gostinica/', 'Лобби бутик-отеля'],
+  ['sp-rest', 'Рестораны и&nbsp;кафе', '/pomeshcheniya/restoran-kafe/', 'Зал ресторана вечером'],
+  ['sp-office', 'Офисы и&nbsp;бизнес-центры', '/pomeshcheniya/ofis/', 'Лобби бизнес-центра'],
+  ['sp-auto', 'Автосалоны', '#zayavka', 'Шоурум автосалона']
+];
+function spaces(p) {
+  return `<section class="ps" id="prostranstva">
+  <div class="ps-wrap">
+    <p class="ps-k">пространства</p>
+    <div class="ps-top">
+      <h2 class="ps-h">Подберём решение <em>для вашего пространства</em></h2>
+      <div class="ps-tr"><p class="ps-lead">Аромат дополняет интерьер, свет и&nbsp;музыку. Выберите своё пространство — покажем, как это работает у&nbsp;вас</p>
+        <div class="ps-nav"><button type="button" aria-label="Назад">←</button><button type="button" aria-label="Вперёд">→</button></div></div>
+    </div>
+  </div>
+  <div class="ps-track" data-scroll-x>
+    ${SPACES.map(([img, n, h, alt]) => `<a class="ps-card" href="${h}"><img src="${site.url(`assets/img/${img}.webp`)}" alt="${alt}" loading="lazy">
+      <div class="ps-gl"><h3>${n}</h3><span class="ps-go">Посмотреть<i>→</i></span></div></a>`).join('\n    ')}
+    <div class="ps-card ps-cta">
+      <div>
+        <p class="ps-k">другое пространство</p>
+        <h3>Не нашли <em>своё пространство?</em></h3>
+        <p>Расскажите о&nbsp;своём объекте — оценим возможность подключения к&nbsp;вентиляции и&nbsp;предложим решение</p>
+        <div class="ps-list"><span>клиника</span><span>фитнес</span><span>ЖК и&nbsp;лобби</span><span>банк</span><span>шоурум мебели</span></div>
+      </div>
+      <div class="ps-act"><a class="ps-btn" href="#zayavka">Оставить заявку</a><a class="ps-wa" href="${wa(p.pageName, 'Хочу подобрать аромат для своего пространства.')}" target="_blank" rel="noopener">или написать в&nbsp;WhatsApp</a></div>
+    </div>
+  </div>
+  <div class="ps-prog" aria-hidden="true"><i></i></div>
+</section>`;
+}
+
+module.exports = { spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

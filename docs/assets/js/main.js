@@ -143,6 +143,15 @@
     if (want) for (var i = 0; i < data.length; i++) if (data[i].s === want) { show(i); its[i].scrollIntoView({ block: 'center' }); break; }
   });
 
+  /* Пространства: стрелки листают ленту на одну карточку, полоска внизу показывает, где мы в ленте */
+  $$('.ps').forEach(function (ps) {
+    var t = $('.ps-track', ps), bar = $('.ps-prog i', ps), nav = $$('.ps-nav button', ps);
+    var upd = function () { var m = t.scrollWidth - t.clientWidth, w = t.clientWidth / t.scrollWidth; bar.style.width = w * 100 + '%'; bar.style.left = (m ? t.scrollLeft / m : 0) * (1 - w) * 100 + '%'; };
+    var step = function (d) { t.scrollBy({ left: d * ($('.ps-card', t).offsetWidth + 16), behavior: 'smooth' }); };
+    t.addEventListener('scroll', upd, { passive: true }); window.addEventListener('resize', upd); upd();
+    if (nav.length) { nav[0].addEventListener('click', function () { step(-1); }); nav[1].addEventListener('click', function () { step(1); }); }
+  });
+
   /* Счётчики блока «Аромат и продажи»: от 0 до значения за 1,6 с, когда цифра появляется на экране */
   var cnt = $$('.sp-n[data-to]');
   if (cnt.length && 'IntersectionObserver' in window && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
