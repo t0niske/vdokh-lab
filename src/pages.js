@@ -211,12 +211,8 @@ ${UI.versus()}
 
 ${UI.pricing()}
 
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k">Как начать</p><h2 class="h2">От заявки до свежего воздуха — один день</h2></div><a class="more" href="/kak-my-rabotaem/">Подробнее${icon('arrow')}</a></div>
-    ${steps()}
-  </div>
-</section>
+${UI.stages()}
+
 ${UI.faqHome(homeFaq, this)}`;
     }
   });

@@ -212,6 +212,25 @@ function priceCard(p, setup, o = {}) {
 </div>`;
 }
 
+/* Этапы (28.10.2026, по референсу — лесенка из карточек): подпись слева, заголовок над двумя карточками,
+   второй ряд сдвинут влево. Последний этап — коричневый, как акцентные карточки в других блоках */
+const STAGES = [
+  ['Заявка', 'Расскажите о&nbsp;своём пространстве: формат, площадь, часы работы и&nbsp;какое впечатление хотите создать'],
+  ['Подбор аромата', 'Предлагаем композиции под характер бизнеса и&nbsp;даём пробники. Под площадь подбираем Nova 300 или Nova 1000'],
+  ['Установка и&nbsp;настройка', 'Подключаем аппарат к&nbsp;вентиляции, настраиваем расписание и&nbsp;интенсивность под часы работы'],
+  ['Тест и&nbsp;обслуживание', `Первые ${D.trialDays}&nbsp;дня бесплатно. Дальше меняем масла, следим за&nbsp;работой и&nbsp;заменяем аппарат при поломке`]
+];
+function stages() {
+  return `<section class="et" id="etapy">
+  <div class="et-wrap">
+    <p class="et-k">этапы</p>
+    <h2 class="et-h">Как мы запускаем <em>аромат в&nbsp;вашем пространстве</em></h2>
+    <div class="et-side"><p>Обычно всё занимает один день — от&nbsp;заявки до&nbsp;аромата в&nbsp;зале</p><a href="/kak-my-rabotaem/">Подробнее о&nbsp;методе</a></div>
+    ${STAGES.map(([t, d], i) => `<article class="et-c et-c${i + 1}"><span class="et-n">0${i + 1}</span><h3>${t}</h3><p>${d}</p></article>`).join('\n    ')}
+  </div>
+</section>`;
+}
+
 /* Вопросы на главной (по референсу 28.10.2026): список во всю ширину, справа круглая кнопка «+», у открытого — «×».
    Первый вопрос открыт. Точки в конце ответов убираем, как во всех новых блоках главной */
 function faqHome(list, p) {
@@ -446,4 +465,4 @@ function spaces(p) {
 </section>`;
 }
 
-module.exports = { faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+module.exports = { stages, faqHome, pricing, versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
