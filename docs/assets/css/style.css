@@ -1594,3 +1594,7 @@ a.kc-c:hover i{transform:translateX(4px)}
   .sz-c i{margin-bottom:10px}
   .sz-f{margin-top:6px}
 }
+
+/* Подборка ароматов на странице пространства — блок коллекции с главной; после него отступ до комплекта */
+.kl+.sk{padding-top:96px}
+@media (max-width:900px){.kl+.sk{padding-top:64px}}

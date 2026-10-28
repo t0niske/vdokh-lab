@@ -696,6 +696,8 @@ ${points({ id: 'zachem', k: 'зачем аромат', h: 'Что даёт <em>�
   </div>
 </section>
 
+${collection(p, s.aromas.map(require('./collection').item), { title: `Ароматы <em>для&nbsp;${s.for}</em>`, lead: 'Подборка из&nbsp;нашей коллекции. Выберите аромат — покажем ноты, а&nbsp;пробник пришлём, чтобы выбрать у&nbsp;себя' })}
+
 <section class="sk" id="komplekt">
   <div class="sk-wrap">
     <div class="sk-card">
