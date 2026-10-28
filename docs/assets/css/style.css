@@ -1153,6 +1153,9 @@ a.ct:hover{border-color:var(--ink)}
 @media (min-width:901px){
   .dv-card{display:grid;place-items:center;height:min(880px,calc(100svh - 96px));min-height:600px;padding:40px clamp(24px,4.2vw,64px)}
   .dv-top{position:absolute;left:clamp(24px,4.2vw,64px);right:clamp(24px,4.2vw,64px);top:40px}
+  /* верх и низ лежат поверх аппарата: пропускаем клики к плюсам, ловим только на тексте и переключателе */
+  .dv-top,.dv-foot{pointer-events:none}
+  .dv-top>*,.dv-foot>*{pointer-events:auto}
   .dv-stage{width:min(420px,calc((min(880px,100svh - 96px) - 150px) * .757),calc((100svh - 96px - 150px) * .757));min-width:300px;margin:0}
   .dv-foot{position:absolute;left:clamp(24px,4.2vw,64px);right:clamp(24px,4.2vw,64px);bottom:36px;margin:0}
 }
