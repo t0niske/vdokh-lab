@@ -241,4 +241,45 @@ function related(title, links) {
   return `<section class="sec sec-t"><div class="wrap"><p class="k">${title}</p><div class="chips">${links.map(([n, h]) => `<a class="chip" href="/${h}">${esc(n)}${icon('arrow')}</a>`).join('')}</div></div></section>`;
 }
 
-module.exports = { init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+/* Коллекция ароматов: слева коричневая панель со списком, справа фото и карточка выбранного аромата.
+   o.page — режим страницы каталога (H1, все ароматы, фото прилипает к экрану, вместо «Подробнее» — подбор). */
+function collection(p, list, o = {}) {
+  const ALT = require('./collection').ALT;
+  const H = o.page ? 'h1' : 'h2';
+  const first = list[0];
+  const waPick = s => wa(p.pageName, `Хочу подобрать аромат: ${s.name}.`);
+  const waSample = s => wa(p.pageName, `Хочу пробник аромата ${s.name} (${s.no}).`);
+  const more = s => o.page ? waPick(s) : `/aromaty/?a=${s.slug}`;
+  const data = list.map(s => ({ s: s.slug, n: s.name, no: s.no, f: `${s.fam} · ${s.pow}`, d: s.desc, t: s.notes, w: s.where, p: s.photo, m: o.page ? waPick(s) : s.slug, sm: waSample(s) }));
+  const photos = [...new Set(list.map(s => s.photo))];
+  return `<section class="kl${o.page ? ' kl-page' : ''}" id="kollekciya">
+  <div class="kl-l">
+    <p class="kl-k">коллекция</p>
+    <${H} class="kl-h">${o.title || 'Ароматы <em>для вашего пространства</em>'}</${H}>
+    <p class="kl-lead">${o.lead || 'Выберите аромат — покажем, какой он и&nbsp;где раскрывается лучше всего.'}</p>
+    <div class="kl-list" role="tablist" aria-label="Ароматы">${list.map((s, i) => `<button type="button" class="kl-it${i ? '' : ' on'}" role="tab" aria-selected="${!i}" data-i="${i}"><em>${s.no}</em>${esc(s.name)}<small>${s.famLow}</small></button>`).join('')}</div>
+    ${o.page ? '' : '<a class="kl-all" href="/aromaty/">Смотреть все 32 аромата →</a>'}
+    <p class="kl-mot">Названия — по&nbsp;мотивам известных ароматов.</p>
+  </div>
+  <div class="kl-r" data-scroll-x>
+    ${photos.map((ph, i) => `<img class="kl-ph${ph === first.photo ? ' on' : ''}" data-ph="${ph}" src="${site.url(`assets/img/${ph}.webp`)}" alt="${ALT[ph]}"${i ? ' loading="lazy"' : ''}>`).join('')}
+    <article class="kl-card" aria-live="polite">
+      <div class="kl-circ"><img data-k="img" src="${site.url(`assets/img/${first.photo}.webp`)}" alt="${ALT[first.photo]}" loading="lazy"></div>
+      <div class="kl-cb">
+        <p class="kl-fam" data-k="f">${first.fam} · ${first.pow}</p>
+        <h3 class="kl-nm" data-k="n">${esc(first.name)}</h3>
+        <p class="kl-ds" data-k="d">${esc(first.desc)}</p>
+        <div class="kl-nt" data-k="t">${first.notes.map(x => `<span>${esc(x)}</span>`).join('')}</div>
+        <p class="kl-wh">Где выбирают: <b data-k="w">${esc(first.where)}</b></p>
+      </div>
+      <div class="kl-rows">
+        <a class="kl-row" data-k="m" href="${more(first)}"${o.page ? ' target="_blank" rel="noopener"' : ''}>${o.page ? 'Подобрать для моего помещения' : 'Подробнее об&nbsp;аромате'}<b>→</b></a>
+        <a class="kl-row" data-k="sm" href="${waSample(first)}" target="_blank" rel="noopener">Заказать пробник<b>→</b></a>
+      </div>
+    </article>
+  </div>
+  <script type="application/json" class="kl-data">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>
+</section>`;
+}
+
+module.exports = { collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

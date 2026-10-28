@@ -10,6 +10,7 @@ const PLACES = require('./places');
 const ARTICLES = require('./articles');
 const CFG = require('./config');
 const TX = require('./texts');
+const COL = require('./collection');
 const { icon, OFFER, TRIAL, C } = UI;
 
 const HOME = ['Главная', ''];
@@ -87,9 +88,8 @@ const OSI_TEMPLATE = `ОБЪЯВЛЕНИЕ ДЛЯ ЖИЛЬЦОВ
 Председатель ОСИ: ____________________
 `;
 
-/* Меню первого экрана главной (согласовано 27.10.2026). «Коллекция» пока ведёт в каталог запахов:
-   отдельной страницы с ароматами на сайте ещё нет. */
-const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'zapahi/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/']];
+/* Меню первого экрана главной (согласовано 27.10.2026). «Коллекция» — каталог ароматов /aromaty/. */
+const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'aromaty/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/']];
 const hxLink = ([n, h]) => `<a href="/${h}">${n}</a>`;
 
 function register(site) {
@@ -193,6 +193,8 @@ function register(site) {
   </div>
 </section>
 
+${UI.collection(this, COL.top())}
+
 <section class="sec">
   <div class="wrap split split-img">
     <div><p class="k">Как работает аппарат</p><h2 class="h2">Нейтрализует запах и&nbsp;держит аромат каждый день</h2>${how()}</div>
@@ -228,6 +230,20 @@ ${UI.faq(homeFaq, 'Частые вопросы', this)}`;
   });
 
   /* ── Запахи ── */
+  /* ── Каталог ароматов (блок «Коллекция» на всю страницу, все 32) ── */
+  add({
+    path: 'aromaty/', section: 'aromaty/', pageName: 'Каталог ароматов', noCta: false,
+    fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
+    title: 'Каталог ароматов для бизнеса — 32 композиции | Aromé',
+    description: 'Каталог ароматов Aromé для бизнеса в Астане: 32 композиции — отельные, свежие, цветочные, гурманские, SPA и парфюмерные. Ноты, где выбирают, пробники.',
+    h1: 'Каталог ароматов',
+    breadcrumbs: [HOME, ['Ароматы', 'aromaty/']],
+    schema: [site.schema.itemList(COL.all().map(s => [s.name, 'aromaty/']))],
+    get body() {
+      return UI.collection(this, COL.all(), { page: true, title: 'Каталог ароматов <em>32 композиции для бизнеса</em>', lead: 'Выберите аромат — покажем ноты и где он раскрывается лучше всего.' });
+    }
+  });
+
   add({
     path: 'zapahi/', section: 'zapahi/',
     title: `Как убрать неприятный запах в помещении: ${ODORS.length} частых случаев`,

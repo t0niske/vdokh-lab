@@ -124,6 +124,25 @@
     });
   });
 
+  /* Коллекция ароматов: выбор в списке меняет фото и карточку; на /aromaty/?a=<slug> сразу открывается нужный аромат */
+  $$('.kl').forEach(function (kl) {
+    var data = JSON.parse($('.kl-data', kl).textContent), its = $$('.kl-it', kl), phs = $$('.kl-ph', kl), card = $('.kl-card', kl);
+    var all = $('.kl-all', kl), allHref = all ? all.getAttribute('href') : '';
+    var k = function (n) { return $('[data-k="' + n + '"]', card); };
+    var show = function (i, scroll) {
+      var s = data[i], ph = null;
+      its.forEach(function (x, j) { x.classList.toggle('on', j === i); x.setAttribute('aria-selected', j === i); });
+      phs.forEach(function (x) { var on = x.getAttribute('data-ph') === s.p; x.classList.toggle('on', on); if (on) ph = x; });
+      k('img').src = ph.src; k('img').alt = ph.alt; k('f').textContent = s.f; k('n').textContent = s.n; k('d').textContent = s.d; k('w').textContent = s.w;
+      k('t').innerHTML = s.t.map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('');
+      k('m').href = /^https?:/.test(s.m) ? s.m : allHref + '?a=' + s.m; k('sm').href = s.sm;
+      if (scroll && window.innerWidth < 900) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+    its.forEach(function (x, i) { x.addEventListener('click', function () { show(i, true); }); });
+    var want = new URLSearchParams(location.search).get('a');
+    if (want) for (var i = 0; i < data.length; i++) if (data[i].s === want) { show(i); its[i].scrollIntoView({ block: 'center' }); break; }
+  });
+
   /* Счётчики блока «Аромат и продажи»: от 0 до значения за 1,6 с, когда цифра появляется на экране */
   var cnt = $$('.sp-n[data-to]');
   if (cnt.length && 'IntersectionObserver' in window && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
