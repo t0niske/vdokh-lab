@@ -199,13 +199,7 @@ ${UI.spaces(this)}
 
 ${UI.method()}
 
-<section class="sec sec-dark">
-  <div class="wrap">
-    <div class="sec-head"><div><p class="k k-l">А почему не освежитель или озонатор?</p><h2 class="h2">Аэрозоль, озонирование и Aromé</h2></div></div>
-    <p class="lead lead-w">Аэрозоль работает минуты, озонирование — один раз и без людей. Аппарат нейтрализует запах каждый день, пока помещение открыто, а обслуживаем его мы.</p>
-    ${compare()}
-  </div>
-</section>
+${UI.versus()}
 
 <section class="sec sec-alt">
   <div class="wrap">

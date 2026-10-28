@@ -212,6 +212,34 @@ function priceCard(p, setup, o = {}) {
 </div>`;
 }
 
+/* Сравнение «Свечи, спреи или аромамаркетинг» (согласовано 28.10.2026, макет design/arome-home/compare.html):
+   на компьютере таблица с коричневой колонкой Aromé, на телефоне — карточка на каждый критерий */
+const VS_COLS = ['Свечи и&nbsp;спреи', 'Диффузор с&nbsp;палочками'];
+const VS_SHORT = ['Свечи и спреи', 'Палочки'];
+const VS_ROWS = [
+  ['Где чувствуется', 'Рядом со&nbsp;свечой или там, где распылили', 'Около флакона', 'Ровно во&nbsp;всех залах — через вентиляцию'],
+  ['Сколько держится', 'Пока горит свеча, после спрея — минуты', 'Постоянно, но&nbsp;слабо', 'Весь день — по&nbsp;часам работы'],
+  ['Площадь', 'Одна зона', 'Небольшая комната', 'До&nbsp;300 м² или до&nbsp;1000 м² одним аппаратом'],
+  ['Кто следит', 'Персонал: зажечь, распылить, докупить', 'Персонал меняет флаконы', 'Мы: масла, настройка и&nbsp;сервис в&nbsp;подписке'],
+  ['Безопасность', 'Открытый огонь, капли на&nbsp;поверхностях', 'Флакон легко опрокинуть', 'Закрытый металлический корпус']
+];
+function versus() {
+  return `<section class="cm" id="sravnenie">
+  <div class="cm-wrap">
+    <p class="cm-k">сравнение</p>
+    <div class="cm-top">
+      <h2 class="cm-h">Свечи, спреи <em>или аромамаркетинг</em></h2>
+      <p class="cm-lead">Свечи и&nbsp;спреи дают аромат рядом и&nbsp;ненадолго. Аппарат держит его ровно по&nbsp;всему пространству весь день — и&nbsp;за&nbsp;ним следим мы</p>
+    </div>
+    <div class="cm-tb" role="table" aria-label="Свечи и спреи, диффузор с палочками и Aromé">
+      <div class="cm-bg" aria-hidden="true"></div>
+      <div class="cm-row cm-hd" role="row"><span class="cm-c cm-th" role="columnheader"></span>${VS_COLS.map(c => `<span class="cm-c cm-th" role="columnheader">обычно<b>${c}</b></span>`).join('')}<span class="cm-c cm-th cm-us" role="columnheader">аромамаркетинг<b>Aromé</b></span></div>
+      ${VS_ROWS.map(([k, a, b, us]) => `<div class="cm-row" role="row"><span class="cm-c cm-rk" role="rowheader">${k}</span><span class="cm-c" role="cell" data-l="${VS_SHORT[0]}">${a}</span><span class="cm-c" role="cell" data-l="${VS_SHORT[1]}">${b}</span><span class="cm-c cm-us" role="cell" data-l="Aromé"><i aria-hidden="true">✓</i>${us}</span></div>`).join('\n      ')}
+    </div>
+  </div>
+</section>`;
+}
+
 /* «Как работает аппарат» (согласован 28.10.2026, макет design/arome-home/how.html): тонкая сетка с разрывами линий,
    в углах — коричневые скруглённые уголки, внизу шага номер и плашка с фактом из характеристик аппаратов */
 const METHOD = [
@@ -372,4 +400,4 @@ function spaces(p) {
 </section>`;
 }
 
-module.exports = { method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };
+module.exports = { versus, method, leadForm, spaces, collection, init, layout, icon, pageHead, picker, odorTile, placeTile, faq, scentRow, cta, related, priceCard, pm, setupPm, setupMonth, setupText, wa, waLink, waText, C, PK, OFFER, TRIAL };

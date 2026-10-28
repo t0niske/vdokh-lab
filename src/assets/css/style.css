@@ -899,3 +899,43 @@ a.ct:hover{border-color:var(--ink)}
 }
 /* после ленты «Пространств» второй большой отступ не нужен — хватает нижнего отступа ленты */
 .ps+.hw{padding-top:0}
+
+/* ── Главная: сравнение «Свечи, спреи или аромамаркетинг» (согласовано 28.10.2026, макет design/arome-home/compare.html) ── */
+.cm{--cm-acc:#4A3F37;--cm-ink:#2A2522;--cm-ink2:#5A534D;--cm-ink3:#8A847C;--cm-line:#DCD7CE;--cm-s:"Playfair Display",Georgia,serif;--cm-gut:clamp(20px,4.2vw,64px);
+  padding:96px 0;background:#F4F3EF;color:var(--cm-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
+.hw+.cm{padding-top:0}
+.cm h2,.cm p{margin:0}
+.cm-wrap{max-width:1440px;margin:0 auto;padding:0 var(--cm-gut)}
+.cm-k{font-size:18px;color:var(--cm-ink3)}.cm-k::before{content:"["}.cm-k::after{content:"]"}
+.cm-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin:22px 0 48px}
+.cm-h{text-wrap:wrap;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px);color:var(--cm-ink)}
+.cm-h em{display:block;font-family:var(--cm-s);font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
+.cm-lead{max-width:44ch;color:var(--cm-ink2);font-size:clamp(16px,1.2vw,18px)}
+.cm-tb{position:relative;display:grid;grid-template-columns:minmax(0,.9fr) repeat(2,minmax(0,1fr)) minmax(0,1.12fr);border:1px solid var(--cm-line);border-radius:26px;background:#FBFAF7}
+.cm-row{display:contents}
+.cm-bg{position:absolute;top:-1px;right:-1px;bottom:-1px;width:calc(27.86% + 1px);border-radius:26px;background:linear-gradient(160deg,#5A4C41,#4A3F37 55%,#3D332C);box-shadow:0 30px 60px -30px rgba(42,37,34,.6)}
+.cm-c{position:relative;padding:22px 28px;font-size:16px;line-height:1.4;color:var(--cm-ink2)}
+.cm-c:not(.cm-th){border-top:1px solid var(--cm-line)}
+.cm-th{padding:30px 28px 24px;font-size:15px;color:var(--cm-ink3)}
+.cm-th b{display:block;margin-top:4px;font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--cm-ink)}
+.cm-rk{font-size:15px;color:var(--cm-ink3)}
+.cm-us{color:#F4F0EA}
+.cm-us:not(.cm-th){border-top-color:rgba(244,240,234,.14)}
+.cm-th.cm-us{color:#BFB2A3}
+.cm-th.cm-us b{font-family:var(--cm-s);font-style:italic;font-weight:400;font-size:30px;letter-spacing:0;line-height:1;color:#F4F0EA}
+.cm-us i{display:inline-grid;place-items:center;width:20px;height:20px;margin-right:10px;vertical-align:-4px;border-radius:7px;background:rgba(244,240,234,.14);font-style:normal;font-size:12px}
+@media (max-width:900px){
+  .cm{padding:64px 0}
+  .cm-top{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:28px}
+  .cm-h{font-size:36px}
+  .cm-tb{display:block;border:0;background:none}
+  .cm-bg,.cm-row.cm-hd{display:none}
+  .cm-row{display:block;margin-top:10px;padding:20px 20px 16px;border:1px solid var(--cm-line);border-radius:22px;background:#FBFAF7}
+  .cm-c{padding:0;border:0!important}
+  .cm-rk{margin-bottom:10px;font-size:17px;font-weight:600;color:var(--cm-ink)}
+  .cm-c[data-l]{display:grid;grid-template-columns:118px minmax(0,1fr);gap:10px;padding:8px 0;font-size:14.5px;border-top:1px solid var(--cm-line)!important}
+  .cm-c[data-l]::before{content:attr(data-l);font-size:13.5px;color:var(--cm-ink3)}
+  .cm-c.cm-us[data-l]{margin:6px -12px 0;padding:14px 12px;border:0!important;border-radius:14px;background:var(--cm-acc)}
+  .cm-c.cm-us::before{color:#BFB2A3}
+  .cm-us i{display:none}
+}
