@@ -15,6 +15,8 @@ const VD = {
 };
 
 const PROD = process.env.SITE === 'prod';
+/* Метрика считает только настоящий сайт: в копии на github.io счётчик не выводим */
+if (!PROD) require('./src/config').analytics.ym = '';
 const site = createSite({
   root: __dirname,
   name: 'Aromé',
