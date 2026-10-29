@@ -143,13 +143,19 @@
       var msg = 'Заявка на тест ' + D.trialDays + ' дня бесплатно.' + (name ? '\nИмя: ' + name : '') + '\nТелефон: +7 ' + lfPhone.value + (sp ? '\nПространство: ' + sp.value : '');
       track('form_submit', { space: sp ? sp.value : '', where: lf.closest('.rq') ? 'modal' : 'block' });
       track('test_request', { via: 'form' });
-      /* заявка в систему: на своём домене /api/lead пересылается сервером в CRM; на github.io просто 404 */
-      try {
-        fetch('/api/lead', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name, phone: '+7' + digits, space: sp ? sp.value : '', page: document.title }) }).catch(function () {});
-      } catch (err) {}
-      window.open(wa(msg), '_blank', 'noopener');
+      /* заявка в CRM: /api/lead на своём домене сервер пересылает в систему → страница «Спасибо».
+         Если не дошла (нет сети, копия на github.io) — не теряем человека: ведём в WhatsApp с готовым текстом */
+      var btn = $('.lf-btn', lf), toWa = function () { location.href = wa(msg); };
+      btn.disabled = true; btn.textContent = 'Отправляем…';
+      fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, phone: '+7' + digits, space: sp ? sp.value : '', page: document.title }) })
+        .then(function (r) { if (r.ok) location.href = lf.getAttribute('action'); else toWa(); })
+        .catch(toWa);
     });
+  });
+  /* возврат кнопкой «Назад» со «Спасибо» или WhatsApp: страница из кеша — кнопка снова активна */
+  window.addEventListener('pageshow', function () {
+    $$('.lf-btn').forEach(function (b) { b.disabled = false; b.textContent = 'Оставить заявку'; });
   });
 
   /* ── Окно заявки: кнопки «Оставить заявку», «Подобрать решение» и другие ссылки на #zayavka открывают его на месте ── */
