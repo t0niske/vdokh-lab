@@ -51,6 +51,8 @@ const PK = [
    На главной лежит внутри первого экрана и светлеет после прокрутки, на внутренних страницах сразу светлая
    (body.hx-solid). Текущий раздел подчёркнут. «Коллекция» — каталог ароматов /aromaty/ */
 const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'aromaty/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/']];
+/* Только в меню телефона (30.10.2026): без них «Вопросы» и «Контакты» были сиротами; в шапке компьютера их заменяют кнопки звонка и WhatsApp */
+const MOB_EXTRA = [['Вопросы', 'voprosy/'], ['Контакты', 'kontakty/']];
 /* «Пространства»: на компьютере — выпадающая панель по наведению и фокусу, в меню телефона — раскрывающийся список */
 const CHEV = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function hxHeader(p) {
@@ -68,7 +70,7 @@ function hxHeader(p) {
       <a class="hx-ul" href="#zayavka">Подобрать решение</a>
       <button class="hx-burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i></button>
     </div>
-    <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${HX_NAV.map(mob).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
+    <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${[...HX_NAV, ...MOB_EXTRA].map(mob).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
   </header>`;
 }
 
@@ -93,7 +95,7 @@ function footer() {
       </div>
       <nav class="ft-col" aria-label="Меню">
         <p class="ft-k">Меню</p>
-        <a href="/pomeshcheniya/">Пространства</a><a href="/aromaty/">Коллекция</a><a href="/kak-my-rabotaem/">Метод</a><a href="/ceny/">Цены</a><a href="/stati/">Блог</a>
+        <a href="/pomeshcheniya/">Пространства</a><a href="/aromaty/">Коллекция</a><a href="/kak-my-rabotaem/">Метод</a><a href="/ceny/">Цены</a><a href="/stati/">Блог</a><a href="/voprosy/">Вопросы</a>
       </nav>
       <div class="ft-col">
         <p class="ft-k">Связь</p>
@@ -101,6 +103,7 @@ function footer() {
         <a href="${waLink()}" target="_blank" rel="noopener">WhatsApp</a>
         <span>Астана</span>
         ${C.hours ? `<span>${C.hours}</span>` : ''}
+        <a href="/kontakty/">Все контакты</a>
       </div>
       <nav class="ft-col ft-pl" aria-label="Пространства">
         <p class="ft-k">Пространства</p>
@@ -277,7 +280,7 @@ function faqHome(list, p, o = {}) {
     <p class="fq-k">вопросы</p>
     <div class="fq-top">
       <h2 class="fq-h">${o.h || 'Частые <em>вопросы</em>'}</h2>
-      <p class="fq-lead">Не нашли ответ? <a href="${wa(p.pageName, 'У меня вопрос.')}" target="_blank" rel="noopener">Спросите в&nbsp;WhatsApp</a> — ответим и&nbsp;подскажем по&nbsp;вашему пространству</p>
+      <p class="fq-lead">Не нашли ответ? Загляните во&nbsp;<a href="/voprosy/">все вопросы</a> или <a href="${wa(p.pageName, 'У меня вопрос.')}" target="_blank" rel="noopener">спросите в&nbsp;WhatsApp</a> — ответим и&nbsp;подскажем по&nbsp;вашему пространству</p>
     </div>`}
     <div class="fq-list">${list.map(([q, a], i) => `<details class="fq-it"${i ? '' : ' open'}><summary><${hn} class="fq-q">${esc(noDot(q))}</${hn}><i aria-hidden="true"></i></summary><p>${noDot(a)}</p></details>`).join('')}</div>
   </div>
