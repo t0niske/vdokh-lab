@@ -586,7 +586,7 @@ a.ct:hover{border-color:var(--ink)}
 .ab{--ab-acc:#4A3F37;--ab-r:26px;/* радиус как у вкладок первого экрана */--ab-f:"Inter Tight",system-ui,sans-serif;--ab-s:"Playfair Display",Georgia,serif;--ab-gut:clamp(20px,4.2vw,64px);
   position:relative;overflow:hidden;background:#F4F3EF;color:#1A1714;font-family:var(--ab-f);padding:64px 0 clamp(64px,7vw,100px)}
 .ab-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;max-width:1440px;margin:0 auto;padding:0 var(--ab-gut)}
-.ab-k{margin:0;font-size:18px;color:#8A847C;text-transform:lowercase}
+.ab-k{margin:0;font-size:18px;color:#6B655D;text-transform:lowercase}
 .ab-k::before{content:"["}.ab-k::after{content:"]"}
 /* карта Казахстана из точек (.gfx/kz-map.js) уходит за левый край, как в референсе; Астана — коричневая точка с пульсом */
 .ab-l{display:flex;flex-direction:column}
@@ -616,7 +616,7 @@ a.ct:hover{border-color:var(--ink)}
 
 /* ── Главная: блок «Аромат и продажи» (согласован 28.10.2026, макет design/arome-home/sales-list.html) ──
    Строки «название — что изучали — → результат», счётчики (main.js), коричневый акцент --acc. */
-.sp{background:#F4F3EF;color:#2A2522;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45;--acc:#4A3F37;--acc2:#5C4F45;--ink:#2A2522;--ink2:#5A534D;--ink3:#8A847C;--line:#DCD7CE;--f:"Inter Tight",system-ui,sans-serif;--s:"Playfair Display",Georgia,serif;--gut:clamp(20px,4.2vw,64px)}
+.sp{background:#F4F3EF;color:#2A2522;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45;--acc:#4A3F37;--acc2:#5C4F45;--ink:#2A2522;--ink2:#5A534D;--ink3:#6B655D;--line:#DCD7CE;--f:"Inter Tight",system-ui,sans-serif;--s:"Playfair Display",Georgia,serif;--gut:clamp(20px,4.2vw,64px)}
 
 
 .sp h2,.sp h3,.sp p{margin:0}
@@ -667,7 +667,7 @@ a.ct:hover{border-color:var(--ink)}
 /* ── Блок «Коллекция ароматов» (согласован 28.10.2026, макет design/arome-home/scents4.html) ──
    Слева коричневая панель со списком (выбранный подчёркнут), справа фото аромата и карточка с круглым фото.
    На главной — 7 ароматов, на /aromaty/ — все 32 (фото справа прилипает к экрану). */
-.kl{--kl-acc:#4A3F37;--kl-acc2:#5C4F45;--kl-ink:#2A2522;--kl-ink2:#5A534D;--kl-ink3:#8A847C;--kl-r:26px;--kl-f:"Inter Tight",system-ui,sans-serif;--kl-s:"Playfair Display",Georgia,serif;--kl-gut:clamp(20px,4.2vw,64px);
+.kl{--kl-acc:#4A3F37;--kl-acc2:#5C4F45;--kl-ink:#2A2522;--kl-ink2:#5A534D;--kl-ink3:#6B655D;--kl-r:26px;--kl-f:"Inter Tight",system-ui,sans-serif;--kl-s:"Playfair Display",Georgia,serif;--kl-gut:clamp(20px,4.2vw,64px);
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:900px;font-family:var(--kl-f);color:var(--kl-ink)}
 .kl-l{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:96px var(--kl-gut) 72px;background:linear-gradient(140deg,#5A4C41 0%,#4A3F37 55%,#3D332C 100%);color:#F4F0EA}
 .kl-l::before{content:"";position:absolute;right:-10%;top:-10%;width:70%;height:60%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,236,214,.14),rgba(255,236,214,0));pointer-events:none}
@@ -722,7 +722,7 @@ a.ct:hover{border-color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.kl-ph{transition:none}}
 
 /* ── Главная: блок «Пространства» (согласован 28.10.2026, макет design/arome-home/spaces.html) ── */
-.ps{--ps-acc:#4A3F37;--ps-acc2:#5C4F45;--ps-ink:#2A2522;--ps-ink2:#5A534D;--ps-ink3:#8A847C;--ps-r:26px;--ps-s:"Playfair Display",Georgia,serif;--ps-gut:clamp(20px,4.2vw,64px);
+.ps{--ps-acc:#4A3F37;--ps-acc2:#5C4F45;--ps-ink:#2A2522;--ps-ink2:#5A534D;--ps-ink3:#6B655D;--ps-r:26px;--ps-s:"Playfair Display",Georgia,serif;--ps-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--ps-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .ps h2,.ps h3,.ps p{margin:0}
 .ps a{text-decoration:none}
@@ -791,7 +791,7 @@ a.ct:hover{border-color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.ps-card>img,.ps-cta::before{transition:none;animation:none}}
 
 /* ── Главная: заявка (согласована 28.10.2026, макет design/arome-home/cta.html) ── */
-.lf{--lf-acc:#4A3F37;--lf-acc2:#5C4F45;--lf-ink:#2A2522;--lf-ink2:#5A534D;--lf-ink3:#8A847C;--lf-line:#DCD7CE;--lf-s:"Playfair Display",Georgia,serif;
+.lf{--lf-acc:#4A3F37;--lf-acc2:#5C4F45;--lf-ink:#2A2522;--lf-ink2:#5A534D;--lf-ink3:#6B655D;--lf-line:#DCD7CE;--lf-s:"Playfair Display",Georgia,serif;
   position:relative;display:grid;place-items:center;min-height:900px;padding:110px clamp(16px,4.2vw,64px);background:#C9AE88 url(../img/lead-bg.webp) center/cover;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45;color:var(--lf-ink)}
 .lf::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(42,37,34,0) 40%,rgba(42,37,34,.28) 100%);pointer-events:none}
 .lf h2,.lf p{margin:0}
@@ -842,7 +842,7 @@ a.ct:hover{border-color:var(--ink)}
 }
 
 /* ── Главная: «Как работает аппарат» (согласован 28.10.2026, макет design/arome-home/how.html) ── */
-.hw{--hw-acc:#4A3F37;--hw-ink:#2A2522;--hw-ink2:#5A534D;--hw-ink3:#8A847C;--hw-line:#D6D0C6;--hw-gut:clamp(20px,4.2vw,64px);
+.hw{--hw-acc:#4A3F37;--hw-ink:#2A2522;--hw-ink2:#5A534D;--hw-ink3:#6B655D;--hw-line:#D6D0C6;--hw-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--hw-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .hw h2,.hw h3,.hw p{margin:0}
 .hw-wrap{max-width:1440px;margin:0 auto;padding:0 var(--hw-gut)}
@@ -888,7 +888,7 @@ a.ct:hover{border-color:var(--ink)}
 .ps+.hw{padding-top:0}
 
 /* ── Главная: сравнение «Свечи, спреи или аромамаркетинг» (согласовано 28.10.2026, макет design/arome-home/compare.html) ── */
-.cm{--cm-acc:#4A3F37;--cm-ink:#2A2522;--cm-ink2:#5A534D;--cm-ink3:#8A847C;--cm-line:#DCD7CE;--cm-s:"Playfair Display",Georgia,serif;--cm-gut:clamp(20px,4.2vw,64px);
+.cm{--cm-acc:#4A3F37;--cm-ink:#2A2522;--cm-ink2:#5A534D;--cm-ink3:#6B655D;--cm-line:#DCD7CE;--cm-s:"Playfair Display",Georgia,serif;--cm-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--cm-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .hw+.cm,.ps+.cm{padding-top:0}
 .cm h2,.cm p{margin:0}
@@ -930,7 +930,7 @@ a.ct:hover{border-color:var(--ink)}
 }
 
 /* ── Главная: цены (согласованы 28.10.2026, макет design/arome-home/price.html) ── */
-.pr{--pr-acc:#4A3F37;--pr-acc2:#5C4F45;--pr-ink:#2A2522;--pr-ink2:#5A534D;--pr-ink3:#8A847C;--pr-line:#DCD7CE;--pr-s:"Playfair Display",Georgia,serif;--pr-gut:clamp(20px,4.2vw,64px);
+.pr{--pr-acc:#4A3F37;--pr-acc2:#5C4F45;--pr-ink:#2A2522;--pr-ink2:#5A534D;--pr-ink3:#6B655D;--pr-line:#DCD7CE;--pr-s:"Playfair Display",Georgia,serif;--pr-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--pr-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .cm+.pr{padding-top:0}
 :where(.pr) :where(h2,h3,p,ul){margin:0}
@@ -947,7 +947,7 @@ a.ct:hover{border-color:var(--ink)}
 .pr-ph span b{font-weight:600}
 .pr-card{display:flex;flex-direction:column;padding:32px 30px 28px;border:1px solid #E6E1D8;border-radius:26px;background:#FBFAF7}
 .pr-fit{font-size:14.5px;color:var(--pr-ink3)}
-.pr-card h3{margin-top:8px;font-family:var(--pr-s);font-style:italic;font-weight:400;font-size:46px;line-height:1;letter-spacing:-.01em;color:inherit}
+.pr-card .pr-nm{margin-top:8px;font-family:var(--pr-s);font-style:italic;font-weight:400;font-size:46px;line-height:1;letter-spacing:-.01em;color:inherit}
 .pr-for{margin-top:12px;font-size:15px;color:var(--pr-ink2)}
 .pr-sub{margin-top:30px;font-size:15px;font-weight:600}
 .pr-rows{list-style:none;margin-top:6px!important;padding:0}
@@ -975,12 +975,12 @@ a.ct:hover{border-color:var(--ink)}
   .pr-grid{grid-template-columns:minmax(0,1fr);gap:10px}
   .pr-ph{min-height:0;height:240px}
   .pr-card{padding:26px 22px 22px}
-  .pr-card h3{font-size:40px}
+  .pr-card .pr-nm{font-size:40px}
   .pr-ph+.pr-card{margin-bottom:14px}
 }
 
 /* ── Главная: вопросы (28.10.2026, по референсу: список во всю ширину, круглая кнопка +/×) ── */
-.fq{--fq-acc:#4A3F37;--fq-ink:#2A2522;--fq-ink2:#5A534D;--fq-ink3:#8A847C;--fq-line:#DCD7CE;--fq-gut:clamp(20px,4.2vw,64px);
+.fq{--fq-acc:#4A3F37;--fq-ink:#2A2522;--fq-ink2:#5A534D;--fq-ink3:#6B655D;--fq-line:#DCD7CE;--fq-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--fq-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 :where(.fq) :where(h2,h3,p){margin:0}
 .fq-wrap{max-width:1440px;margin:0 auto;padding:0 var(--fq-gut)}
@@ -1015,7 +1015,7 @@ a.ct:hover{border-color:var(--ink)}
 }
 
 /* ── Главная: этапы (28.10.2026, по референсу — лесенка карточек) ── */
-.et{--et-acc:#4A3F37;--et-ink:#2A2522;--et-ink2:#5A534D;--et-ink3:#8A847C;--et-gut:clamp(20px,4.2vw,64px);
+.et{--et-acc:#4A3F37;--et-ink:#2A2522;--et-ink2:#5A534D;--et-ink3:#6B655D;--et-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--et-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .pr+.et{padding-top:0}
 .et+.fq{padding-top:0}
@@ -1085,7 +1085,7 @@ a.ct:hover{border-color:var(--ink)}
 .ft-pl div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
 /* название по ширине плашки; нижняя часть букв уходит за край */
 .ft-word{position:relative;margin:56px 0 0;padding:0 clamp(16px,2vw,32px);font-weight:700;font-size:32.4vw;line-height:.74;letter-spacing:-.065em;color:#F4F0EA;white-space:nowrap;transform:translateY(9%);user-select:none}
-.ft-bot{display:flex;justify-content:space-between;gap:16px;padding:20px clamp(14px,2.2vw,36px) 26px;font-size:14px;color:#8A847C}
+.ft-bot{display:flex;justify-content:space-between;gap:16px;padding:20px clamp(14px,2.2vw,36px) 26px;font-size:14px;color:#6B655D}
 .ft-bot a{color:inherit;text-decoration:none}
 .ft-bot a:hover{color:#2A2522}
 @media (max-width:1100px){.ft-g{grid-template-columns:repeat(3,minmax(0,1fr))}.ft-a{grid-column:1 / -1}}
@@ -1101,7 +1101,7 @@ a.ct:hover{border-color:var(--ink)}
 .ab+.hw,.hw+.sp{padding-top:0}
 
 /* ── Главная: аппарат (28.10.2026, макет design/arome-home/device-b.html) ── */
-.dv{--dv-acc:#4A3F37;--dv-ink:#2A2522;--dv-ink2:#5A534D;--dv-ink3:#8A847C;padding:0 clamp(10px,1.2vw,18px);background:#F4F3EF;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
+.dv{--dv-acc:#4A3F37;--dv-ink:#2A2522;--dv-ink2:#5A534D;--dv-ink3:#6B655D;padding:0 clamp(10px,1.2vw,18px);background:#F4F3EF;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 :where(.dv) :where(h2,p){margin:0}
 .dv-card{position:relative;overflow:hidden;padding:64px clamp(24px,4.2vw,64px) 56px;border-radius:26px;background:linear-gradient(150deg,#5A4C41,#4A3F37 50%,#3D332C);color:#F4F0EA}
 .dv-card::before{content:"";position:absolute;left:50%;top:52%;width:820px;height:820px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,196,.28),rgba(255,226,196,0));animation:dv-br 6s ease-in-out infinite;pointer-events:none}
@@ -1170,7 +1170,7 @@ a.ct:hover{border-color:var(--ink)}
 @media (max-width:640px){.mbar{background:rgba(244,243,239,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top-color:#DCD7CE}.mbar a{border-radius:16px;font-family:"Inter Tight",system-ui,sans-serif;font-weight:500}}
 
 /* ── Окно заявки: та же карточка, что в блоке заявки, поверх затемнённой страницы ── */
-.rq{--lf-acc:#4A3F37;--lf-acc2:#5C4F45;--lf-ink:#2A2522;--lf-ink2:#5A534D;--lf-ink3:#8A847C;--lf-line:#DCD7CE;--lf-s:"Playfair Display",Georgia,serif;
+.rq{--lf-acc:#4A3F37;--lf-acc2:#5C4F45;--lf-ink:#2A2522;--lf-ink2:#5A534D;--lf-ink3:#6B655D;--lf-line:#DCD7CE;--lf-s:"Playfair Display",Georgia,serif;
   position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:24px;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45;color:var(--lf-ink)}
 .rq[hidden]{display:none}
 .rq :where(h2,p){margin:0}
@@ -1206,7 +1206,7 @@ a.ct:hover{border-color:var(--ink)}
 @media (max-width:900px){.pg-body{--hdr:64px}}
 
 /* ── Верх внутренней страницы: [крошки], H1 с курсивной второй строкой, справа текст ── */
-.pg{--pg-ink:#2A2522;--pg-ink2:#5A534D;--pg-ink3:#8A847C;--pg-s:"Playfair Display",Georgia,serif;--pg-gut:clamp(20px,4.2vw,64px);
+.pg{--pg-ink:#2A2522;--pg-ink2:#5A534D;--pg-ink3:#6B655D;--pg-s:"Playfair Display",Georgia,serif;--pg-gut:clamp(20px,4.2vw,64px);
   padding:84px 0 64px;background:#F4F3EF;color:var(--pg-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 :where(.pg,.inc,.kn) :where(h1,h2,h3,p,ol,ul){margin:0}
 .pg-wrap{max-width:1440px;margin:0 auto;padding:0 var(--pg-gut)}
@@ -1219,11 +1219,11 @@ a.ct:hover{border-color:var(--ink)}
 .pg+.pr{padding-top:0}
 
 /* ── Что входит в подписку: слева заголовок, справа 6 пунктов в две колонки ── */
-.inc{--inc-ink:#2A2522;--inc-ink2:#5A534D;--inc-ink3:#8A847C;--inc-line:#DCD7CE;--inc-s:"Playfair Display",Georgia,serif;--inc-gut:clamp(20px,4.2vw,64px);
+.inc{--inc-ink:#2A2522;--inc-ink2:#5A534D;--inc-ink3:#6B655D;--inc-line:#DCD7CE;--inc-s:"Playfair Display",Georgia,serif;--inc-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--inc-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .pr+.inc{padding-top:16px}
 .inc-wrap{max-width:1440px;margin:0 auto;padding:0 var(--inc-gut);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px}
-.inc-k,.kn-k{font-size:18px;color:#8A847C}.inc-k::before,.kn-k::before{content:"["}.inc-k::after,.kn-k::after{content:"]"}
+.inc-k,.kn-k{font-size:18px;color:#6B655D}.inc-k::before,.kn-k::before{content:"["}.inc-k::after,.kn-k::after{content:"]"}
 .inc-h,.kn-h{margin-top:22px!important;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px);color:inherit}
 .inc-h em,.kn-h em{display:block;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
 .inc-lead,.kn-lead{margin-top:22px!important;max-width:40ch;color:#5A534D;font-size:18px}
@@ -1234,7 +1234,7 @@ a.ct:hover{border-color:var(--ink)}
 .inc-list p{font-size:16px;color:var(--inc-ink2)}
 
 /* ── Какой комплект нужен: строки по площади, цена в месяц справа ── */
-.kn{--kn-acc:#4A3F37;--kn-acc2:#5C4F45;--kn-ink:#2A2522;--kn-ink2:#5A534D;--kn-ink3:#8A847C;--kn-line:#DCD7CE;--kn-gut:clamp(20px,4.2vw,64px);
+.kn{--kn-acc:#4A3F37;--kn-acc2:#5C4F45;--kn-ink:#2A2522;--kn-ink2:#5A534D;--kn-ink3:#6B655D;--kn-line:#DCD7CE;--kn-gut:clamp(20px,4.2vw,64px);
   padding:96px 0;background:#F4F3EF;color:var(--kn-ink);font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .inc+.kn,.kn+.fq{padding-top:0}
 .kn-wrap{max-width:1440px;margin:0 auto;padding:0 var(--kn-gut)}
@@ -1294,7 +1294,7 @@ a.ct:hover{border-color:var(--ink)}
 .hx-ddp::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}
 .hx-dd:hover .hx-ddp,.hx-dd:focus-within .hx-ddp{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .2s,transform .2s}
 .hx-tab .hx-ddp a::after{display:none}
-.hx-ddh{display:flex;align-items:center;padding:4px 12px 12px;margin-bottom:6px;border-bottom:1px solid #E1DBD1;font-size:13.5px;color:#8A847C}
+.hx-ddh{display:flex;align-items:center;padding:4px 12px 12px;margin-bottom:6px;border-bottom:1px solid #E1DBD1;font-size:13.5px;color:#6B655D}
 .hx-ddh span::before{content:"["}.hx-ddh span::after{content:"]"}
 .hx-tab .hx-ddh a{margin-left:auto;padding:0 0 3px;font-size:14px;color:#2A2522;border-bottom:1.5px solid #2A2522;border-radius:0}
 .hx-ddh a i{font-style:normal;margin-left:6px}
@@ -1345,14 +1345,14 @@ a.ct:hover{border-color:var(--ink)}
 /* ── Как подбираем аромат: три колонки с курсивными номерами ── */
 .sh{padding:0 0 96px;background:#F4F3EF;color:#2A2522;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .sh-wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4.2vw,64px)}
-.sh-k{font-size:18px;color:#8A847C}.sh-k::before{content:"["}.sh-k::after{content:"]"}
+.sh-k{font-size:18px;color:#6B655D}.sh-k::before{content:"["}.sh-k::after{content:"]"}
 .sh-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin:22px 0 44px}
 .sh-h{font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px);color:inherit}
 .sh-h em{display:block;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
 .sh-lead{max-width:40ch;color:#5A534D;font-size:18px}
 .sh-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px;border-top:1px solid #DCD7CE}
 .sh-list li{display:flex;flex-direction:column;gap:10px;padding-top:28px}
-.sh-list i{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#8A847C}
+.sh-list i{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#6B655D}
 .sh-list h3{margin-top:8px;font-size:22px;font-weight:600;letter-spacing:-.02em}
 .sh-list p{font-size:16px;color:#5A534D;max-width:36ch}
 
@@ -1382,13 +1382,13 @@ a.ct:hover{border-color:var(--ink)}
 .rs{padding:96px 0;background:#F4F3EF;color:#2A2522;font-family:"Inter Tight",system-ui,sans-serif;line-height:1.45}
 .hw+.rs{padding-top:0}
 .rs-wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4.2vw,64px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:center}
-.rs-k,.mv-k{font-size:18px;color:#8A847C}.rs-k::before,.mv-k::before{content:"["}.rs-k::after,.mv-k::after{content:"]"}
+.rs-k,.mv-k{font-size:18px;color:#6B655D}.rs-k::before,.mv-k::before{content:"["}.rs-k::after,.mv-k::after{content:"]"}
 .rs-h,.mv-h{margin-top:22px!important;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px)}
 .rs-h em,.mv-h em{display:block;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
 .rs-lead,.mv-lead{margin-top:22px!important;max-width:42ch;color:#5A534D;font-size:18px}
 .rs-pts{list-style:none;padding:0;margin-top:30px!important;border-top:1px solid #DCD7CE}
 .rs-pts li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;padding:18px 0;border-bottom:1px solid #DCD7CE}
-.rs-pts i{grid-row:span 2;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:22px;line-height:1.1;color:#8A847C}
+.rs-pts i{grid-row:span 2;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:22px;line-height:1.1;color:#6B655D}
 .rs-pts b{font-size:18px;font-weight:600;letter-spacing:-.015em}
 .rs-pts span{font-size:15.5px;color:#5A534D}
 .rs-card{position:relative;overflow:hidden;padding:36px 36px 30px;border-radius:26px;background:linear-gradient(150deg,#5A4C41,#4A3F37 55%,#3D332C);color:#F4F0EA}
@@ -1466,12 +1466,12 @@ a.ct:hover{border-color:var(--ink)}
 .sv-ph span b{font-weight:600}
 .sv+.sh{padding-top:0}
 .sz{padding:0 0 96px}
-.sz-k,.so-k,.bl-k{font-size:18px;color:#8A847C}.sz-k::before,.so-k::before,.bl-k::before{content:"["}.sz-k::after,.so-k::after,.bl-k::after{content:"]"}
+.sz-k,.so-k,.bl-k{font-size:18px;color:#6B655D}.sz-k::before,.so-k::before,.bl-k::before{content:"["}.sz-k::after,.so-k::after,.bl-k::after{content:"]"}
 .sz-h{margin:22px 0 44px!important;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px)}
 .sz-h em,.sk-h em{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
 .sz-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .sz-c{display:flex;flex-direction:column;gap:10px;min-height:250px;padding:26px 24px 28px;border-radius:26px;background:#FBFAF7;border:1px solid #E6E1D8}
-.sz-c i{margin-bottom:auto;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#8A847C}
+.sz-c i{margin-bottom:auto;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#6B655D}
 .sz-c h3{font-size:21px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
 .sz-c p{font-size:15.5px;color:#5A534D}
 .sk{padding:0 0 96px}
@@ -1505,8 +1505,8 @@ a.ct:hover{border-color:var(--ink)}
 .bl-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .bl-c{display:flex;flex-direction:column;align-items:flex-start;gap:14px;min-height:380px;padding:28px 28px 30px;border-radius:26px;background:#FBFAF7;border:1px solid #E6E1D8;color:inherit;text-decoration:none;transition:border-color .2s}
 .bl-c:hover{border-color:#CFC7BB}
-.bl-n{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#8A847C}
-.bl-m{margin-top:auto;font-size:14px;color:#8A847C}
+.bl-n{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:30px;line-height:1;color:#6B655D}
+.bl-m{margin-top:auto;font-size:14px;color:#6B655D}
 .bl-c h2{font-size:26px;font-weight:600;letter-spacing:-.03em;line-height:1.05}
 .bl-c p{font-size:15.5px;color:#5A534D}
 .bl-c .sx-go{margin-top:8px}
@@ -1514,7 +1514,7 @@ a.ct:hover{border-color:var(--ink)}
 
 /* ── Статья: узкая колонка текста ── */
 .ar-head{max-width:880px;margin-top:22px}
-.ar-m{font-size:15px;color:#8A847C}
+.ar-m{font-size:15px;color:#6B655D}
 .ar-h{margin-top:14px!important;font-weight:600;letter-spacing:-.04em;line-height:.95;font-size:clamp(40px,4.6vw,68px)}
 .ar-lead{margin-top:22px!important;max-width:60ch;color:#5A534D;font-size:19px}
 .ar{padding:0 0 96px}
@@ -1537,7 +1537,7 @@ a.ct:hover{border-color:var(--ink)}
 .kc-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .kc-c{position:relative;display:flex;flex-direction:column;gap:10px;min-height:170px;padding:26px 24px;border-radius:26px;background:#FBFAF7;border:1px solid #E6E1D8;color:inherit;text-decoration:none;transition:border-color .2s}
 a.kc-c:hover{border-color:#CFC7BB}
-.kc-c span{font-size:15px;color:#8A847C}.kc-c span::before{content:"["}.kc-c span::after{content:"]"}
+.kc-c span{font-size:15px;color:#6B655D}.kc-c span::before{content:"["}.kc-c span::after{content:"]"}
 .kc-c b{margin-top:auto;font-size:24px;font-weight:600;letter-spacing:-.025em;line-height:1.1}
 .kc-c i{position:absolute;right:24px;top:24px;font-style:normal;font-size:18px;transition:transform .25s}
 a.kc-c:hover i{transform:translateX(4px)}
@@ -1604,7 +1604,7 @@ a.kc-c:hover i{transform:translateX(4px)}
 :where(.bz) :where(h2,h3,p){margin:0}
 .sh+.bz{padding-top:0}
 .bz-wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4.2vw,64px)}
-.bz-k{font-size:18px;color:#8A847C}.bz-k::before{content:"["}.bz-k::after{content:"]"}
+.bz-k{font-size:18px;color:#6B655D}.bz-k::before{content:"["}.bz-k::after{content:"]"}
 .bz-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin:22px 0 44px}
 .bz-h{font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px)}
 .bz-h em{display:block;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;font-size:1.08em;line-height:.96;margin-top:2px}
@@ -1618,9 +1618,9 @@ a.kc-c:hover i{transform:translateX(4px)}
 .bz-c h3{margin-top:6px;font-size:22px;font-weight:600;letter-spacing:-.02em;line-height:1.15}
 .bz-d{font-size:15.5px;color:#5A534D;max-width:40ch}
 .bz-c:first-child .bz-d{color:#D9CFC3}
-.bz-src{margin-top:auto;padding-top:16px;font-size:13px;color:#8A847C;text-decoration:underline;text-underline-offset:3px}
+.bz-src{margin-top:auto;padding-top:16px;font-size:13px;color:#6B655D;text-decoration:underline;text-underline-offset:3px}
 .bz-c:first-child .bz-src{color:#BFB2A3}
-.bz-note{margin-top:22px;font-size:14px;color:#8A847C;max-width:90ch}
+.bz-note{margin-top:22px;font-size:14px;color:#6B655D;max-width:90ch}
 @media (max-width:900px){
   .bz{padding-bottom:64px}
   .bz-top{flex-direction:column;align-items:flex-start;gap:16px;margin:16px 0 24px}
@@ -1653,8 +1653,8 @@ a.kc-c:hover i{transform:translateX(4px)}
 .ct-lead{color:#5A534D;font-size:18px}
 /* фильтр: строчными, активный — в квадратных скобках */
 .ct-f{display:flex;flex-wrap:wrap;gap:6px 26px;margin:48px 0 26px;padding:18px 0;border-top:1px solid #DCD7CE;border-bottom:1px solid #DCD7CE}
-.ct-f button{padding:4px 0;border:0;background:none;font:500 15px/1.2 "Inter Tight",system-ui,sans-serif;letter-spacing:.02em;color:#8A847C;cursor:pointer;transition:color .2s}
-.ct-f button sup{font-size:10.5px;margin-left:2px;color:#B5ADA2}
+.ct-f button{padding:4px 0;border:0;background:none;font:500 15px/1.2 "Inter Tight",system-ui,sans-serif;letter-spacing:.02em;color:#6B655D;cursor:pointer;transition:color .2s}
+.ct-f button sup{font-size:10.5px;margin-left:2px;color:#6B655D}
 .ct-f button:hover{color:#2A2522}
 .ct-f button.on{color:#2A2522}
 .ct-f button.on::before{content:"[ "}.ct-f button.on::after{content:" ]"}
@@ -1669,7 +1669,7 @@ a.kc-c:hover i{transform:translateX(4px)}
 .ct-b{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:24px 26px 26px;flex:1}
 .ct-b h2{font-size:17px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;line-height:1.25}
 .ct-d{font-size:15px;color:#5A534D;max-width:36ch;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.ct-m{font-size:13px;color:#8A847C}
+.ct-m{font-size:13px;color:#6B655D}
 .ct-btn{display:flex;align-items:center;justify-content:center;align-self:stretch;height:50px;margin-top:auto;border:1px solid #CFC7BB;border-radius:18px;color:#2A2522;font-size:13.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
 .ct-b .ct-m{margin-bottom:14px}
 .ct-btn:hover{background:#4A3F37;border-color:#4A3F37;color:#F4F0EA}
@@ -1692,7 +1692,7 @@ a.kc-c:hover i{transform:translateX(4px)}
 }
 /* аромат по ссылке ?a=<slug> — короткая подсветка плашки; подпись про названия */
 .ct-c.hl{box-shadow:0 0 0 2px #4A3F37}
-.ct-mot{margin-top:22px;font-size:13px;color:#8A847C;text-align:center}
+.ct-mot{margin-top:22px;font-size:13px;color:#6B655D;text-align:center}
 
 /* «Метод»: блок «Аппарат» между «Как работает» и «Аромат по часам» */
 .dv+.rs{padding-top:96px}

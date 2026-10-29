@@ -290,8 +290,10 @@ const PR_CARD = {
   nova1000: { photo: 'pr-large', alt: 'Просторное лобби отеля с колоннами из травертина', tag: 'Большое пространство', for: 'Лобби отеля, торговый зал, ресторан', dark: true }
 };
 const months = n => n + ' ' + (n === 1 ? 'месяц' : n < 5 ? 'месяца' : 'месяцев');
-/* o.bare — без подписи и заголовка: на странице «Цены» их заменяет верх страницы */
+/* o.bare — без подписи и заголовка: на странице «Цены» их заменяет верх страницы.
+   Тогда названия аппаратов — h2 (сразу под h1), иначе h3 под «Стоимость подписки» */
 function pricing(o = {}) {
+  const hn = o.bare ? 'h2' : 'h3';
   return `<section class="pr" id="${o.bare ? 'podpiska' : 'ceny'}">
   <div class="pr-wrap">${o.bare ? '' : `
     <p class="pr-k">цены</p>
@@ -303,7 +305,7 @@ function pricing(o = {}) {
       ${D.devices.map(d => { const c = PR_CARD[d.id]; return `<div class="pr-ph"><img src="${site.url(`assets/img/${c.photo}.webp`)}" alt="${c.alt}" loading="lazy"><span>${c.tag} · <b>до ${d.area} м²</b></span></div>
       <article class="pr-card${c.dark ? ' pr-dk' : ''}">
         <p class="pr-fit">до ${d.area} м²</p>
-        <h3>${d.name}</h3>
+        <${hn} class="pr-nm">${d.name}</${hn}>
         <p class="pr-for">${c.for}</p>
         <p class="pr-sub">Подписка</p>
         <ul class="pr-rows">${d.plans.map(pl => `<li>${pl.months > 1 && pl === d.plans[d.plans.length - 1] ? `<span>${months(pl.months)}<small>${D.fmt(D.perMonth(pl))} в&nbsp;месяц</small></span>` : months(pl.months)}<b>${D.fmt(pl.total)}</b></li>`).join('')}</ul>
