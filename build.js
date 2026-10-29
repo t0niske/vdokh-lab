@@ -43,4 +43,7 @@ if (PROD) {
   fs.writeFileSync(path.join(__dirname, 'dist-prod', 'yandex_ae242e302b81c4f3.html'),
     '<html>\n    <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">\n    </head>\n    <body>Verification: ae242e302b81c4f3</body>\n</html>\n');
   fs.writeFileSync(path.join(__dirname, 'dist-prod', 'google86bd921a6c4cd76f.html'), 'google-site-verification: google86bd921a6c4cd76f.html');
+  /* IndexNow: ключ лежит в корне сайта, tools/indexnow.js после выкладки сообщает Яндексу и Bing об изменённых страницах */
+  const { INDEXNOW_KEY } = require('./tools/indexnow');
+  fs.writeFileSync(path.join(__dirname, 'dist-prod', `${INDEXNOW_KEY}.txt`), INDEXNOW_KEY);
 }
