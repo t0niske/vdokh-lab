@@ -317,6 +317,10 @@ const low = n => n.split(' ').map(w => /^[A-ZА-ЯЁ]{2,}$/.test(w) ? w : w.toLo
 const pgCrumbs = p => `<nav class="pg-k" aria-label="Хлебные крошки">${p.breadcrumbs.map(([n, h], i, a) => i < a.length - 1 ? `<a href="/${h}">${low(n)}</a>` : `<span aria-current="page">${low(n)}</span>`).join(' / ')}</nav>`;
 /* Неразрывный пробел после коротких слов и чисел («в&nbsp;зале», «до&nbsp;300&nbsp;м²») — для текстов из данных */
 const nb = s => [1, 2].reduce(t => t.replace(/(^|[\s«(—])([а-яёА-ЯЁA-Za-z0-9]{1,3}) (?=\S)/g, '$1$2&nbsp;'), s);
+/* Видимая дата обновления и ответственный за текст (DrMax: дата в HTML + dateModified, «Редакция» вместо выдуманного автора) */
+const dateRu = d => new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).replace(' г.', '');
+const upd = p => p.updated ? `<p class="upd">Обновлено <time datetime="${p.updated}">${dateRu(p.updated)}</time> · Редакция Aromé</p>` : '';
+
 function pageTop(p, o) {
   return `<section class="pg">
   <div class="pg-wrap">
@@ -325,6 +329,7 @@ function pageTop(p, o) {
       <h1 class="pg-h">${o.h1}</h1>
       <div class="pg-side">
         <p>${o.lead}</p>
+        ${upd(p)}
       </div>
     </div>
   </div>
@@ -715,6 +720,27 @@ function numbers(s) {
 /* Порядок (пользователь, 28.10.2026): верх, аромат через вентиляцию, аппарат, что почувствуют гости, что получит бизнес, затем ароматы, комплект, вопросы.
    Страница одного пространства (28.10.2026, по системе «Цен» и «Пространств»): верх с фото справа, что даёт аромат,
    зоны аромата через вентиляцию, типовой комплект с ценой из прайса, вопросы, другие пространства. Данные — src/spaces.js */
+/* «Читать по теме» на страницах пространств: 3 статьи блога по следующему вопросу владельца (перелинковка кокона, seo/cocoon-map.md) */
+const READS = {
+  'pomeshcheniya/magaziny/': ['aromatizaciya-magazina-odezhdy', 'kak-proverit-effekt-aromamarketinga', 'aromat-i-prodazhi-issledovaniya'],
+  'pomeshcheniya/salon-krasoty/': ['bezopasna-li-aromatizaciya', 'kak-vybrat-aromat-dlya-biznesa', 'oshibki-aromamarketinga'],
+  'pomeshcheniya/gostinica/': ['firmennyj-aromat-brenda', 'aromamarketing-primery', 'aromatizaciya-cherez-ventilyaciyu'],
+  'pomeshcheniya/restoran-kafe/': ['aromamarketing-v-restorane-i-kofejne', 'oshibki-aromamarketinga', 'kak-proverit-effekt-aromamarketinga'],
+  'pomeshcheniya/ofis/': ['aromatizaciya-cherez-ventilyaciyu', 'bezopasna-li-aromatizaciya', 'kak-rasschitat-aromatizaciyu'],
+  'pomeshcheniya/avtosalony/': ['kak-rasschitat-aromatizaciyu', 'firmennyj-aromat-brenda', 'chto-takoe-aromamarketing'],
+  'pomeshcheniya/tojhana/': ['kak-rasschitat-aromatizaciyu', 'kak-vybrat-aromat-dlya-biznesa', 'oshibki-aromamarketinga'],
+  'pomeshcheniya/zhk-podezd/': ['aromatizaciya-cherez-ventilyaciyu', 'bezopasna-li-aromatizaciya', 'skolko-stoit-aromatizaciya'],
+  'pomeshcheniya/fitnes/': ['kak-rasschitat-aromatizaciyu', 'bezopasna-li-aromatizaciya', 'oshibki-aromamarketinga'],
+  'pomeshcheniya/klinika/': ['bezopasna-li-aromatizaciya', 'aromamarketing-primery', 'aromatizaciya-cherez-ventilyaciyu'],
+  'pomeshcheniya/obshchestvennyj-tualet/': ['kak-rasschitat-aromatizaciyu', 'oshibki-aromamarketinga', 'aromamaslo-dlya-diffuzora'],
+  'osi/': ['skolko-stoit-aromatizaciya', 'bezopasna-li-aromatizaciya', 'aromatizaciya-cherez-ventilyaciyu'],
+  'kvartira/': ['bezopasna-li-aromatizaciya', 'vidy-diffuzorov-dlya-pomeshchenij', 'aromamaslo-dlya-diffuzora']
+};
+function readMore(path) {
+  const list = (READS[path] || []).map(slug => require('./articles').find(a => a.slug === slug)).filter(Boolean);
+  return list.length ? blogCards(list.map(a => Object.assign({ meta: `${a.read} мин чтения` }, a)), { id: 'chitat', k: 'читать по теме' }) : '';
+}
+
 function spacePage(p, s) {
   const pm = setupPm(s.setup), month = setupMonth(s.setup);
   return `<section class="sv">
@@ -723,6 +749,7 @@ function spacePage(p, s) {
       ${pgCrumbs(p)}
       <h1 class="pg-h">${s.h1}</h1>
       <p class="sv-lead">${nb(s.lead)}</p>
+      ${upd(p)}
       <div class="sv-btns"><a class="sv-btn" href="#zayavka">Подобрать аромат</a><a class="sv-btn2" href="/ceny/">Цены</a></div>
     </div>
     <div class="sv-ph"><img src="${site.url(`assets/img/${s.img}.webp`)}" alt="${esc(s.name)}" loading="eager"><span>${setupText(s.setup)} · <b>от ${D.fmt(pm)} в&nbsp;месяц</b></span></div>
@@ -766,7 +793,20 @@ ${collection(p, s.aromas.map(require('./collection').item), { title: `Арома
   </div>
 </section>
 
+${s.limits ? `<section class="sz sz-nf" id="ogranicheniya">
+  <div class="sz-wrap">
+    <p class="sz-k">до заявки</p>
+    <div class="sz-top">
+      <h2 class="sz-h">Когда ароматизация <em>не&nbsp;подойдёт</em></h2>
+      <p class="sz-lead">Говорим об&nbsp;этом заранее, чтобы вы не&nbsp;платили за&nbsp;то, что не&nbsp;сработает. Всё остальное проверим на&nbsp;бесплатном тесте</p>
+    </div>
+    <div class="sz-g sz-g3">${s.limits.map(([t, d], i) => `<article class="sz-c"><i>${num(i)}</i><h3>${nb(t)}</h3><p>${nb(d)}</p></article>`).join('')}</div>
+  </div>
+</section>` : ''}
+
 ${faqHome(s.faq.map(([q, a]) => [q, nb(a)]), p)}
+
+${readMore(s.path)}
 
 <section class="so" id="drugie">
   <div class="so-wrap">
@@ -841,7 +881,7 @@ function article(p, a, meta) {
     <div class="ar-head"><p class="ar-m">${meta}</p><h1 class="ar-h">${a.h1}</h1><p class="ar-lead">${nb(a.lead)}</p></div>
   </div>
 </section>
-<section class="ar"><div class="ar-wrap"><div class="ar-body">${a.body}</div></div></section>`;
+<section class="ar"><div class="ar-wrap"><div class="ar-body">${a.body.replace(/<table>/g, "<table data-scroll-x>")}</div></div></section>`;
 }
 /* Контакты: карточки связи (без адреса — только город) и что написать в заявке */
 function contacts(p) {

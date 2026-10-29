@@ -10,6 +10,10 @@ const ARTICLES = require('./articles');
 const CFG = require('./config');
 const TX = require('./texts');
 const COL = require('./collection');
+/* Дата последней содержательной правки страниц (видна на странице и в sitemap). Аудит DrMax — 29.10.2026 */
+const CONTENT_DATE = '2026-10-29';
+/* Боевая сборка для arome-marketing.kz: служебных «страница переехала» там нет — у домена нет старых адресов */
+const PROD = process.env.SITE === 'prod';
 const { icon, OFFER, TRIAL, C } = UI;
 
 const HOME = ['Главная', ''];
@@ -36,9 +40,9 @@ function register(site) {
   add({
     path: '', section: '', priority: '1.0', bodyClass: 'home', pageName: 'Главная', ownHeader: true, leadForm: true,
     fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
-    title: 'Ароматизация помещений для бизнеса в Астане | Aromé',
+    title: 'Ароматизация помещений для бизнеса в Астане | Aromé', updated: CONTENT_DATE,
     description: `Ароматизация помещений для бизнеса в Астане: подбор аромата, установка в вентиляцию и обслуживание. От ${UI.pm(N300)} в месяц, тест 3 дня бесплатно.`,
-    schema: [site.schema.website(), site.schema.business(C), site.schema.faq(homeFaq.map(([q, a]) => [q, a.replace(/&nbsp;/g, ' ')]))],
+    schema: [site.schema.website(), site.schema.business({ ...C, street: '' }), site.schema.faq(homeFaq.map(([q, a]) => [q, a.replace(/&nbsp;/g, ' ')]))],
     get body() {
       return `
 <section class="hx" id="hx">
@@ -133,7 +137,7 @@ ${UI.faqHome(homeFaq, this)}`;
   add({
     path: 'aromaty/', section: 'aromaty/', pageName: 'Коллекция ароматов', leadForm: true,
     fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
-    title: 'Каталог ароматов для бизнеса — 32 композиции | Aromé',
+    title: 'Каталог ароматов для бизнеса — 32 композиции | Aromé', updated: CONTENT_DATE,
     description: 'Каталог ароматов Aromé для бизнеса в Астане: 32 композиции — отельные, свежие, цветочные, гурманские, SPA и парфюмерные. Ноты, где выбирают, пробники.',
     h1: 'Коллекция: 32 аромата для бизнеса',
     breadcrumbs: [HOME, ['Коллекция', 'aromaty/']],
@@ -144,7 +148,7 @@ ${UI.faqHome(homeFaq, this)}`;
   });
 
   /* ── Запахи и нейтрализатор (28.10.2026): Aromé не занимается устранением запахов — старые адреса ведут на «Пространства» ── */
-  const gone = (path, name) => add({
+  const gone = (path, name) => PROD ? null : add({
     path, noindex: true, noCta: true, redirect: 'pomeshcheniya/',
     title: `${name} — страница переехала | Aromé`,
     description: `Страница «${name}» больше не используется: Aromé занимается ароматизацией пространств для бизнеса. Переходим в раздел «Пространства».`
@@ -157,14 +161,14 @@ ${UI.faqHome(homeFaq, this)}`;
   /* Пространства (вариант A, согласован 28.10.2026): все форматы карточками, «Как подбираем», заявка */
   add({
     path: 'pomeshcheniya/', section: 'pomeshcheniya/', pageName: 'Пространства', leadForm: true,
-    title: 'Ароматизация пространств для бизнеса в Астане — Aromé',
+    title: 'Ароматизация по типу помещения: 13 форматов | Aromé', updated: CONTENT_DATE,
     description: 'Ароматизация магазинов, салонов и SPA, отелей, ресторанов, офисов, автосалонов, тойхан, ЖК и клиник в Астане: подбор аромата, установка и сервис.',
-    h1: 'Пространства под формат вашего бизнеса',
+    h1: 'Ароматизация по типу помещения',
     breadcrumbs: [HOME, ['Пространства', 'pomeshcheniya/']],
     schema: [site.schema.itemList(UI.SPACES.filter(s => s[2].startsWith('/')).map(s => [s[1].replace(/&nbsp;/g, ' '), s[2].slice(1)]))],
     get body() {
       return UI.pageTop(this, {
-        h1: 'Пространства <em>под формат вашего бизнеса</em>',
+        h1: 'Ароматизация <em>по типу помещения</em>',
         lead: 'Аромат работает вместе с&nbsp;интерьером, светом и&nbsp;музыкой. Для&nbsp;каждого формата подбираем свою композицию, интенсивность и&nbsp;расписание'
       }) + `
 ${UI.spaceGrid()}
@@ -175,7 +179,7 @@ ${UI.spaceHow()}`;
 
   /* ── Страницы пространств (28.10.2026): шаблон UI.spacePage, данные — src/spaces.js. Адреса старых помещений сохранены ── */
   SPACE_PAGES.forEach(sp => add({
-    path: sp.path, section: 'pomeshcheniya/', pageName: sp.name, leadForm: true,
+    path: sp.path, section: 'pomeshcheniya/', pageName: sp.name, leadForm: true, updated: CONTENT_DATE,
     title: sp.title, description: sp.description, h1: sp.h1.replace(/<\/?em>/g, ''),
     breadcrumbs: [HOME, ['Пространства', 'pomeshcheniya/'], [sp.name, sp.path]],
     schema: [site.schema.faq(sp.faq), site.schema.service({ name: `Ароматизация: ${sp.name.toLowerCase()}`, description: sp.description, type: 'Ароматизация помещений', low: UI.setupPm(sp.setup), high: UI.setupMonth(sp.setup) }, sp.path)],
@@ -192,14 +196,14 @@ ${UI.spaceHow()}`;
   ];
   add({
     path: 'kak-my-rabotaem/', section: 'kak-my-rabotaem/', pageName: 'Метод', leadForm: true,
-    title: 'Метод Aromé: как работает ароматизация через вентиляцию',
-    description: 'Как работает ароматизация Aromé: аппарат подключается к вентиляции, работает по расписанию ваших часов, масла и сервис — по подписке. Запуск обычно в день обращения.',
-    h1: 'Метод Aromé — аромат как часть пространства',
+    title: 'Ароматизация через вентиляцию: как это работает | Aromé', updated: CONTENT_DATE,
+    description: 'Аппарат Nova подключаем к приточной вентиляции: аромат расходится по воздуховодам по расписанию ваших часов. Масла и сервис — по подписке.',
+    h1: 'Ароматизация через вентиляцию: метод Aromé',
     breadcrumbs: [HOME, ['Метод', 'kak-my-rabotaem/']],
     schema: [site.schema.faq(howFaq.map(([q, a]) => [q, a.replace(/&nbsp;/g, ' ')]))],
     get body() {
       return UI.pageTop(this, {
-        h1: 'Метод Aromé <em>аромат как часть пространства</em>',
+        h1: 'Ароматизация <em>через вентиляцию</em>',
         lead: 'Подбираем композицию под&nbsp;характер бизнеса, подключаем аппарат к&nbsp;вентиляции и&nbsp;ведём его по&nbsp;подписке — от&nbsp;заявки до&nbsp;замены масел'
       }) + `
 ${UI.method({ k: 'как работает' })}
@@ -227,11 +231,11 @@ ${UI.faqHome(howFaq, this, { h: 'Вопросы <em>о&nbsp;методе</em>' }
   ];
   add({
     path: 'ceny/', section: 'ceny/', pageName: 'Цены', leadForm: true,
-    title: 'Цены на ароматизацию помещений для бизнеса в Астане — Aromé',
+    title: 'Цены на ароматизацию помещений в Астане | Aromé', updated: CONTENT_DATE,
     description: `Подписка на ароматизацию для бизнеса: ${N300.name} от ${UI.pm(N300)}, ${N1000.name} от ${UI.pm(N1000)} в месяц. Аппарат, масла, установка и обслуживание включены, ${TRIAL.toLowerCase()}.`,
     h1: 'Цены на ароматизацию для бизнеса в Астане',
     breadcrumbs: [HOME, ['Цены', 'ceny/']],
-    schema: [site.schema.faq(priceFaq.map(([q, a]) => [q, a.replace(/&nbsp;/g, ' ')])), site.schema.service({ name: 'Ароматизация помещений для бизнеса', description: 'Аппарат, аромамасла, установка и обслуживание по подписке', type: 'Ароматизация помещений', low: PM300, high: N1000.plans[2].total }, 'ceny/')],
+    schema: [site.schema.faq(priceFaq.map(([q, a]) => [q, a.replace(/&nbsp;/g, ' ')])), site.schema.service({ name: 'Ароматизация помещений для бизнеса', description: 'Аппарат, аромамасла, установка и обслуживание по подписке', type: 'Ароматизация помещений', low: PM300, high: N1000.plans[0].total }, 'ceny/')],
     get body() {
       return UI.pageTop(this, {
         h1: 'Цены на&nbsp;ароматизацию <em>для бизнеса в&nbsp;Астане</em>',
@@ -248,24 +252,27 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
   });
 
   /* ── Блог (28.10.2026): карточки статей и шаблон статьи в новой системе ── */
-  const metaA = a => `${dateRu(a.date)} · ${a.read} мин чтения`;
+  const metaA = a => `<time datetime="${a.updated || a.date}">${dateRu(a.updated || a.date)}</time> · ${a.read} мин чтения · Редакция Aromé`;
   const cardsA = list => list.map(a => Object.assign({ meta: metaA(a) }, a));
   add({
     path: 'stati/', section: 'stati/', pageName: 'Блог', leadForm: true,
-    title: 'Блог Aromé: статьи для владельцев и управляющих',
-    description: 'Блог Aromé: статьи для владельцев и управляющих — как выбрать аромат для бизнеса, что показывают исследования об аромате и продажах, как проходит тест.',
-    h1: 'Блог Aromé',
+    title: 'Аромамаркетинг: статьи для бизнеса | Блог Aromé', updated: CONTENT_DATE,
+    description: 'Статьи об аромамаркетинге простым языком: что это, как работает ароматизация через вентиляцию, сколько стоит, как выбрать аромат и проверить эффект.',
+    h1: 'Блог об аромамаркетинге',
     breadcrumbs: [HOME, ['Блог', 'stati/']],
     schema: [site.schema.itemList(ARTICLES.map(a => [a.title, `stati/${a.slug}/`]))],
     get body() {
-      return UI.pageTop(this, { h1: 'Блог <em>Aromé</em>', lead: 'Статьи для владельцев и&nbsp;управляющих: как выбрать аромат, что говорят исследования и&nbsp;как проверить аромат у&nbsp;себя' }) + UI.blogCards(cardsA(ARTICLES));
+      /* статьи по разделам (topic в src/articles.js), нумерация сквозная внутри раздела */
+      const topics = [...new Set(ARTICLES.map(a => a.topic))];
+      return UI.pageTop(this, { h1: 'Блог <em>об&nbsp;аромамаркетинге</em>', lead: 'Простым языком для владельцев и&nbsp;управляющих: что такое аромамаркетинг, как устроена ароматизация, сколько она стоит и&nbsp;как проверить эффект у&nbsp;себя' }) +
+        topics.map((t, i) => UI.blogCards(cardsA(ARTICLES.filter(a => a.topic === t)), { id: i ? `razdel-${i + 1}` : 'stati', k: t.toLowerCase() })).join('');
     }
   });
 
   ARTICLES.forEach(a => {
     const p = `stati/${a.slug}/`;
     add({
-      path: p, section: 'stati/', pageName: a.h1, leadForm: true, title: a.title, description: a.description, h1: a.h1, ogType: 'article', updated: a.date,
+      path: p, section: 'stati/', pageName: a.h1, leadForm: true, title: a.title, description: a.description, h1: a.h1, ogType: 'article', updated: a.updated || a.date,
       breadcrumbs: [HOME, ['Блог', 'stati/'], [a.h1, p]],
       schema: [site.schema.article(a, p)],
       get body() {
@@ -273,7 +280,7 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
       }
     });
     /* старые адреса заменённых статей → новая статья */
-    (a.moved || []).forEach(m => add({
+    (PROD ? [] : a.moved || []).forEach(m => add({
       path: `stati/${m}/`, noindex: true, noCta: true, redirect: p,
       title: `Статья переехала — ${m}`, description: `Статья «${m}» заменена новой: «${a.h1}». Переходим на неё автоматически.`
     }));
@@ -285,11 +292,11 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
     ['Можно ли платить помесячно?', `Да. Месяц ${N300.name} стоит ${D.fmt(N300.plans[0].total)}. При оплате за 3 или 6 месяцев цена в пересчёте на месяц ниже`],
     ['Как часто вы приезжаете?', 'По графику заправки масла. Если аппарат сломался или аромат не подошёл, приедем вне графика'],
     ['Работаете ли вы с ОСИ и управляющими компаниями?', 'Да, по договору с актом каждый месяц. Подробнее — на странице для ОСИ и УК'],
-    ['Можно ли поставить аппарат дома?', 'Да, компактный Nova 300 подходит для квартиры или дома']
+    ['Можно ли поставить аппарат дома?', 'Да, если в квартире или доме есть приточная установка: компактный Nova 300 подключаем к ней. Если есть только вытяжка, подключить аппарат некуда']
   ].map(([q, a]) => [q, UI.nb(a)]);
   add({
     path: 'voprosy/', section: '', pageName: 'Вопросы', leadForm: true,
-    title: 'Вопросы об ароматизации помещений — Aromé',
+    title: 'Вопросы об ароматизации помещений — Aromé', updated: CONTENT_DATE,
     description: 'Ответы на частые вопросы об ароматизации: безопасность ароматов, оборудование, сроки запуска, договор, цена, обслуживание и бесплатный тест 3 дня.',
     h1: 'Вопросы и ответы',
     breadcrumbs: [HOME, ['Вопросы', 'voprosy/']],
@@ -302,11 +309,11 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
   /* ── Контакты и служебные ── */
   add({
     path: 'kontakty/', section: '', pageName: 'Контакты', leadForm: true,
-    title: 'Контакты Aromé — ароматизация помещений в Астане',
+    title: 'Контакты Aromé — ароматизация помещений в Астане', updated: CONTENT_DATE,
     description: `Контакты Aromé в Астане: ${C.phone}, WhatsApp. Напишите о своём пространстве — подберём аромат и решение, первые 3 дня бесплатно.`,
     h1: 'Контакты',
     breadcrumbs: [HOME, ['Контакты', 'kontakty/']],
-    schema: [site.schema.business(C)],
+    schema: [site.schema.business({ ...C, street: '' })],
     get body() {
       return UI.pageTop(this, { h1: 'Контакты <em>Aromé в&nbsp;Астане</em>', lead: 'Быстрее всего — WhatsApp: ответим и&nbsp;подскажем аромат и&nbsp;решение для вашего пространства. Работаем по&nbsp;всей Астане: подбираем аромат, устанавливаем аппарат и&nbsp;обслуживаем его по&nbsp;подписке' }) + UI.contacts(this);
     }

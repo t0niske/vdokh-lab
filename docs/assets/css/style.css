@@ -1697,3 +1697,18 @@ a.kc-c:hover i{transform:translateX(4px)}
 /* «Метод»: блок «Аппарат» между «Как работает» и «Аромат по часам» */
 .dv+.rs{padding-top:96px}
 @media (max-width:900px){.dv+.rs{padding-top:64px}}
+
+/* Аудит DrMax (29.10.2026): дата обновления и блок «Когда не подойдёт» на страницах пространств */
+.upd{margin-top:14px!important;font-size:13.5px;color:#8A847C}
+.sz-nf{padding-top:0}
+.sz-g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.sz-g3 .sz-c{min-height:0}
+@media (max-width:900px){.sz-g3{grid-template-columns:1fr}}
+/* Статьи блога (29.10.2026): таблицы сравнения, примечание, источники */
+.ar-body table{display:block;overflow-x:auto;width:100%;margin:6px 0 26px;border-collapse:collapse;font-size:15.5px;line-height:1.45}
+.ar-body th,.ar-body td{padding:12px 14px;border-bottom:1px solid #E6E1D8;text-align:left;vertical-align:top;min-width:120px}
+.ar-body thead th{font-weight:600;color:#2B2622;background:#F1EEE8}
+.ar-body tbody td:first-child{font-weight:500;color:#2B2622}
+.ar-note{margin:0 0 22px!important;padding:14px 18px;border-radius:14px;background:#F1EEE8;color:#5A534D;font-size:15px}
+.ar-src{font-size:14.5px;color:#5A534D}
+.ar-src li{margin-bottom:6px}
