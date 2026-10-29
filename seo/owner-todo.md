@@ -21,6 +21,7 @@
 ## 2. Сделать самому (кабинеты)
 1. **Яндекс Вебмастер**: Индексирование → Файлы Sitemap → `https://arome-marketing.kz/sitemap.xml`; Информация о сайте → Регион → Астана; связать с Метрикой 113899311.
 2. **Google Search Console**: Файлы Sitemap → `sitemap.xml`.
+2а. **Bing Webmaster Tools** (bing.com/webmasters) — **срочно для ChatGPT**: «Импорт из Google Search Console», sitemap подтянется сам. На 30.10.2026 сайта в Bing нет, а ChatGPT Search и Copilot ищут по индексу Bing. Подробности — [audit-geo-2026-10-30.md](audit-geo-2026-10-30.md).
 3. **Яндекс Метрика**: 4 цели «JavaScript-событие» — `form_submit`, `test_request`, `wa_click`, `call_click`; в настройках включить фильтр роботов и исключить свой IP.
 4. **Яндекс Бизнес** (business.yandex.kz): карточка «Aromé», рубрики «Ароматизация помещений», «Аромамаркетинг»; сайт, телефон, часы — те же, что на сайте.
 5. **2ГИС** (добавить организацию в 2ГИС Астана): то же название, телефон, адрес, сайт.

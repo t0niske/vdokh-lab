@@ -50,7 +50,7 @@ function register(site) {
   <div class="hx-lines" aria-hidden="true"><span></span></div>
   ${UI.hxHeader(this)}
   <div class="hx-txt">
-    <h1><span class="hx-s1">Ароматизация помещений</span><span class="hx-s2">для бизнеса в&nbsp;Астане</span></h1>
+    <h1><span class="hx-s1">Ароматизация помещений</span> <span class="hx-s2">для бизнеса в&nbsp;Астане</span></h1>
     <p class="hx-lead">Подберём аромат под характер вашего бизнеса, установим оборудование в&nbsp;вентиляцию и&nbsp;возьмём обслуживание на&nbsp;себя</p>
     <div class="hx-btns"><a class="hx-btn hx-btn-a" href="#zayavka" data-test>Попробовать 3 дня бесплатно</a><a class="hx-btn hx-btn-g" href="/ceny/">Посмотреть стоимость</a></div>
   </div>

@@ -270,7 +270,8 @@ function stages(o = {}) {
    Первый вопрос открыт. Точки в конце ответов убираем, как во всех новых блоках главной */
 function faqHome(list, p, o = {}) {
   const noDot = s => s.replace(/\.$/, '');
-  /* o.bare — только список: на странице «Вопросы» заголовок даёт верх страницы */
+  /* o.bare — только список: на странице «Вопросы» заголовок даёт верх страницы, поэтому вопросы там h2 (сразу под h1) */
+  const hn = o.bare ? 'h2' : 'h3';
   return `<section class="fq" id="voprosy">
   <div class="fq-wrap">${o.bare ? '' : `
     <p class="fq-k">вопросы</p>
@@ -278,7 +279,7 @@ function faqHome(list, p, o = {}) {
       <h2 class="fq-h">${o.h || 'Частые <em>вопросы</em>'}</h2>
       <p class="fq-lead">Не нашли ответ? <a href="${wa(p.pageName, 'У меня вопрос.')}" target="_blank" rel="noopener">Спросите в&nbsp;WhatsApp</a> — ответим и&nbsp;подскажем по&nbsp;вашему пространству</p>
     </div>`}
-    <div class="fq-list">${list.map(([q, a], i) => `<details class="fq-it"${i ? '' : ' open'}><summary><h3>${esc(noDot(q))}</h3><i aria-hidden="true"></i></summary><p>${noDot(a)}</p></details>`).join('')}</div>
+    <div class="fq-list">${list.map(([q, a], i) => `<details class="fq-it"${i ? '' : ' open'}><summary><${hn} class="fq-q">${esc(noDot(q))}</${hn}><i aria-hidden="true"></i></summary><p>${noDot(a)}</p></details>`).join('')}</div>
   </div>
 </section>`;
 }
