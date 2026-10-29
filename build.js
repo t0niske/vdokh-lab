@@ -37,6 +37,9 @@ site.pages.forEach(p => { p.pageName = p.pageName || p.h1 || p.title; });
 if (!PROD) site.pages.forEach(p => { p.noindex = true; });
 site.build(UI.layout);
 
-/* Подтверждение прав в Яндекс Вебмастере — только для своего домена */
-if (PROD) fs.writeFileSync(path.join(__dirname, 'dist-prod', 'yandex_ae242e302b81c4f3.html'),
-  '<html>\n    <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">\n    </head>\n    <body>Verification: ae242e302b81c4f3</body>\n</html>\n');
+/* Подтверждение прав в Яндекс Вебмастере и Google Search Console — только для своего домена */
+if (PROD) {
+  fs.writeFileSync(path.join(__dirname, 'dist-prod', 'yandex_ae242e302b81c4f3.html'),
+    '<html>\n    <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">\n    </head>\n    <body>Verification: ae242e302b81c4f3</body>\n</html>\n');
+  fs.writeFileSync(path.join(__dirname, 'dist-prod', 'google86bd921a6c4cd76f.html'), 'google-site-verification: google86bd921a6c4cd76f.html');
+}
