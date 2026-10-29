@@ -1453,14 +1453,16 @@ a.ct:hover{border-color:var(--ink)}
 :where(.sv,.sz,.sk,.so,.bl,.ar,.kc) :where(h1,h2,h3,p){margin:0}
 .sv{padding:84px 0 96px}
 .sv-wrap,.sz-wrap,.sk-wrap,.so-wrap,.bl-wrap,.kc-wrap{max-width:1440px;margin:0 auto;padding:0 clamp(20px,4.2vw,64px)}
-.sv-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:end}
-.sv .pg-h{margin-top:22px}
-.sv-lead{margin-top:26px!important;max-width:46ch;color:#5A534D;font-size:18px}
+.sv-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:stretch}
+/* Крошки и H1 — по верху фото, описание и кнопки — по низу (30.10.2026): свободное место между ними, но не меньше 26px */
+.sv-txt{display:flex;flex-direction:column}
+.sv .pg-h{margin-top:22px;margin-bottom:26px}
+.sv-lead{margin-top:auto!important;max-width:46ch;color:#5A534D;font-size:18px}
 .sv-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 .sv-btn,.sv-btn2{display:inline-flex;align-items:center;justify-content:center;height:56px;padding:0 28px;border-radius:18px;font-size:15.5px;font-weight:500;text-decoration:none;transition:background .2s,border-color .2s}
 .sv-btn{background:#4A3F37;color:#F4F0EA}.sv-btn:hover{background:#5C4F45}
 .sv-btn2{border:1.5px solid #CFC7BB;color:#2A2522}.sv-btn2:hover{border-color:#2A2522}
-.sv-ph{position:relative;aspect-ratio:5/4;border-radius:26px;overflow:hidden;background:#2A2522}
+.sv-ph{position:relative;align-self:start;aspect-ratio:5/4;border-radius:26px;overflow:hidden;background:#2A2522}
 .sv-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .sv-ph span{position:absolute;left:14px;bottom:14px;padding:10px 16px;border-radius:14px;background:rgba(30,24,19,.36);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);color:#fff;font-size:14.5px}
 .sv-ph span b{font-weight:600}
@@ -1551,7 +1553,7 @@ a.kc-c:hover i{transform:translateX(4px)}
 @media (max-width:900px){
   .sv{padding:36px 0 64px}
   .sv-wrap{grid-template-columns:minmax(0,1fr);gap:28px}
-  .sv .pg-h{margin-top:16px}
+  .sv .pg-h{margin-top:16px;margin-bottom:0}
   .sv-lead{margin-top:18px!important;font-size:16px}
   .sv-btns{margin-top:24px}
   .sv-btn,.sv-btn2{flex:1;height:54px;padding:0 14px;white-space:nowrap}
