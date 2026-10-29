@@ -1699,7 +1699,6 @@ a.kc-c:hover i{transform:translateX(4px)}
 @media (max-width:900px){.dv+.rs{padding-top:64px}}
 
 /* Аудит DrMax (29.10.2026): дата обновления и блок «Когда не подойдёт» на страницах пространств */
-.upd{margin-top:14px!important;font-size:13.5px;color:#8A847C}
 .sz-nf{padding-top:0}
 .sz-g3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .sz-g3 .sz-c{min-height:0}

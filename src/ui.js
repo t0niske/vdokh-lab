@@ -321,9 +321,9 @@ const low = n => n.split(' ').map(w => /^[A-ZА-ЯЁ]{2,}$/.test(w) ? w : w.toLo
 const pgCrumbs = p => `<nav class="pg-k" aria-label="Хлебные крошки">${p.breadcrumbs.map(([n, h], i, a) => i < a.length - 1 ? `<a href="/${h}">${low(n)}</a>` : `<span aria-current="page">${low(n)}</span>`).join(' / ')}</nav>`;
 /* Неразрывный пробел после коротких слов и чисел («в&nbsp;зале», «до&nbsp;300&nbsp;м²») — для текстов из данных */
 const nb = s => [1, 2].reduce(t => t.replace(/(^|[\s«(—])([а-яёА-ЯЁA-Za-z0-9]{1,3}) (?=\S)/g, '$1$2&nbsp;'), s);
-/* Видимая дата обновления и ответственный за текст (DrMax: дата в HTML + dateModified, «Редакция» вместо выдуманного автора) */
+/* Дата по-русски для статей блога. На коммерческих страницах строку «Обновлено … · Редакция» не выводим (решение владельца 30.10.2026):
+   дата правки остаётся только в sitemap (lastmod) */
 const dateRu = d => new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).replace(' г.', '');
-const upd = p => p.updated ? `<p class="upd">Обновлено <time datetime="${p.updated}">${dateRu(p.updated)}</time> · Редакция Aromé</p>` : '';
 
 function pageTop(p, o) {
   return `<section class="pg">
@@ -333,7 +333,6 @@ function pageTop(p, o) {
       <h1 class="pg-h">${o.h1}</h1>
       <div class="pg-side">
         <p>${o.lead}</p>
-        ${upd(p)}
       </div>
     </div>
   </div>
@@ -753,7 +752,6 @@ function spacePage(p, s) {
       ${pgCrumbs(p)}
       <h1 class="pg-h">${s.h1}</h1>
       <p class="sv-lead">${nb(s.lead)}</p>
-      ${upd(p)}
       <div class="sv-btns"><a class="sv-btn" href="#zayavka">Подобрать аромат</a><a class="sv-btn2" href="/ceny/">Цены</a></div>
     </div>
     <div class="sv-ph"><img src="${site.url(`assets/img/${s.img}.webp`)}" alt="${esc(s.name)}" loading="eager"><span>${setupText(s.setup)} · <b>от ${D.fmt(pm)} в&nbsp;месяц</b></span></div>
