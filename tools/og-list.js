@@ -27,7 +27,7 @@ const ART_PHOTO = {
   'vidy-diffuzorov-dlya-pomeshchenij': 'nova-cut', 'aromamaslo-dlya-diffuzora': 'sc-17', 'kak-rasschitat-aromatizaciyu': 'metod',
   'bezopasna-li-aromatizaciya': 'sc-spa', 'skolko-stoit-aromatizaciya': 'pr-large', 'kak-proverit-effekt-aromamarketinga': 'sc-intercontinental',
   'test-aromata-3-dnya': 'sc-floral', 'oshibki-aromamarketinga': 'sc-16', 'aromamarketing-v-restorane-i-kofejne': 'sc-coffee',
-  'aromatizaciya-magazina-odezhdy': ['sc-jo-malone', 0.9]
+  'aromatizaciya-magazina-odezhdy': ['sc-jo-malone', 0.9], 'ventilyaciya-ili-nastennyj': 'sc-12'
 };
 const articles = ARTICLES.map(a => {
   if (!ART_PHOTO[a.slug]) throw new Error('нет фото для статьи ' + a.slug);

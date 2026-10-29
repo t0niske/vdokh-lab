@@ -91,7 +91,7 @@ const OLD = [
 const ALL = [...OLD, ...require('./articles-blog'), ...require('./articles-blog-2')];
 const ORDER = [
   ['chto-takoe-aromamarketing', 'Основы'], ['aromamarketing-primery', 'Основы'], ['aromat-i-prodazhi-issledovaniya', 'Основы'], ['kak-vybrat-aromat-dlya-biznesa', 'Основы'], ['firmennyj-aromat-brenda', 'Основы'],
-  ['aromatizaciya-cherez-ventilyaciyu', 'Как устроено'], ['vidy-diffuzorov-dlya-pomeshchenij', 'Как устроено'], ['aromamaslo-dlya-diffuzora', 'Как устроено'], ['kak-rasschitat-aromatizaciyu', 'Как устроено'], ['bezopasna-li-aromatizaciya', 'Как устроено'],
+  ['aromatizaciya-cherez-ventilyaciyu', 'Как устроено'], ['vidy-diffuzorov-dlya-pomeshchenij', 'Как устроено'], ['ventilyaciya-ili-nastennyj', 'Как устроено'],['aromamaslo-dlya-diffuzora', 'Как устроено'], ['kak-rasschitat-aromatizaciyu', 'Как устроено'], ['bezopasna-li-aromatizaciya', 'Как устроено'],
   ['skolko-stoit-aromatizaciya', 'Деньги и результат'], ['kak-proverit-effekt-aromamarketinga', 'Деньги и результат'], ['test-aromata-3-dnya', 'Деньги и результат'], ['oshibki-aromamarketinga', 'Деньги и результат'],
   ['aromamarketing-v-restorane-i-kofejne', 'По форматам'], ['aromatizaciya-magazina-odezhdy', 'По форматам']
 ];

@@ -252,6 +252,14 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
   /* ── Блог (28.10.2026): карточки статей и шаблон статьи в новой системе ── */
   const metaA = a => `<time datetime="${a.updated || a.date}">${dateRu(a.updated || a.date)}</time> · ${a.read} мин чтения · Редакция Aromé`;
   const cardsA = list => list.map(a => Object.assign({ meta: metaA(a) }, a));
+  /* Под статьёй — 4 статьи, а не весь блог (30.10.2026): до 3 из того же раздела (ближайшие по порядку),
+     остальное — опорные «Что такое аромамаркетинг» и «Сколько стоит» */
+  const relatedA = a => {
+    const i = ARTICLES.indexOf(a);
+    const same = ARTICLES.filter(x => x !== a && x.topic === a.topic).sort((x, y) => Math.abs(ARTICLES.indexOf(x) - i) - Math.abs(ARTICLES.indexOf(y) - i)).slice(0, 3);
+    const hubs = ['chto-takoe-aromamarketing', 'skolko-stoit-aromatizaciya', 'aromatizaciya-cherez-ventilyaciyu'].map(s => ARTICLES.find(x => x.slug === s));
+    return [...same, ...hubs.filter(x => x && x !== a && !same.includes(x))].slice(0, 4);
+  };
   add({
     path: 'stati/', section: 'stati/', pageName: 'Блог', leadForm: true,
     title: 'Аромамаркетинг: статьи для бизнеса | Блог Aromé', updated: CONTENT_DATE,
@@ -274,7 +282,7 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
       breadcrumbs: [HOME, ['Блог', 'stati/'], [a.h1, p]],
       schema: [site.schema.article(a, p)],
       get body() {
-        return UI.article(this, a, metaA(a)) + UI.blogCards(cardsA(ARTICLES.filter(x => x !== a)), { id: 'drugie', k: 'другие статьи' });
+        return UI.article(this, a, metaA(a)) + UI.blogCards(cardsA(relatedA(a)), { id: 'drugie', k: 'читать дальше', sub: true });
       }
     });
     /* старые адреса заменённых статей → новая статья */

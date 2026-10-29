@@ -744,7 +744,7 @@ const READS = {
 };
 function readMore(path) {
   const list = (READS[path] || []).map(slug => require('./articles').find(a => a.slug === slug)).filter(Boolean);
-  return list.length ? blogCards(list.map(a => Object.assign({ meta: `${a.read} мин чтения` }, a)), { id: 'chitat', k: 'читать по теме' }) : '';
+  return list.length ? blogCards(list.map(a => Object.assign({ meta: `${a.read} мин чтения` }, a)), { id: 'chitat', k: 'читать по теме', sub: true }) : '';
 }
 
 function spacePage(p, s) {
@@ -870,11 +870,14 @@ function weYou() {
 }
 
 /* Блог (28.10.2026): карточки статей в 3 колонки — номер, дата и время чтения, заголовок, лид, «Читать» */
+/* o.sub — подборка под статьёй или на странице пространства: подпись раздела становится h2, карточки — h3,
+   чтобы чужие заголовки не выглядели разделами текущей страницы (для поиска и нарезки ИИ) */
 function blogCards(list, o = {}) {
+  const hn = o.sub ? 'h3' : 'h2', kt = o.sub ? 'h2' : 'p';
   return `<section class="bl" id="${o.id || 'stati'}">
   <div class="bl-wrap">${o.k ? `
-    <p class="bl-k">${o.k}</p>` : ''}
-    <div class="bl-g">${list.map((a, i) => `<a class="bl-c" href="/stati/${a.slug}/"><span class="bl-n">${num(i)}</span><span class="bl-m">${a.meta}</span><h2>${a.h1}</h2><p>${nb(a.lead)}</p><span class="sx-go">Читать<i>→</i></span></a>`).join('')}</div>
+    <${kt} class="bl-k">${o.k}</${kt}>` : ''}
+    <div class="bl-g">${list.map((a, i) => `<a class="bl-c" href="/stati/${a.slug}/"><span class="bl-n">${num(i)}</span><span class="bl-m">${a.meta}</span><${hn} class="bl-t">${a.h1}</${hn}><p>${nb(a.lead)}</p><span class="sx-go">Читать<i>→</i></span></a>`).join('')}</div>
   </div>
 </section>`;
 }

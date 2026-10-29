@@ -25,12 +25,13 @@
 | /kontakty/ | trust | Связаться | — | / |
 | /stati/ | blog hub (4 раздела) | Разобраться в теме | аромамаркетинг статьи | / |
 | /stati/chto-takoe-aromamarketing/ | info pillar | Понять, что это | аромамаркетинг что это | /stati/ |
-| остальные 15 статей | info child / support / evidence | см. blog-plan.md | | /stati/ |
+| остальные 16 статей | info child / support / evidence | см. blog-plan.md | | /stati/ |
 
 ## Разведение каннибализации (M16)
 - `/` vs `/pomeshcheniya/`: главная — «ароматизация помещений для бизнеса в Астане», хаб — «по типу помещения» (title и H1 изменены 29.10.2026).
 - `/pomeshcheniya/zhk-podezd/` vs `/osi/`: ЖК — лобби и лифтовые холлы для девелопера/УК; ОСИ — подъезды по договору с ОСИ. Title/H1 разведены.
 - `/kak-my-rabotaem/` (как работаем мы, сервис) vs `/stati/aromatizaciya-cherez-ventilyaciyu/` (сравнение способов подачи, плюсы и минусы, кому не подходит).
+- `/stati/aromatizaciya-cherez-ventilyaciyu/` (как устроено, плюсы и минусы, 3 способа) vs `/stati/vidy-diffuzorov-dlya-pomeshchenij/` (типы аппаратов) vs `/stati/ventilyaciya-ili-nastennyj/` (выбор по помещению: проверка вентиляции за 10 минут, разбор 6 ситуаций, когда лучше настенный). Под статьёй — 4 похожие (3 из раздела + опорные), не все 16 (30.10.2026).
 - `/ceny/` (наш прайс) vs `/stati/skolko-stoit-aromatizaciya/` (из чего складывается цена, покупка vs подписка, порог окупаемости).
 - `/pomeshcheniya/restoran-kafe/` vs `/stati/aromamarketing-v-restorane-i-kofejne/` (решение vs как не помешать кухне, исследование).
 - `/pomeshcheniya/magaziny/` vs `/stati/aromatizaciya-magazina-odezhdy/` (решение vs выбор аромата под стиль одежды).
