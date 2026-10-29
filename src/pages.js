@@ -39,7 +39,6 @@ function register(site) {
   ];
   add({
     path: '', section: '', priority: '1.0', bodyClass: 'home', pageName: 'Главная', ownHeader: true, leadForm: true,
-    fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
     title: 'Ароматизация помещений для бизнеса в Астане | Aromé', updated: CONTENT_DATE,
     description: `Ароматизация помещений для бизнеса в Астане: подбор аромата, установка в вентиляцию и обслуживание. От ${UI.pm(N300)} в месяц, тест 3 дня бесплатно.`,
     schema: [site.schema.website(), site.schema.business({ ...C, street: '' }), site.schema.faq(homeFaq.map(([q, a]) => [q, a.replace(/&nbsp;/g, ' ')]))],
@@ -136,7 +135,6 @@ ${UI.faqHome(homeFaq, this)}`;
   /* ── Коллекция ароматов (28.10.2026): каталог-плашки по идее референса, UI.catalog ── */
   add({
     path: 'aromaty/', section: 'aromaty/', pageName: 'Коллекция ароматов', leadForm: true,
-    fonts: 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500',
     title: 'Каталог ароматов для бизнеса — 32 композиции | Aromé', updated: CONTENT_DATE,
     description: 'Каталог ароматов Aromé для бизнеса в Астане: 32 композиции — отельные, свежие, цветочные, гурманские, SPA и парфюмерные. Ноты, где выбирают, пробники.',
     h1: 'Коллекция: 32 аромата для бизнеса',

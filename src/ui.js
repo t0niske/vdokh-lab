@@ -118,13 +118,18 @@ function analytics() {
   const A = CFG.analytics;
   let s = `<script>window.dataLayer=window.dataLayer||[];window.AROME_AN=${JSON.stringify({ ym: A.ym || '', ga4: A.ga4 || '' })};</script>`;
   /* код Метрики — как выдаёт Яндекс (загрузчик tag.js?id=…, вебвизор, карта кликов) */
-  if (A.ym) s += `\n<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=${Number(A.ym)}','ym');ym(${Number(A.ym)},'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:'dataLayer',referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});</script>`; // без <noscript>-пикселя: проверка сборки требует alt у картинок, а посетителей без JS почти нет
+  /* грузим через 5 с после load в простое браузера или при первом действии посетителя: вебвизор не тормозит первый экран (Lighthouse 30.10.2026: TBT 4,9 с → 0) */
+  if (A.ym) s += `\n<script>(function(){var go=function(){if(window.__ymGo)return;window.__ymGo=1;(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=${Number(A.ym)}','ym');ym(${Number(A.ym)},'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:'dataLayer',referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true})};['scroll','pointerdown','keydown','touchstart'].forEach(function(ev){addEventListener(ev,go,{once:true,passive:true})});addEventListener('load',function(){setTimeout(function(){(window.requestIdleCallback||setTimeout)(go)},5000)})})();</script>`; // без <noscript>-пикселя: проверка сборки требует alt у картинок, а посетителей без JS почти нет
   if (A.ga4) s += `\n<script async src="https://www.googletagmanager.com/gtag/js?id=${esc(A.ga4)}"></script><script>function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${esc(A.ga4)}');</script>`;
   return s;
 }
 
 /* Версия в адресах стилей и скриптов (?v=…) — хэш их содержимого: GitHub Pages кэширует файлы до 10 минут,
    и без версии браузер после публикации показывает новую страницу со старыми стилями */
+/* Шрифты лежат у нас (assets/fonts), @font-face встраиваем в <head>: без похода на Google Fonts первый экран рисуется быстрее */
+const FONTS = require('fs').readFileSync(require('path').join(__dirname, 'assets', 'css', 'fonts.css'), 'utf8')
+  .replace(/^\/\*.*\*\/\n/m, '').replace(/url\(\.\.\/fonts\//g, 'url(/assets/fonts/');
+
 const VER = require('crypto').createHash('md5')
   .update(['css/style.css', 'js/main.js', 'favicon.svg'].map(f => require('fs').readFileSync(require('path').join(__dirname, 'assets', f))).join(''))
   .digest('hex').slice(0, 8);
@@ -149,10 +154,9 @@ ${head}
 ${head}
 <script>document.documentElement.classList.add('js')</script>
 ${analytics()}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Tenor+Sans&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?${p.fonts || 'family=Inter+Tight:wght@100..900&family=Playfair+Display:ital,wght@1,400;1,500'}&display=swap">
+<link rel="preload" href="/assets/fonts/inter-tight-normal-100-900-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/golos-text-normal-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<style>${FONTS}</style>
 <link rel="stylesheet" href="/assets/css/style.css?v=${VER}">
 <link rel="icon" href="/assets/favicon.svg?v=${VER}" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=${VER}" type="image/png" sizes="32x32">

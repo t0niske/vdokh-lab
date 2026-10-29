@@ -26,6 +26,7 @@ const site = createSite({
   description: 'Ароматизация помещений для бизнеса в Астане',
   themeColor: '#F4F3EF',
   ogImage: 'og',
+  logo: 'assets/apple-touch-icon.png',
   images: require('./src/images'),
   browserData: D.browserScript() + 'window.VD=' + JSON.stringify(VD) + ';\n'
 });

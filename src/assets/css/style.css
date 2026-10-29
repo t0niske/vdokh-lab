@@ -502,7 +502,7 @@ a.ct:hover{border-color:var(--ink)}
 /* фото чуть увеличиваются при смене — обрезаются .hx (overflow:hidden), data-scroll-x говорит аудиту, что это не переполнение */
 .hx-sl{position:absolute;inset:0}
 .hx-sl .hx-i{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:hx-slide 21s infinite}
-.hx-sl .hx-i:nth-child(2){animation-delay:7s}.hx-sl .hx-i:nth-child(3){animation-delay:14s}
+.hx-sl>.hx-i:nth-child(2),.hx-sl>:nth-child(2)>.hx-i{animation-delay:7s}.hx-sl>.hx-i:nth-child(3),.hx-sl>:nth-child(3)>.hx-i{animation-delay:14s}
 @keyframes hx-slide{0%{opacity:0;transform:scale(1.08)}6%{opacity:1}33%{opacity:1}40%{opacity:0;transform:scale(1)}100%{opacity:0}}
 .hx-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,13,9,.86) 0%,rgba(17,13,9,.72) 40%,rgba(17,13,9,.34) 70%,rgba(17,13,9,.42) 100%),linear-gradient(180deg,rgba(17,13,9,.45) 0%,rgba(17,13,9,0) 22%,rgba(17,13,9,0) 70%,rgba(17,13,9,.5) 100%)}
 .hx-lines{position:absolute;inset:0;pointer-events:none}
@@ -574,7 +574,7 @@ a.ct:hover{border-color:var(--ink)}
   .hx-tb{height:62px;gap:14px;padding:0 22px 0 var(--hx-gut)}
   .hx-bars i{width:32px}
 }
-@media (prefers-reduced-motion:reduce){.hx-sl .hx-i{animation:none}.hx-sl .hx-i:first-child{opacity:1}.hx-bars i.on::after{animation:none;width:100%}}
+@media (prefers-reduced-motion:reduce){.hx-sl .hx-i{animation:none}.hx-sl>.hx-i:first-child,.hx-sl>:first-child>.hx-i{opacity:1}.hx-bars i.on::after{animation:none;width:100%}}
 .menu-open .hx-logo,.menu-open .hx-r a,.menu-open .hx-burger{color:var(--ink);border-color:var(--line)}
 .menu-open .hx-wa{background:var(--paper)}
 /* на главной нижняя панель телефона появляется после первого экрана — там свои кнопки WhatsApp и теста */
