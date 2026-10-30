@@ -65,7 +65,7 @@ function hxHeader(p) {
     <a class="hx-logo" href="/" aria-label="Aromé — на главную">Aromé</a>
     <nav class="hx-tab" aria-label="Разделы">${HX_NAV.map(tab).join('')}</nav>
     <div class="hx-r">
-      <a class="hx-call" href="tel:${C.phoneRaw}" aria-label="Позвонить: ${C.phone}"><span class="hx-cap">${icon('phone')}<span class="hx-tel" aria-hidden="true">${C.phone}</span></span></a>
+      <a class="hx-call" href="tel:${C.phoneRaw}" aria-label="Позвонить: ${C.phone}">${icon('phone')}<span class="hx-tel" aria-hidden="true">${C.phone}</span></a>
       <a class="hx-wa" href="${wa(p.pageName)}" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">${icon('wa')}<span>WhatsApp</span></a>
       <a class="hx-ul" href="#zayavka">Подобрать решение</a>
       <button class="hx-burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i></button>

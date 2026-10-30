@@ -526,19 +526,18 @@ a.ct:hover{border-color:var(--ink)}
 .hx-r a{color:#fff;text-decoration:none}
 .hx-call,.hx-burger{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;background:none;color:#fff;cursor:pointer;padding:0}
 .hx-wa{display:inline-flex;align-items:center;gap:9px;height:44px;padding:0 18px 0 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-/* Телефон в шапке (30.10.2026): на компьютере при наведении или фокусе кнопка раскрывается влево в плашку с номером, нажатие — звонок.
-   Плашка лежит поверх (absolute), иконка остаётся на месте: в шапке на 1280px свободно ~7px, сдвигать меню нельзя.
+/* Телефон в шапке (30.10.2026): на компьютере при наведении или фокусе под круглой кнопкой выпадает плашка с номером,
+   как панель «Пространства»; всё — одна ссылка tel:, нажатие звонит. Вниз, а не вбок: сбоку в шапке на 1280px места ~7px, плашка закрывала меню.
    На тач-экранах наведения нет — там просто иконка, нажатие сразу звонит */
-.hx-call{position:relative;z-index:3;border-color:transparent!important}
-.hx-cap{position:absolute;top:0;right:0;height:44px;display:flex;flex-direction:row-reverse;align-items:center;padding:0 11px;border:1px solid rgba(255,255,255,.35);border-radius:999px;white-space:nowrap;transition:padding .35s cubic-bezier(.2,.7,.2,1),background-color .25s,border-color .25s}
-.hx-solid .hx-cap,.menu-open .hx-cap{border-color:rgba(42,37,34,.18)}
-.hx-tel{max-width:0;margin-right:0;opacity:0;overflow:hidden;transition:max-width .35s cubic-bezier(.2,.7,.2,1),margin-right .35s cubic-bezier(.2,.7,.2,1),opacity .2s}
+.hx-call{position:relative}
+.hx-tel{position:absolute;top:calc(100% + 10px);right:-6px;padding:11px 16px;border-radius:14px;background:#F4F3EF;color:#2A2522;box-shadow:0 1px 0 rgba(42,37,34,.06),0 18px 36px -18px rgba(17,13,9,.45);font-size:15px;font-weight:600;letter-spacing:.01em;white-space:nowrap;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .25s cubic-bezier(.2,.7,.2,1),visibility 0s .25s;pointer-events:none}
+/* мостик под кнопкой, чтобы плашка не пропадала, пока курсор идёт к ней */
+.hx-call::after{content:"";position:absolute;left:-6px;right:-6px;top:100%;height:12px}
 @media (hover:hover) and (pointer:fine){
-  .hx-call:hover .hx-cap,.hx-call:focus-visible .hx-cap{padding-left:18px;background:rgba(24,19,15,.82);border-color:rgba(255,255,255,.6);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-  .hx-solid .hx-call:hover .hx-cap,.hx-solid .hx-call:focus-visible .hx-cap{background:#F4F3EF;border-color:#2A2522}
-  .hx-call:hover .hx-tel,.hx-call:focus-visible .hx-tel{max-width:180px;margin-right:9px;opacity:1}
+  .hx-call:hover .hx-tel,.hx-call:focus-visible .hx-tel{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .25s cubic-bezier(.2,.7,.2,1);pointer-events:auto}
+  .hx-call:hover,.hx-call:focus-visible{border-color:currentColor}
 }
-@media (prefers-reduced-motion:reduce){.hx-cap,.hx-tel{transition:none}}
+@media (prefers-reduced-motion:reduce){.hx-tel{transition:none}}
 .hx-ul{border-bottom:1.5px solid rgba(255,255,255,.85);padding-bottom:3px;margin-left:10px}
 .hx-burger{display:none}
 .hx-burger i{display:block;width:18px;height:1.7px;background:#fff;box-shadow:0 -6px 0 #fff,0 6px 0 #fff}
