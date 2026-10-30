@@ -14,7 +14,8 @@ const main = [
   { file: 'og-aromaty', h1: 'Коллекция: <em>32 аромата для бизнеса</em>', kicker: 'Ароматы', photo: 'lead-notes', fx: 0.5 },
   { file: 'og-stati', h1: 'Блог <em>об аромамаркетинге</em>', kicker: 'Блог Aromé', photo: 'sc-kedr', fx: 0.5, style: 'blog' },
   { file: 'og-voprosy', h1: 'Вопросы <em>и ответы</em>', kicker: 'Об ароматизации помещений', photo: 'sc-white-tea', fx: 0.5 },
-  { file: 'og-kontakty', h1: 'Контакты <em>Aromé в Астане</em>', kicker: 'Связь', photo: 'lead-bg', fx: 0.3 }
+  { file: 'og-kontakty', h1: 'Контакты <em>Aromé в Астане</em>', kicker: 'Связь', photo: 'lead-bg', fx: 0.3 },
+  { file: 'og-o-kompanii', h1: 'О компании <em>Aromé</em>', kicker: 'Ароматизация помещений в Астане', photo: 'device', fx: 0.5 }
 ];
 /* В окнах sx-home и sx-toj виден Байтерек — берём часть кадра без окна */
 const FX = { 'sx-home': 0, 'sx-toj': 0.75 };

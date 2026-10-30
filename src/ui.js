@@ -52,7 +52,7 @@ const PK = [
    (body.hx-solid). Текущий раздел подчёркнут. «Коллекция» — каталог ароматов /aromaty/ */
 const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'aromaty/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/']];
 /* Только в меню телефона (30.10.2026): без них «Вопросы» и «Контакты» были сиротами; в шапке компьютера их заменяют кнопки звонка и WhatsApp */
-const MOB_EXTRA = [['Вопросы', 'voprosy/'], ['Контакты', 'kontakty/']];
+const MOB_EXTRA = [['Вопросы', 'voprosy/'], ['О компании', 'o-kompanii/'], ['Контакты', 'kontakty/']];
 /* «Пространства»: на компьютере — выпадающая панель по наведению и фокусу, в меню телефона — раскрывающийся список */
 const CHEV = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function hxHeader(p) {
@@ -95,7 +95,7 @@ function footer() {
       </div>
       <nav class="ft-col" aria-label="Меню">
         <p class="ft-k">Меню</p>
-        <a href="/pomeshcheniya/">Пространства</a><a href="/aromaty/">Коллекция</a><a href="/kak-my-rabotaem/">Метод</a><a href="/ceny/">Цены</a><a href="/stati/">Блог</a><a href="/voprosy/">Вопросы</a>
+        <a href="/pomeshcheniya/">Пространства</a><a href="/aromaty/">Коллекция</a><a href="/kak-my-rabotaem/">Метод</a><a href="/ceny/">Цены</a><a href="/stati/">Блог</a><a href="/voprosy/">Вопросы</a><a href="/o-kompanii/">О компании</a>
       </nav>
       <div class="ft-col">
         <p class="ft-k">Связь</p>
@@ -907,7 +907,7 @@ function contacts(p) {
   return `<section class="kc" id="svyaz">
   <div class="kc-wrap">
     <div class="kc-g">${cards.map(([k, v, h, sm]) => { const in_ = `<span>${k}</span><b>${v}</b>${sm ? `<small>${sm}</small>` : ''}`; return h ? `<a class="kc-c" href="${h}"${h.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${in_}<i>→</i></a>` : `<div class="kc-c">${in_}</div>`; }).join('')}</div>
-    <p class="kc-req">Работаем выездом по&nbsp;всей Астане: к&nbsp;вам приезжаем сами, в&nbsp;офис ехать не&nbsp;нужно. Aromé — бренд ${CFG.legal.name}, БИН/ИИН ${CFG.legal.bin}, работаем ${CFG.legal.since}</p>
+    <p class="kc-req">Работаем выездом по&nbsp;всей Астане: к&nbsp;вам приезжаем сами, в&nbsp;офис ехать не&nbsp;нужно. <a href="/o-kompanii/">Aromé</a> — бренд ${CFG.legal.name}, БИН/ИИН ${CFG.legal.bin}, работаем ${CFG.legal.since}</p>
   </div>
 </section>
 ${points({ id: 'chto-napisat', k: 'заявка', h: 'Что написать, <em>чтобы быстрее подобрать аромат</em>', lead: 'Достаточно пары строк в&nbsp;WhatsApp или в&nbsp;форме ниже — остальное уточним сами', list: ASK.map(([t, d]) => [t, nb(d)]) })}`;
