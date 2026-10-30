@@ -1553,6 +1553,8 @@ a.ct:hover{border-color:var(--ink)}
 a.kc-c:hover{border-color:#CFC7BB}
 .kc-c span{font-size:15px;color:#6B655D}.kc-c span::before{content:"["}.kc-c span::after{content:"]"}
 .kc-c b{margin-top:auto;font-size:24px;font-weight:600;letter-spacing:-.025em;line-height:1.1}
+.kc-c small{font-size:15px;color:#6B655D;line-height:1.35}
+.kc-req{max-width:62ch;margin:22px 0 0;font-size:15px;line-height:1.5;color:#6B655D}
 .kc-c i{position:absolute;right:24px;top:24px;font-style:normal;font-size:18px;transition:transform .25s}
 a.kc-c:hover i{transform:translateX(4px)}
 .pg+.fq{padding-top:0}

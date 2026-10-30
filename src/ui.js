@@ -112,7 +112,7 @@ function footer() {
     </div>
     <p class="ft-word" aria-hidden="true">Aromé</p>
   </div>
-  <div class="ft-bot"><span>© 2026 Aromé · Астана</span><a href="/politika-konfidencialnosti/">Политика конфиденциальности</a></div>
+  <div class="ft-bot"><span>© 2026 Aromé · ${CFG.legal.name}, БИН/ИИН ${CFG.legal.bin}</span><a href="/politika-konfidencialnosti/">Политика конфиденциальности</a></div>
 </footer>`;
 }
 
@@ -894,18 +894,20 @@ function article(p, a, meta) {
 </section>
 <section class="ar"><div class="ar-wrap"><div class="ar-body">${a.body.replace(/<table>/g, "<table data-scroll-x>")}</div></div></section>`;
 }
-/* Контакты: карточки связи (без адреса — только город) и что написать в заявке */
+/* Контакты: карточки связи, офис (по факту склад — к клиентам ездим сами), реквизиты ИП и что написать в заявке */
 function contacts(p) {
+  const [sStreet, ...sRest] = C.street.split(/,\s*(?=\d+\s*этаж)/);
   const cards = [
     ['телефон', C.phone, `tel:${C.phoneRaw}`],
     ['whatsapp', 'Написать', wa(p.pageName)],
-    ['город', 'Астана'],
+    ['офис', sStreet.replace(/^ул\.\s*/, ''), C.map2gis, sRest.join(', ')],
     C.hours ? ['время работы', C.hours] : null
   ].filter(Boolean);
   const ASK = [['Формат и площадь', 'Магазин, салон, отель, ресторан или офис — и примерная площадь'], ['Часы работы', 'Чтобы настроить расписание аромата под ваш день'], ['Впечатление', 'Какое настроение хотите создать: спокойное, свежее, праздничное']];
   return `<section class="kc" id="svyaz">
   <div class="kc-wrap">
-    <div class="kc-g">${cards.map(([k, v, h]) => h ? `<a class="kc-c" href="${h}"${h.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}><span>${k}</span><b>${v}</b><i>→</i></a>` : `<div class="kc-c"><span>${k}</span><b>${v}</b></div>`).join('')}</div>
+    <div class="kc-g">${cards.map(([k, v, h, sm]) => { const in_ = `<span>${k}</span><b>${v}</b>${sm ? `<small>${sm}</small>` : ''}`; return h ? `<a class="kc-c" href="${h}"${h.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${in_}<i>→</i></a>` : `<div class="kc-c">${in_}</div>`; }).join('')}</div>
+    <p class="kc-req">Работаем выездом по&nbsp;всей Астане: к&nbsp;вам приезжаем сами, в&nbsp;офис ехать не&nbsp;нужно. Aromé — бренд ${CFG.legal.name}, БИН/ИИН ${CFG.legal.bin}, работаем ${CFG.legal.since}</p>
   </div>
 </section>
 ${points({ id: 'chto-napisat', k: 'заявка', h: 'Что написать, <em>чтобы быстрее подобрать аромат</em>', lead: 'Достаточно пары строк в&nbsp;WhatsApp или в&nbsp;форме ниже — остальное уточним сами', list: ASK.map(([t, d]) => [t, nb(d)]) })}`;
