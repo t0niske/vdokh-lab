@@ -732,10 +732,10 @@ function numbers(s) {
 /* «Читать по теме» на страницах пространств: 3 статьи блога по следующему вопросу владельца (перелинковка кокона, seo/cocoon-map.md) */
 const READS = {
   'pomeshcheniya/magaziny/': ['aromatizaciya-magazina-odezhdy', 'kak-proverit-effekt-aromamarketinga', 'aromat-i-prodazhi-issledovaniya'],
-  'pomeshcheniya/salon-krasoty/': ['bezopasna-li-aromatizaciya', 'kak-vybrat-aromat-dlya-biznesa', 'oshibki-aromamarketinga'],
-  'pomeshcheniya/gostinica/': ['firmennyj-aromat-brenda', 'aromamarketing-primery', 'aromatizaciya-cherez-ventilyaciyu'],
+  'pomeshcheniya/salon-krasoty/': ['aromat-v-salone-krasoty', 'bezopasna-li-aromatizaciya', 'kak-vybrat-aromat-dlya-biznesa'],
+  'pomeshcheniya/gostinica/': ['aromamarketing-v-otele', 'firmennyj-aromat-brenda', 'aromat-kak-v-otele'],
   'pomeshcheniya/restoran-kafe/': ['aromamarketing-v-restorane-i-kofejne', 'oshibki-aromamarketinga', 'kak-proverit-effekt-aromamarketinga'],
-  'pomeshcheniya/ofis/': ['aromatizaciya-cherez-ventilyaciyu', 'bezopasna-li-aromatizaciya', 'kak-rasschitat-aromatizaciyu'],
+  'pomeshcheniya/ofis/': ['aromatizaciya-ofisa', 'aromatizaciya-cherez-ventilyaciyu', 'bezopasna-li-aromatizaciya'],
   'pomeshcheniya/avtosalony/': ['kak-rasschitat-aromatizaciyu', 'firmennyj-aromat-brenda', 'chto-takoe-aromamarketing'],
   'pomeshcheniya/tojhana/': ['kak-rasschitat-aromatizaciyu', 'kak-vybrat-aromat-dlya-biznesa', 'oshibki-aromamarketinga'],
   'pomeshcheniya/zhk-podezd/': ['aromatizaciya-cherez-ventilyaciyu', 'bezopasna-li-aromatizaciya', 'skolko-stoit-aromatizaciya'],
@@ -743,7 +743,7 @@ const READS = {
   'pomeshcheniya/klinika/': ['bezopasna-li-aromatizaciya', 'aromamarketing-primery', 'aromatizaciya-cherez-ventilyaciyu'],
   'pomeshcheniya/obshchestvennyj-tualet/': ['kak-rasschitat-aromatizaciyu', 'oshibki-aromamarketinga', 'aromamaslo-dlya-diffuzora'],
   'osi/': ['skolko-stoit-aromatizaciya', 'bezopasna-li-aromatizaciya', 'aromatizaciya-cherez-ventilyaciyu'],
-  'kvartira/': ['bezopasna-li-aromatizaciya', 'vidy-diffuzorov-dlya-pomeshchenij', 'aromamaslo-dlya-diffuzora']
+  'kvartira/': ['aromat-kak-v-otele', 'bezopasna-li-aromatizaciya', 'vidy-diffuzorov-dlya-pomeshchenij']
 };
 function readMore(path) {
   const list = (READS[path] || []).map(slug => require('./articles').find(a => a.slug === slug)).filter(Boolean);

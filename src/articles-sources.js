@@ -13,7 +13,11 @@ const S = {
   sia: ['Singapore Airlines о Floridian Waters и Batik Flora — Mothership, 2023', 'https://mothership.sg/2023/08/spore-airlines-hot-towels//amp'],
   ifra: ['IFRA: как устроены стандарты безопасного использования ароматов', 'https://ifrafragrance.org/safe-use'],
   tamu: ['Texas A&M, ветеринарный колледж: диффузоры эфирных масел и кошки', 'https://vetmed.tamu.edu/news/pet-talk/a-scent-sitive-subject-essential-oil-diffusers-and-your-cat'],
-  ospca: ['Ontario SPCA: безопасны ли диффузоры рядом с животными, 2022', 'https://ontariospca.ca/blog/are-diffusers-safe-to-use-around-pets/']
+  ospca: ['Ontario SPCA: безопасны ли диффузоры рядом с животными, 2022', 'https://ontariospca.ca/blog/are-diffusers-safe-to-use-around-pets/'],
+  /* волна 2 (02.11.2026): DOI и выводы сверены по Crossref и рефератам PubMed */
+  dalton: ['Dalton, Wysocki. The nature and duration of adaptation following long-term odor exposure — Perception &amp; Psychophysics, 1996', 'https://doi.org/10.3758/BF03213109'],
+  moss03: ['Moss, Cook, Wesnes, Duckett. Aromas of rosemary and lavender essential oils differentially affect cognition and mood — International Journal of Neuroscience, 2003', 'https://doi.org/10.1080/00207450390161903'],
+  moss08: ['Moss, Hewitt, Moss, Wesnes. Modulation of cognitive performance and mood by aromas of peppermint and ylang-ylang — International Journal of Neuroscience, 2008', 'https://doi.org/10.1080/00207450601042094']
 };
 const src = keys => `<h2>Источники</h2>\n<ol class="ar-src">${keys.map(k => `<li><a href="${S[k][1]}" target="_blank" rel="noopener">${S[k][0]}</a></li>`).join('')}</ol>`;
 
