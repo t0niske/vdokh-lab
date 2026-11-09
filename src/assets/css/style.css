@@ -1470,9 +1470,11 @@ a.ct:hover{border-color:var(--ink)}
 .sv-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:stretch}
 /* Крошки и H1 — по верху фото, описание и кнопки — по низу (30.10.2026): свободное место между ними, но не меньше 26px */
 .sv-txt{display:flex;flex-direction:column;container-type:inline-size}
-/* заголовок пространства в две строки: курсив уменьшается под ширину колонки (--n — число знаков, ставит spacePage),
-   но не мельче .54em — иначе переносится как раньше */
-.sv .pg-h em{font-size:min(1.04em,max(.54em,calc(100cqi / (var(--n,20) * .52))))}
+/* на компьютере заголовок пространства в две строки: курсив уменьшается под ширину колонки (--n — число знаков, ставит spacePage),
+   но не мельче .6em — иначе переносится как раньше. На телефоне курсив переносится как есть */
+@media (min-width:901px){
+  .sv .pg-h em{font-size:min(1.04em,max(.6em,calc(100cqi / (var(--n,20) * .52))))}
+}
 .sv .pg-h{margin-top:22px;margin-bottom:26px}
 .sv-lead{margin-top:auto!important;max-width:46ch;color:#5A534D;font-size:18px}
 .sv-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
