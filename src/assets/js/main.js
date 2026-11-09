@@ -27,6 +27,23 @@
     if (el.hasAttribute('data-osi')) track('osi_template', { action: el.hasAttribute('data-copy') ? 'copy' : 'download' });
   });
 
+  /* ── Откуда пришёл человек: внешний реферер, utm_* и метки рекламы (gclid, yclid, fbclid) на входе.
+     Храним последний «не прямой» заход 30 дней; прямой заход старый источник не затирает. Уходит в CRM вместе с заявкой. */
+  var SRC_KEY = 'arome_src', src = {};
+  try {
+    var q = new URLSearchParams(location.search), ref = document.referrer, now = {}, refHost = '';
+    try { refHost = ref ? new URL(ref).hostname : ''; } catch (e) {}
+    q.forEach(function (v, k) { if (/^(utm_\w+|gclid|yclid|fbclid)$/.test(k)) now[k] = v.slice(0, 200); });
+    if (refHost && refHost !== location.hostname) now.ref = ref.slice(0, 300);
+    var old = JSON.parse(localStorage.getItem(SRC_KEY) || 'null');
+    if (old && Date.now() - old.at > 30 * 864e5) old = null;
+    if (Object.keys(now).length || !old) {
+      now.landing = (location.pathname + location.search).slice(0, 300); now.at = Date.now();
+      localStorage.setItem(SRC_KEY, JSON.stringify(now)); old = now;
+    }
+    src = old;
+  } catch (e) {}
+
   var burger = $('#burger');
   burger.addEventListener('click', function () {
     var open = document.body.classList.toggle('menu-open');
@@ -148,7 +165,8 @@
       var btn = $('.lf-btn', lf), toWa = function () { location.href = wa(msg); };
       btn.disabled = true; btn.textContent = 'Отправляем…';
       fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, phone: '+7' + digits, space: sp ? sp.value : '', page: document.title }) })
+        body: JSON.stringify({ name: name, phone: '+7' + digits, space: sp ? sp.value : '', page: document.title,
+          src: { ref: src.ref || '', landing: src.landing || '', utm: Object.keys(src).filter(function (k) { return /^(utm_|gclid|yclid|fbclid)/.test(k); }).reduce(function (o, k) { o[k] = src[k]; return o; }, {}) } }) })
         .then(function (r) { if (r.ok) location.href = lf.getAttribute('action'); else toWa(); })
         .catch(toWa);
     });
