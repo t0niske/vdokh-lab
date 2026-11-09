@@ -756,7 +756,7 @@ function spacePage(p, s) {
   <div class="sv-wrap">
     <div class="sv-txt">
       ${pgCrumbs(p)}
-      <h1 class="pg-h">${s.h1}</h1>
+      <h1 class="pg-h">${s.h1.replace(/<em>(.*?)<\/em>/, (_, t) => `<em style="--n:${t.replace(/&nbsp;/g, ' ').length}">${t}</em>`)}</h1>
       <p class="sv-lead">${nb(s.lead)}</p>
       <div class="sv-btns"><a class="sv-btn" href="#zayavka">Подобрать аромат</a><a class="sv-btn2" href="/ceny/">Цены</a></div>
     </div>
