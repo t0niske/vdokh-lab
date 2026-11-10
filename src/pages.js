@@ -332,7 +332,7 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
 
   /* ── Контакты и служебные ── */
   add({
-    path: 'kontakty/', section: '', pageName: 'Контакты', leadForm: true,
+    path: 'kontakty/', section: 'kontakty/', pageName: 'Контакты', leadForm: true,
     title: 'Контакты Aromé — ароматизация помещений в Астане', updated: CONTENT_DATE,
     description: `Контакты Aromé в Астане: ${C.phone}, WhatsApp. Напишите о своём пространстве — подберём аромат и решение, первые 3 дня бесплатно.`,
     h1: 'Контакты',
@@ -344,7 +344,7 @@ ${UI.faqHome(priceFaq, this, { h: 'Вопросы <em>о&nbsp;цене</em>' })}
   });
   /* О компании (30.10.2026): только факты владельца из BRANDCORE — без команды, цифр установок и отзывов, пока их нет */
   add({
-    path: 'o-kompanii/', section: '', pageName: 'О компании', leadForm: true,
+    path: 'o-kompanii/', section: 'o-kompanii/', pageName: 'О компании', leadForm: true,
     title: 'О компании Aromé — ароматизация помещений в Астане', updated: CONTENT_DATE,
     description: `Aromé — бренд ${CFG.legal.name}: ароматизация помещений через вентиляцию в Астане, ${CFG.legal.since}. Аппарат, масла и сервис по подписке, тест ${D.trialDays} дня бесплатно.`,
     h1: 'О компании Aromé',

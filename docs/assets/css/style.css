@@ -570,6 +570,11 @@ a.ct:hover{border-color:var(--ink)}
 @keyframes hx-bar{to{width:100%}}
 .hx :focus-visible{outline-color:#fff}
 @media (max-width:1100px){.hx-tab{display:none}.hx-ul{display:none}.hx-burger{display:grid}}
+/* 10.11.2026: в шапке 7 пунктов. Ссылки чуть плотнее; до 1519px WhatsApp — кружок без подписи;
+   до 1339px меню стоит не по центру экрана, а посередине между логотипом и кнопками справа */
+.hx-tab a{padding:10px}.hx-tab a::after{left:10px;right:10px}
+@media (width>1100px) and (width<1520px){.hx-wa{width:44px;padding:0;justify-content:center}.hx-wa span{display:none}}
+@media (width>1100px) and (width<1340px){.hx-tab{position:relative;left:auto;transform:none;margin:0 auto;align-self:flex-start}}
 @media (max-width:760px){
   .hx{height:auto;min-height:100svh;max-height:none;padding:76px var(--hx-gut) 62px;display:flex;flex-direction:column;justify-content:center}
   .hx-shade{background:linear-gradient(180deg,rgba(17,13,9,.7) 0%,rgba(17,13,9,.55) 45%,rgba(17,13,9,.8) 100%)}

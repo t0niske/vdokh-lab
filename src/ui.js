@@ -50,9 +50,11 @@ const PK = [
 /* Шапка (согласована 27.10.2026): логотип, меню во вкладке, звонок, WhatsApp, «Подобрать решение».
    На главной лежит внутри первого экрана и светлеет после прокрутки, на внутренних страницах сразу светлая
    (body.hx-solid). Текущий раздел подчёркнут. «Коллекция» — каталог ароматов /aromaty/ */
-const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'aromaty/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/']];
-/* Только в меню телефона (30.10.2026): без них «Вопросы» и «Контакты» были сиротами; в шапке компьютера их заменяют кнопки звонка и WhatsApp */
-const MOB_EXTRA = [['Вопросы', 'voprosy/'], ['О компании', 'o-kompanii/'], ['Контакты', 'kontakty/']];
+/* 10.11.2026: «О нас» и «Контакты» добавлены в шапку по просьбе заказчика */
+const HX_NAV = [['Пространства', 'pomeshcheniya/'], ['Коллекция', 'aromaty/'], ['Метод', 'kak-my-rabotaem/'], ['Цены', 'ceny/'], ['Блог', 'stati/'], ['О нас', 'o-kompanii/'], ['Контакты', 'kontakty/']];
+/* Только в меню телефона (30.10.2026): без него «Вопросы» были сиротой; встаёт перед «О нас» */
+const MOB_EXTRA = [['Вопросы', 'voprosy/']];
+const MOB_NAV = [...HX_NAV.slice(0, 5), ...MOB_EXTRA, ...HX_NAV.slice(5)];
 /* «Пространства»: на компьютере — выпадающая панель по наведению и фокусу, в меню телефона — раскрывающийся список */
 const CHEV = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function hxHeader(p) {
@@ -70,7 +72,7 @@ function hxHeader(p) {
       <a class="hx-ul" href="#zayavka">Подобрать решение</a>
       <button class="hx-burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><i></i></button>
     </div>
-    <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${[...HX_NAV, ...MOB_EXTRA].map(mob).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
+    <nav class="menu hx-menu" id="menu" aria-label="Основное меню">${MOB_NAV.map(mob).join('')}<a class="menu-ph" href="tel:${C.phoneRaw}">${icon('phone')}${C.phone}</a></nav>
   </header>`;
 }
 
@@ -95,7 +97,7 @@ function footer() {
       </div>
       <nav class="ft-col" aria-label="Меню">
         <p class="ft-k">Меню</p>
-        <a href="/pomeshcheniya/">Пространства</a><a href="/aromaty/">Коллекция</a><a href="/kak-my-rabotaem/">Метод</a><a href="/ceny/">Цены</a><a href="/stati/">Блог</a><a href="/voprosy/">Вопросы</a><a href="/o-kompanii/">О компании</a>
+        <a href="/pomeshcheniya/">Пространства</a><a href="/aromaty/">Коллекция</a><a href="/kak-my-rabotaem/">Метод</a><a href="/ceny/">Цены</a><a href="/stati/">Блог</a><a href="/voprosy/">Вопросы</a><a href="/o-kompanii/">О нас</a>
       </nav>
       <div class="ft-col">
         <p class="ft-k">Связь</p>
