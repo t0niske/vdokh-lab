@@ -389,7 +389,7 @@ ${P(`${CFG.legal.name}, БИН/ИИН ${CFG.legal.bin}. Адрес: ${C.address}
   });
   /* Сюда ведёт форма после отправки заявки в CRM (main.js) */
   add({
-    path: 'spasibo/', noindex: true, noCta: true, pageName: 'Спасибо',
+    path: 'spasibo/', noindex: true, noCta: true, noBar: true, pageName: 'Спасибо',
     title: 'Заявка принята — Aromé', description: 'Спасибо за заявку в Aromé: мы получили ваши контакты и свяжемся, чтобы подобрать аромат для вашего пространства.',
     body: `<section class="pg"><div class="pg-wrap"><p class="pg-k">заявка принята</p><div class="pg-top"><h1 class="pg-h">Спасибо, <em>мы получили заявку</em></h1><div class="pg-side"><p>Скоро позвоним по&nbsp;номеру из&nbsp;заявки: уточним пространство и&nbsp;договоримся о&nbsp;бесплатном тесте на&nbsp;${D.trialDays}&nbsp;дня. Если удобнее переписка — напишите нам в&nbsp;WhatsApp</p><div class="sv-btns"><a class="sv-btn" href="${UI.wa('Спасибо', 'Оставил(а) заявку на сайте.')}" target="_blank" rel="noopener">Написать в WhatsApp</a><a class="sv-btn2" href="/aromaty/">Посмотреть ароматы</a></div></div></div></div></section>`
   });

@@ -174,7 +174,7 @@ ${p.noCta ? '' : p.leadForm ? leadForm(p) : cta(p, p.cta || {})}
 </main>
 ${footer()}
 ${reqModal(p)}
-${mbar(p)}
+${p.noBar ? '' : mbar(p)}
 <script src="/assets/js/data.js?v=${VER}"></script>
 <script src="/assets/js/main.js?v=${VER}"></script>
 </body>
