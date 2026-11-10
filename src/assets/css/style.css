@@ -941,6 +941,8 @@ a.ct:hover{border-color:var(--ink)}
   .cm-c{padding:0;border:0!important}
   .cm-rk{margin-bottom:10px;font-size:17px;font-weight:600;color:var(--cm-ink)}
   .cm-c[data-l]{display:grid;grid-template-columns:118px minmax(0,1fr);gap:10px;padding:8px 0;font-size:14.5px;border-top:1px solid var(--cm-line)!important}
+  /* под названием пункта линии нет — она только между вариантами (10.11.2026) */
+  .cm-rk+.cm-c[data-l]{border-top:0!important;padding-top:2px}
   .cm-c[data-l]::before{content:attr(data-l);font-size:13.5px;color:var(--cm-ink3)}
   .cm-c.cm-us[data-l]{margin:6px -12px 0;padding:14px 12px;border:0!important;border-radius:14px;background:var(--cm-acc)}
   .cm-c.cm-us::before{color:#BFB2A3}
