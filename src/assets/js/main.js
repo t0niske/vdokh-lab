@@ -58,10 +58,10 @@
   /* Первый экран главной: подпись и полоски под текущим фото (фото сменяются CSS-анимацией каждые 7 с) */
   var hx = $('#hx');
   if (hx) {
-    var hxNames = ['Салоны красоты и SPA', 'Магазины и шоурумы', 'Отели'], hxI = 0;
+    var hxNames = $('.hx-tb', hx).getAttribute('data-names').split('|'), hxI = 0;
     setInterval(function () {
-      hxI = (hxI + 1) % 3;
-      $('.hx-num', hx).firstChild.nodeValue = '0' + (hxI + 1) + ' ';
+      hxI = (hxI + 1) % hxNames.length;
+      $('.hx-num', hx).firstChild.nodeValue = (hxI < 9 ? '0' : '') + (hxI + 1) + ' ';
       $('.hx-name', hx).textContent = hxNames[hxI];
       $$('.hx-bars i', hx).forEach(function (b, k) { b.className = k < hxI ? 'done' : k === hxI ? 'on' : ''; });
     }, 7000);

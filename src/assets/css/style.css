@@ -501,9 +501,10 @@ a.ct:hover{border-color:var(--ink)}
   position:relative;height:100svh;min-height:680px;max-height:1100px;overflow:hidden;background:#15110D;color:#fff;font-family:var(--hx-f)}
 /* фото чуть увеличиваются при смене — обрезаются .hx (overflow:hidden), data-scroll-x говорит аудиту, что это не переполнение */
 .hx-sl{position:absolute;inset:0}
-.hx-sl .hx-i{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:hx-slide 21s infinite}
-.hx-sl>.hx-i:nth-child(2),.hx-sl>:nth-child(2)>.hx-i{animation-delay:7s}.hx-sl>.hx-i:nth-child(3),.hx-sl>:nth-child(3)>.hx-i{animation-delay:14s}
-@keyframes hx-slide{0%{opacity:0;transform:scale(1.08)}6%{opacity:1}33%{opacity:1}40%{opacity:0;transform:scale(1)}100%{opacity:0}}
+.hx-sl .hx-i{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:hx-slide 42s infinite}
+/* 6 кадров по 7 с: каждый следующий со сдвигом 7 с */
+.hx-sl>.hx-i:nth-child(2),.hx-sl>:nth-child(2)>.hx-i{animation-delay:7s}.hx-sl>.hx-i:nth-child(3),.hx-sl>:nth-child(3)>.hx-i{animation-delay:14s}.hx-sl>.hx-i:nth-child(4),.hx-sl>:nth-child(4)>.hx-i{animation-delay:21s}.hx-sl>.hx-i:nth-child(5),.hx-sl>:nth-child(5)>.hx-i{animation-delay:28s}.hx-sl>.hx-i:nth-child(6),.hx-sl>:nth-child(6)>.hx-i{animation-delay:35s}
+@keyframes hx-slide{0%{opacity:0;transform:scale(1.08)}3%{opacity:1}16.67%{opacity:1}20%{opacity:0;transform:scale(1)}100%{opacity:0}}
 .hx-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,13,9,.86) 0%,rgba(17,13,9,.72) 40%,rgba(17,13,9,.34) 70%,rgba(17,13,9,.42) 100%),linear-gradient(180deg,rgba(17,13,9,.45) 0%,rgba(17,13,9,0) 22%,rgba(17,13,9,0) 70%,rgba(17,13,9,.5) 100%)}
 .hx-lines{position:absolute;inset:0;pointer-events:none}
 .hx-lines::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.14)}

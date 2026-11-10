@@ -56,6 +56,8 @@ function register(site) {
     FQ('Безопасны ли ароматы для людей и животных?'),
     FQ('Как заключается договор?')
   ].map(([q, a]) => [q, UI.nb(a)]);
+  /* Первый экран: фото сменяются каждые 7 с (анимация в CSS на 6 кадров). s1–s3 — фото заказчика, s4–s6 — сгенерированы 10.11.2026 */
+  const HERO_SLIDES = [['hero-s1', 'Салоны красоты и SPA'], ['hero-s2', 'Магазины и шоурумы'], ['hero-s4', 'Рестораны и кафе'], ['hero-s3', 'Отели'], ['hero-s5', 'Фитнес-клубы'], ['hero-s6', 'Клиники']];
   add({
     path: '', section: '', priority: '1.0', bodyClass: 'home', pageName: 'Главная', ownHeader: true, leadForm: true,
     title: 'Ароматизация помещений для бизнеса в Астане | Aromé', updated: CONTENT_DATE,
@@ -64,7 +66,7 @@ function register(site) {
     get body() {
       return `
 <section class="hx" id="hx">
-  <div class="hx-sl" data-scroll-x>${img('hero-s1', { cls: 'hx-i', eager: true })}${img('hero-s2', { cls: 'hx-i' })}${img('hero-s3', { cls: 'hx-i' })}</div>
+  <div class="hx-sl" data-scroll-x>${HERO_SLIDES.map(([slot], i) => img(slot, i ? { cls: 'hx-i' } : { cls: 'hx-i', eager: true })).join('')}</div>
   <div class="hx-shade"></div>
   <div class="hx-lines" aria-hidden="true"><span></span></div>
   ${UI.hxHeader(this)}
@@ -74,7 +76,7 @@ function register(site) {
     <div class="hx-btns"><a class="hx-btn hx-btn-a" href="#zayavka" data-test>Попробовать 3 дня бесплатно</a><a class="hx-btn hx-btn-g" href="/ceny/">Посмотреть стоимость</a></div>
   </div>
   <p class="hx-word" aria-hidden="true">Aromé</p>
-  <div class="hx-tb" aria-hidden="true"><span class="hx-num">01 <em>/ 03</em></span><span class="hx-name">Салоны красоты и SPA</span><span class="hx-bars"><i class="on"></i><i></i><i></i></span></div>
+  <div class="hx-tb" aria-hidden="true" data-names="${HERO_SLIDES.map(x => x[1]).join('|')}"><span class="hx-num">01 <em>/ ${String(HERO_SLIDES.length).padStart(2, '0')}</em></span><span class="hx-name">${HERO_SLIDES[0][1]}</span><span class="hx-bars">${HERO_SLIDES.map((x, i) => `<i${i ? '' : ' class="on"'}></i>`).join('')}</span></div>
 </section>
 
 <section class="ab" id="o-nas">

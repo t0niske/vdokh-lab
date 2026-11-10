@@ -5,13 +5,16 @@ const DETAIL = 'Close-up detail photograph, bright natural daylight, clean light
 const place = what => ({ w: 4, h: 3, prio: 1, prompt: `${DOC}\nScene: ${what}. Leave some calm empty space at the top of the frame. Aspect ratio 4:3.` });
 const odor = what => ({ w: 4, h: 3, prio: 2, prompt: `${DETAIL}\nSubject: ${what}. Aspect ratio 4:3.` });
 
-/* Первый экран главной: три фото заказчика (SPA, магазин, лобби отеля), сменяются плавно */
+/* Первый экран главной: три фото заказчика (SPA, магазин, лобби отеля) и три сгенерированных (ресторан, фитнес, клиника), сменяются плавно */
 const DUO = 'Editorial lifestyle photograph, warm natural window light from the left with soft directional shadows, muted warm palette of taupe, sand, beige and soft grey, gentle film grain, shot on medium format, calm premium mood like a perfume brand campaign. The middle of the frame stays mid-tone (not white) so a large white wordmark can sit on top of it. No text, no letters, no logos, no watermarks.';
 
 module.exports = {
   'hero-s1': { title: 'Первый экран: SPA', alt: 'Ресепшен SPA-зоны с бассейном за стеклом в тёплом вечернем свете', where: 'главная, первый экран', w: 16, h: 9, prio: 1, prompt: 'Фото предоставлено заказчиком — не генерировать.' },
   'hero-s2': { title: 'Первый экран: магазин одежды', alt: 'Зал магазина одежды с вешалками и травертиновыми стенами', where: 'главная, первый экран', w: 16, h: 9, prio: 1, prompt: 'Фото предоставлено заказчиком — не генерировать.' },
   'hero-s3': { title: 'Первый экран: лобби отеля', alt: 'Просторное лобби отеля с диванами и стойкой ресепшен', where: 'главная, первый экран', w: 16, h: 9, prio: 1, prompt: 'Фото предоставлено заказчиком — не генерировать.' },
+  'hero-s4': { title: 'Первый экран: ресторан', alt: 'Зал ресторана с травертиновыми стенами и мраморным баром в вечернем свете', where: 'главная, первый экран', w: 16, h: 9, prio: 1, prompt: 'Сгенерировано через Codex 10.11.2026 по образцу hero-s1 и hero-s3: тёплый вечерний свет, травертин, люди; без города в окне и без аппарата в кадре.' },
+  'hero-s5': { title: 'Первый экран: фитнес-клуб', alt: 'Зал фитнес-клуба с беговыми дорожками у окон и стойками гантелей', where: 'главная, первый экран', w: 16, h: 9, prio: 1, prompt: 'Сгенерировано через Codex 10.11.2026 по образцу hero-s1 и hero-s3: тёплый вечерний свет, травертин, люди; без города в окне и без аппарата в кадре.' },
+  'hero-s6': { title: 'Первый экран: клиника', alt: 'Ресепшен частной клиники с травертиновой стойкой и зоной ожидания', where: 'главная, первый экран', w: 16, h: 9, prio: 1, prompt: 'Сгенерировано через Codex 10.11.2026 по образцу hero-s1 и hero-s3: тёплый вечерний свет, травертин, люди; без города в окне и без аппарата в кадре.' },
   'nova-cut': { title: 'Аппарат Nova без фона', alt: 'Аромамашина Nova', where: 'главная, блок «О нас»', w: 541, h: 715, prio: 1, prompt: 'Рендер из Blender (.gfx/dev/soft.png) без фона — не генерировать.' },
   'device': { title: 'Аппарат Nova на столике', alt: 'Рука нажимает на крышку аромадиффузора Nova на деревянном столике', where: 'главная — «Как работает аппарат», «Нейтрализатор запаха»', w: 4, h: 5, prio: 1, prompt: `${DUO}
 Subject: a still life — a small graphite-green aroma diffuser (exactly the device in the attached reference image) on the corner of a light birch plywood side table against a warm grey plaster wall; a woman's hand touches the cap. Vertical 4:5 aspect ratio.` },
