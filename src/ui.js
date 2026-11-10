@@ -499,13 +499,13 @@ function lfForm(p, key) {
       <h2 class="lf-h" id="${key}-h">Попробуйте аромат <em>${D.trialDays}&nbsp;дня бесплатно</em></h2>
       <p class="lf-lead">Расскажите о&nbsp;своём пространстве — подберём аромат и&nbsp;дадим ${D.trialDays}&nbsp;дня бесплатно проверить его у&nbsp;вас</p>
       <div class="lf-fields">
-        <label class="lf-in"><span class="lf-sr">Ваше имя</span><input class="lf-name" type="text" autocomplete="name" placeholder="Ваше имя"></label>
-        <label class="lf-in lf-tel"><span class="lf-flag" aria-hidden="true"><i></i></span><b>+7</b><span class="lf-sr">Телефон</span><input class="lf-phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(700) 000-00-00" maxlength="15"></label>
+        <label class="lf-in"><span class="lf-sr">Ваше имя</span><input class="lf-name ym-disable-keys ym-hide-content" type="text" autocomplete="name" placeholder="Ваше имя"></label>
+        <label class="lf-in lf-tel"><span class="lf-flag" aria-hidden="true"><i></i></span><b>+7</b><span class="lf-sr">Телефон</span><input class="lf-phone ym-disable-keys ym-hide-content" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(700) 000-00-00" maxlength="15"></label>
       </div>
       <fieldset class="lf-pl"><legend>Ваше пространство</legend>
         <div class="lf-chips">${LF_SPACES.map(s => `<label><input type="radio" name="${key}-space" value="${s}"><span>${s.replace(' и ', ' и&nbsp;')}</span></label>`).join('')}</div>
       </fieldset>
-      <label class="lf-ok"><input class="lf-agree" type="checkbox"><i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span>Я&nbsp;соглашаюсь на&nbsp;обработку персональных данных в&nbsp;соответствии с&nbsp;<a href="/politika-konfidencialnosti/">политикой конфиденциальности</a></span></label>
+      <label class="lf-ok"><input class="lf-agree" type="checkbox"><i aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span>Я&nbsp;соглашаюсь, что ${CFG.legal.name} обработает мои имя и&nbsp;телефон, чтобы ответить на&nbsp;заявку, по&nbsp;<a href="/politika-konfidencialnosti/">политике конфиденциальности</a></span></label>
       <button class="lf-btn" type="submit">Оставить заявку</button>
       <a class="lf-wa" href="${wa(p.pageName, 'Хочу подобрать аромат.')}" target="_blank" rel="noopener">или написать в&nbsp;WhatsApp</a>
     </form>`;
