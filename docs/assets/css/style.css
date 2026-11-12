@@ -1744,3 +1744,38 @@ a.kc-c:hover i{transform:translateX(4px)}
 .ar-note{margin:0 0 22px!important;padding:14px 18px;border-radius:14px;background:#F1EEE8;color:#5A534D;font-size:15px}
 .ar-src{font-size:14.5px;color:#5A534D}
 .ar-src li{margin-bottom:6px}
+
+/* ── 12.11.2026: анимации главной. Всё разовое, при «уменьшить движение» отключается ── */
+/* 2. Заголовки: курсивная строка выезжает следом за прямой */
+.js h2.rv em{opacity:0;transform:translateY(.32em);transition:opacity .75s var(--ease),transform .75s var(--ease);transition-delay:calc(var(--rv-d,0ms) + .16s)}
+.js h2.rv.in em{opacity:1;transform:none}
+.hw-h.rv em{display:inline-block}
+/* 3. Фото: лёгкий отъезд камеры, когда блок появляется на экране */
+@keyframes az{from{transform:scale(1.07)}to{transform:none}}
+.kl-r.seen .kl-ph,.lf-ph.seen img,.pr-ph.seen img,.ps-card.seen>img{animation:az 1.8s var(--ease) backwards}
+/* 4. Наведение: кнопки чуть приподнимаются, карточки пространств и тарифов тоже */
+.sp-btn:not(.rv),.ps-btn,.pr-btn,.lf-btn,.kl-all:not(.rv){transition:background .2s,transform .35s var(--ease),box-shadow .35s var(--ease)}
+.sp-btn:hover,.ps-btn:hover,.pr-btn:hover,.lf-btn:hover,.kl-all:not(.rv):hover{transform:translateY(-2px);box-shadow:0 12px 26px -14px rgba(42,37,34,.55)}
+.sp-btn:active,.ps-btn:active,.pr-btn:active,.lf-btn:active,.kl-all:active{transform:scale(.985);box-shadow:none}
+.ps-card:not(.rv),.pr-card:not(.rv){transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.ps-card:not(.rv):hover{transform:translateY(-6px)}
+.pr-card:not(.rv):hover{transform:translateY(-4px);box-shadow:0 22px 44px -28px rgba(42,37,34,.45)}
+/* 6. Этапы: от номера шага прорисовывается линия */
+.et-n{display:flex!important;align-items:center;gap:14px}
+.et-n::after{content:"";flex:1;height:1px;background:currentColor;opacity:.22;transform:scaleX(0);transform-origin:left;transition:transform 1.1s var(--ease) .35s}
+.et-c.seen .et-n::after{transform:none}
+/* 7. Вопросы: ответ раскрывается плавно (Chrome/Edge; в остальных браузерах сразу, как раньше) */
+.fq-it{interpolate-size:allow-keywords}
+.fq-it::details-content{height:0;overflow:clip;transition:height .45s var(--ease),content-visibility .45s allow-discrete}
+.fq-it[open]::details-content{height:auto}
+/* 8. Тёмный тариф: один мягкий блик, когда карточка появляется */
+@keyframes pr-sh{from{transform:translateX(-110%)}to{transform:translateX(110%)}}
+.pr-dk::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,236,214,.13) 50%,transparent 70%);transform:translateX(-110%);pointer-events:none}
+.pr-dk.seen::after{animation:pr-sh 1.9s cubic-bezier(.4,0,.2,1) .7s both}
+@media (prefers-reduced-motion:reduce){
+  .js h2.rv em{opacity:1;transform:none;transition:none}
+  .kl-r.seen .kl-ph,.lf-ph.seen img,.pr-ph.seen img,.ps-card.seen>img,.pr-dk.seen::after{animation:none}
+  .et-n::after{transform:none;transition:none}
+  .fq-it::details-content{transition:none}
+  .sp-btn,.ps-btn,.pr-btn,.lf-btn,.kl-all,.ps-card,.pr-card{transition:none}
+}

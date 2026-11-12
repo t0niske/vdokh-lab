@@ -323,8 +323,29 @@
     cnt.forEach(function (el) { cio.observe(el); });
   }
 
+  /* 12.11.2026: плавное появление блоков при прокрутке. Элементы, попавшие на экран вместе, идут лесенкой по 70 мс;
+     после анимации служебные классы снимаются, чтобы вернуть элементам их собственные переходы (наведение и т. п.).
+     .seen остаётся навсегда: на нём висят разовые эффекты (наезд фото, линия этапов, блик на тарифе). */
   if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
-    $$('.sec-head, .ots > *, .pts > *, .steps > li, .devs > *, .zones > *, .arts > *, .kits > *, .cmp-r, .how > li').forEach(function (el, i) { el.classList.add('rv'); el.style.transitionDelay = (i % 4) * 50 + 'ms'; io.observe(el); });
+    var RV = '.sec-head, .ots > *, .pts > *, .steps > li, .devs > *, .zones > *, .arts > *, .kits > *, .cmp-r, .how > li,' +
+      '.ab-k, .ab-map, .ab-h, .ab-txt > p, .hw-k, .hw-h, .hw-lead, .hw-cell, .dv-card, .sp-k, .sp-h, .sp-lead, .sp-row, .sp-stats > div, .sp-cta,' +
+      '.kl-k, .kl-h, .kl-lead, .kl-it, .kl-all, .ps-k, .ps-h, .ps-tr, .ps-card, .cm-k, .cm-h, .cm-lead, .cm-row, .pr-k, .pr-h, .pr-lead, .pr-card,' +
+      '.et-k, .et-h, .et-side, .et-c, .fq-k, .fq-h, .fq-lead, .fq-it, .lf-k, .lf-h, .lf-lead';
+    var ONCE = '.kl-r, .lf-ph, .pr-ph';
+    var io = new IntersectionObserver(function (es) {
+      var k = 0;
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target, d = Math.min(k++, 7) * 70;
+        io.unobserve(el); el.classList.add('seen');
+        if (!el.classList.contains('rv')) return;
+        el.style.transitionDelay = d + 'ms';
+        if (el.tagName === 'H2') el.style.setProperty('--rv-d', d + 'ms');
+        el.classList.add('in');
+        setTimeout(function () { el.classList.remove('rv', 'in'); el.style.transitionDelay = ''; }, d + 1100);
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    $$(RV).forEach(function (el) { el.classList.add('rv'); io.observe(el); });
+    $$(ONCE).forEach(function (el) { io.observe(el); });
   }
 })();
