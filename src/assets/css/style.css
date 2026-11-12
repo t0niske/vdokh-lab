@@ -1885,3 +1885,30 @@ a.kc-c:hover i{transform:translateX(4px)}
 @media (min-width:901px) and (max-height:700px){.kl:not(.kl-page) .kl-card{transform:translate(-50%,-50%) scale(.9)}}
 @media (min-width:901px) and (max-height:660px){.kl:not(.kl-page) .kl-card{transform:translate(-50%,-50%) scale(.86)}}
 @media (min-width:901px) and (max-height:630px){.kl:not(.kl-page) .kl-card{transform:translate(-50%,-50%) scale(.82)}}
+
+/* ── 12.11.2026: телефон. Блоки помещаются в экран между шапкой и нижней панелью, ничего не обрезается ── */
+@media (max-width:900px){
+  /* продажи: подпись про 3 дня под кнопкой по центру, как пояснение ниже */
+  .sp-cta-n{text-align:center;line-height:1.9}
+  /* коллекция: карточка аромата всегда целиком, с воздухом сверху и снизу; фото аромата фоном */
+  .kl-r,.kl-page .kl-r{height:auto;min-height:0;padding:36px var(--kl-gut)}
+  .kl:not(.kl-page) .kl-card,.kl-page .kl-card{position:relative;left:auto;top:auto;transform:none;width:100%;max-width:440px;margin:0 auto}
+  .kl-circ{width:140px;height:140px}
+  /* пространства: заголовок в две строки, стрелки справа от полосы прокрутки, карточка по высоте экрана */
+  .ps{position:relative}
+  .ps-h{font-size:clamp(30px,8.4vw,36px)}
+  .ps-nav{position:absolute;right:var(--ps-gut);bottom:41px}
+  .ps-prog{margin:18px calc(var(--ps-gut) + 112px) 0 var(--ps-gut)}
+  .ps-card{height:clamp(250px,calc(100svh - 464px),426px)}
+  /* сравнение: карточки листаются вбок, как пространства */
+  .cm-h{font-size:clamp(30px,8.4vw,36px)}
+  .cm{padding-bottom:40px}
+  .cm-tb{display:flex;gap:10px;margin:0 calc(-1 * var(--cm-gut));padding:0 var(--cm-gut) 6px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--cm-gut);scrollbar-width:none}
+  .cm-tb::-webkit-scrollbar{display:none}
+  .cm-row{display:flex;flex-direction:column;flex:none;width:82vw;max-width:380px;margin-top:0;scroll-snap-align:start}
+  /* карточки одной высоты: лишнее место делится поровну между строками, а не остаётся пустым внизу */
+  .cm-c[data-l]{flex:1 0 auto;align-content:center}
+  /* заголовок карточки дальше от первой строки */
+  .cm-rk{display:block;margin-bottom:18px}
+  .cm-c[data-l]{padding:11px 0}
+}

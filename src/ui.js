@@ -412,7 +412,7 @@ function versus() {
       <h2 class="cm-h">Свечи, спреи <em>или аромамаркетинг</em></h2>
       <p class="cm-lead">Свечи и&nbsp;спреи дают аромат рядом и&nbsp;ненадолго. Аппарат держит его ровно по&nbsp;всему пространству весь день — и&nbsp;за&nbsp;ним следим мы</p>
     </div>
-    <div class="cm-tb" role="table" aria-label="Свечи и спреи, диффузор с палочками и Aromé">
+    <div class="cm-tb" data-scroll-x role="table" aria-label="Свечи и спреи, диффузор с палочками и Aromé">
       <div class="cm-bg" aria-hidden="true"></div>
       <div class="cm-row cm-hd" role="row"><span class="cm-c cm-th" role="columnheader"></span>${VS_COLS.map(c => `<span class="cm-c cm-th" role="columnheader">обычно<b>${c}</b></span>`).join('')}<span class="cm-c cm-th cm-us" role="columnheader">аромамаркетинг<b>Aromé</b></span></div>
       ${VS_ROWS.map(([k, a, b, us]) => `<div class="cm-row" role="row"><span class="cm-c cm-rk" role="rowheader">${k}</span><span class="cm-c" role="cell" data-l="${VS_SHORT[0]}">${a}</span><span class="cm-c" role="cell" data-l="${VS_SHORT[1]}">${b}</span><span class="cm-c cm-us" role="cell" data-l="Aromé"><i aria-hidden="true">✓</i>${us}</span></div>`).join('\n      ')}
