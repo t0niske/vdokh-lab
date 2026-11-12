@@ -1779,3 +1779,89 @@ a.kc-c:hover i{transform:translateX(4px)}
   .fq-it::details-content{transition:none}
   .sp-btn,.ps-btn,.pr-btn,.lf-btn,.kl-all,.ps-card,.pr-card{transition:none}
 }
+
+/* ── 12.11.2026: ноутбуки и мониторы до Full HD (окно ниже 1100px). Каждый блок помещается в экран под шапкой; большие мониторы и телефоны не меняются ── */
+@media (min-width:901px) and (max-height:1100px){
+  /* первый экран не выше окна */
+  .hx{min-height:560px}
+  /* заголовки блоков ниже и плотнее: две строки вместо трёх */
+  .hw-h,.kl-h,.ps-h,.cm-h,.pr-h,.et-h{font-size:clamp(34px,min(3.9vw,6.2vh),60px)}
+  .lf-h{font-size:clamp(32px,min(3.4vw,5.6vh),52px)}
+  .ps-top,.cm-top,.pr-top{margin:12px 0 24px}
+  /* коллекция: карточка в высоту экрана, список плотнее */
+  .kl{min-height:calc(100svh - 96px)}
+  .kl-l{padding:24px var(--kl-gut) 22px}
+  .kl-h{font-size:clamp(34px,min(3.9vw,5.4vh),60px)}
+  .kl-h{margin:12px 0 10px}
+  .kl-list{padding-top:14px}
+  .kl-it{padding:10px 0;font-size:16px}
+  .kl-all{height:48px;margin-top:16px}
+  .kl-mot{margin-top:10px}
+  /* пространства: карточка по высоте экрана, ширина из пропорции 3:4 */
+  .ps-card{width:auto;height:max(320px,calc(100svh - 300px))}
+  .ps-prog{margin-top:18px}
+  /* сравнение: строки таблицы ниже */
+  .cm-c{padding:14px 26px}
+  .cm-th{padding:20px 26px 14px}
+  /* цены: фото по высоте карточек, карточки плотнее */
+  .pr-ph{min-height:0}
+  .pr-card{padding:24px 26px 22px}
+  .pr-card .pr-nm{font-size:40px}
+  .pr-sub{margin-top:18px}
+  .pr-card .pr-rows{margin-bottom:18px!important}
+  /* заявка: окно формы плотнее, секция не растягивается на 900px */
+  .lf{min-height:100svh;padding:48px clamp(16px,4.2vw,64px)}
+  .lf-fm{padding:26px 44px 22px}
+  .lf-btn{margin-top:14px}
+  .lf-h{margin-top:12px!important}
+  .lf-lead{margin-top:10px!important;font-size:16px}
+  .lf-fields{margin-top:16px}
+  .lf-pl{margin-top:12px}
+  .lf-in{height:52px}
+  .lf-ok{margin-top:14px}
+  .lf-btn{height:54px}
+}
+/* этапы на ноутбуке: та же лесенка, только карточки ниже */
+@media (min-width:901px) and (max-height:1100px){
+  .et-wrap{row-gap:12px}
+  .et-h{margin-bottom:8px!important}
+  .et-c{min-height:min(300px,calc((100svh - 260px) / 2))}
+  .et-n{margin-bottom:16px}
+}
+/* низкие ноутбуки (1366×768, 1280×720 — окно браузера около 620–700px): второй уровень сжатия */
+@media (min-width:901px) and (max-height:700px){
+  .hw-h,.kl-h,.ps-h,.cm-h,.pr-h,.et-h{font-size:clamp(32px,min(3.9vw,5.4vh),60px)}
+  .lf-h{font-size:clamp(30px,min(3.4vw,5vh),52px)}
+  .hw-top,.ps-top,.cm-top,.pr-top{margin:10px 0 18px}
+  .hw-lead,.cm-lead,.pr-lead,.kl-lead{font-size:15px}
+  .hw-cell{min-height:0;padding:30px 28px 26px}
+  .hw-cell p{margin-top:10px;font-size:15px}
+  .dv-card{min-height:500px}
+  .kl-h{font-size:clamp(30px,min(3.9vw,4.8vh),60px)}
+  .kl-it{padding:7px 0;font-size:15px}
+  .kl-all{margin-top:12px}
+  .cm-c{padding:9px 24px;font-size:15px}
+  .cm-th{padding:14px 24px 9px}
+  .pr-card{padding:18px 22px 16px}
+  .pr-card .pr-nm{font-size:34px}
+  .pr-for{margin-top:6px}
+  .pr-sub{margin-top:12px}
+  .pr-rows li{padding:7px 0}
+  .pr-card .pr-rows{margin-bottom:12px!important}
+  .pr-btn{height:46px}
+  .lf{padding:24px clamp(16px,4.2vw,64px)}
+  .lf-fm{padding:20px 40px 16px}
+  .lf-lead{font-size:15px}
+  .lf-fields{gap:8px;margin-top:12px}
+  .lf-in{height:46px}
+  .lf-chips{margin-top:6px}
+  .lf-ok{margin-top:10px}
+  .lf-btn{height:48px;margin-top:10px}
+  .lf-wa{margin-top:6px}
+}
+/* совсем низкое окно (до 640px): подпись [заявка] над формой убираем, заголовок её дублирует */
+@media (min-width:901px) and (max-height:640px){
+  .lf-k{display:none}
+  .lf-h{margin-top:0!important}
+  .kl-l{padding-top:18px;padding-bottom:16px}
+}
