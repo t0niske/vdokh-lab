@@ -1897,9 +1897,10 @@ a.kc-c:hover i{transform:translateX(4px)}
   /* пространства: заголовок в две строки, стрелки справа от полосы прокрутки, карточка по высоте экрана */
   .ps{position:relative}
   .ps-h{font-size:clamp(30px,8.4vw,36px)}
-  .ps-nav{position:absolute;right:var(--ps-gut);bottom:41px}
-  .ps-prog{margin:18px calc(var(--ps-gut) + 112px) 0 var(--ps-gut)}
-  .ps-card{height:clamp(250px,calc(100svh - 464px),426px)}
+  .ps-nav{display:none!important}
+  .ps-top{margin-top:14px;margin-bottom:18px}
+  .ps-prog{margin:18px var(--ps-gut) 0}
+  .ps-card{height:clamp(320px,calc(100svh - 400px),426px)}
   /* сравнение: карточки листаются вбок, как пространства */
   .cm-h{font-size:clamp(30px,8.4vw,36px)}
   .cm{padding-bottom:40px}
