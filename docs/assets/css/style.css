@@ -687,7 +687,9 @@ a.ct:hover{border-color:var(--ink)}
    На главной — 7 ароматов, на /aromaty/ — все 32 (фото справа прилипает к экрану). */
 .kl{--kl-acc:#4A3F37;--kl-acc2:#5C4F45;--kl-ink:#2A2522;--kl-ink2:#5A534D;--kl-ink3:#6B655D;--kl-r:26px;--kl-f:"Inter Tight",system-ui,sans-serif;--kl-s:"Playfair Display",Georgia,serif;--kl-gut:clamp(20px,4.2vw,64px);
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:900px;font-family:var(--kl-f);color:var(--kl-ink)}
-.kl-l{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:96px var(--kl-gut) 72px;background:linear-gradient(140deg,#5A4C41 0%,#4A3F37 55%,#3D332C 100%);color:#F4F0EA}
+/* 12.11.2026: коллекция в карточке с теми же отступами от краёв и скруглением, что у блока «Аппарат» (.dv) */
+.kl{margin-left:clamp(10px,1.2vw,18px);margin-right:clamp(10px,1.2vw,18px);border-radius:26px;overflow:clip}
+.kl-l{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:40px var(--kl-gut) 72px;background:linear-gradient(140deg,#5A4C41 0%,#4A3F37 55%,#3D332C 100%);color:#F4F0EA}
 .kl-l::before{content:"";position:absolute;right:-10%;top:-10%;width:70%;height:60%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,236,214,.14),rgba(255,236,214,0));pointer-events:none}
 .kl-k{position:relative;margin:0;font-size:18px;color:#BFB2A3}.kl-k::before{content:"["}.kl-k::after{content:"]"}
 .kl-h{position:relative;margin:22px 0 18px;text-wrap:wrap;font-weight:600;letter-spacing:-.035em;line-height:.92;font-size:clamp(38px,3.9vw,60px);color:#F4F0EA}
@@ -727,7 +729,7 @@ a.ct:hover{border-color:var(--ink)}
 .kl-page .kl-r{position:sticky;top:0;height:100vh;min-height:760px}
 @media (max-width:900px){
   .kl{grid-template-columns:minmax(0,1fr);min-height:0}
-  .kl-l{padding:64px var(--kl-gut) 36px}
+  .kl-l{padding:40px var(--kl-gut) 36px}
   .kl-page .kl-l{min-height:0}
   .kl-h{font-size:36px}
   .kl-list{padding-top:28px}
