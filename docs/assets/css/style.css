@@ -1790,7 +1790,7 @@ a.kc-c:hover i{transform:translateX(4px)}
   .ps-top,.cm-top,.pr-top{margin:12px 0 24px}
   /* коллекция: карточка в высоту экрана, список плотнее */
   .kl{min-height:calc(100svh - 96px)}
-  .kl-l{padding:20px var(--kl-gut) 18px}
+  .kl-l{padding:clamp(20px,calc((100svh - 643px) * .333),48px) var(--kl-gut) clamp(18px,calc((100svh - 678px) * .5),44px)}
   .kl-h{font-size:clamp(34px,min(3.9vw,5.4vh),60px)}
   .kl-h{margin:12px 0 10px}
   .kl-list{padding-top:14px}
@@ -1798,7 +1798,8 @@ a.kc-c:hover i{transform:translateX(4px)}
   .kl-l>*{flex-shrink:0}
   .kl:not(.kl-page) .kl-it:nth-child(n+6){display:none}
   /* карточка аромата справа целиком, с воздухом сверху и снизу */
-  .kl-circ{width:clamp(130px,22vh,200px);height:clamp(130px,22vh,200px);margin-top:12px}
+  .kl-circ{width:clamp(120px,19vh,200px);height:clamp(120px,19vh,200px);margin-top:12px}
+  .kl:not(.kl-page) .kl-card{transform:translate(-50%,-50%) scale(.95)}
   .kl-cb{padding:20px 12px 4px}
   .kl-nt{margin-top:12px}
   .kl-wh{margin-top:10px}
@@ -1882,5 +1883,5 @@ a.kc-c:hover i{transform:translateX(4px)}
 }
 /* карточка аромата в коллекции на низких окнах: чуть уменьшаем целиком, чтобы не обрезалась */
 @media (min-width:901px) and (max-height:700px){.kl:not(.kl-page) .kl-card{transform:translate(-50%,-50%) scale(.9)}}
-@media (min-width:901px) and (max-height:660px){.kl:not(.kl-page) .kl-card{transform:translate(-50%,-50%) scale(.85)}}
-@media (min-width:901px) and (max-height:630px){.kl:not(.kl-page) .kl-card{transform:translate(-50%,-50%) scale(.8)}}
+@media (min-width:901px) and (max-height:660px){.kl:not(.kl-page) .kl-card{transform:translate(-50%,-50%) scale(.86)}}
+@media (min-width:901px) and (max-height:630px){.kl:not(.kl-page) .kl-card{transform:translate(-50%,-50%) scale(.82)}}
