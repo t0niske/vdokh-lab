@@ -333,12 +333,15 @@ const nb = s => [1, 2].reduce(t => t.replace(/(^|[\s«(—])([а-яёА-ЯЁA-Za
    дата правки остаётся только в sitemap (lastmod) */
 const dateRu = d => new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }).replace(' г.', '');
 
+// 12.11.2026: длина самого длинного слова в курсиве заголовка (--w): на телефоне курсив уменьшается, чтобы слово влезло в ширину экрана
+const emW = t => Math.max(...t.replace(/<[^>]+>/g, '').replace(/&nbsp;| /g, '_').split(/\s+/).map(w => w.length), 1);
+const h1Em = h => h.replace(/<em( style="[^"]*")?>(.*?)<\/em>/, (_, st, t) => `<em style="${st ? st.slice(8, -1) + ';' : ''}--w:${emW(t)}">${t}</em>`);
 function pageTop(p, o) {
   return `<section class="pg">
   <div class="pg-wrap">
     ${pgCrumbs(p)}
     <div class="pg-top">
-      <h1 class="pg-h">${o.h1}</h1>
+      <h1 class="pg-h">${h1Em(o.h1)}</h1>
       <div class="pg-side">
         <p>${o.lead}</p>
       </div>
@@ -576,7 +579,7 @@ function collection(p, list, o = {}) {
   return `<section class="kl${o.page ? ' kl-page' : ''}" id="kollekciya">
   <div class="kl-l">
     <p class="kl-k">коллекция</p>
-    <${H} class="kl-h">${o.title || 'Ароматы <em>для вашего пространства</em>'}</${H}>
+    <${H} class="kl-h${((o.title || '').match(/<em>(.*?)<\/em>/) || ['', ''])[1].replace(/&nbsp;/g, ' ').length > 24 ? ' kl-h-long' : ''}">${o.title || 'Ароматы <em>для вашего пространства</em>'}</${H}>
     <p class="kl-lead">${o.lead || 'Выберите аромат — покажем, какой он и&nbsp;где раскрывается лучше всего'}</p>
     <div class="kl-list" role="tablist" aria-label="Ароматы">${list.map((s, i) => `<button type="button" class="kl-it${i ? '' : ' on'}" role="tab" aria-selected="${!i}" data-i="${i}"><em>${s.no}</em>${esc(s.name)}</button>`).join('')}</div>
     ${o.page ? '' : '<a class="kl-all" href="/aromaty/">Смотреть все 32 аромата →</a>'}
@@ -758,7 +761,7 @@ function spacePage(p, s) {
   <div class="sv-wrap">
     <div class="sv-txt">
       ${pgCrumbs(p)}
-      <h1 class="pg-h">${s.h1.replace(/<em>(.*?)<\/em>/, (_, t) => `<em style="--n:${t.replace(/&nbsp;/g, ' ').length}">${t}</em>`)}</h1>
+      <h1 class="pg-h">${h1Em(s.h1.replace(/<em>(.*?)<\/em>/, (_, t) => `<em style="--n:${t.replace(/&nbsp;/g, ' ').length}">${t}</em>`))}</h1>
       <p class="sv-lead">${nb(s.lead)}</p>
       <div class="sv-btns"><a class="sv-btn" href="#zayavka">Подобрать аромат</a><a class="sv-btn2" href="/ceny/">Цены</a></div>
     </div>
