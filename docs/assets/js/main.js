@@ -10,19 +10,89 @@
 
   /* ── Аналитика: wa_click, call_click, form_submit, test_request, osi_template ──
      Пока номера счётчиков пустые (src/config.js), события только складываются в dataLayer. */
+
+  /* ── Счётчик заходов (14.11.2026): свой, без записи экрана — что открыл, откуда пришёл, что нажал.
+     Данные уходят на /api/visit этого же домена (сервер пересылает в CRM, раздел «Заходы на сайт»). Значения полей формы не отправляются.
+     Cookie: ar_vid — посетитель (12 месяцев), ar_sid — заход (30 минут бездействия; новый и при смене источника). ── */
+  var VT = (function () {
+    var rid = function (n) { var a = new Uint8Array(n), c = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-', o = ''; (window.crypto || window.msCrypto).getRandomValues(a); for (var i = 0; i < n; i++) o += c[a[i] & 63]; return o; };
+    var getC = function (k) { var m = document.cookie.match('(?:^|; )' + k + '=([A-Za-z0-9_-]{8,40})'); return m ? m[1] : ''; };
+    var setC = function (k, v, sec) { document.cookie = k + '=' + v + '; max-age=' + sec + '; path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : ''); };
+    var q = new URLSearchParams(location.search), utm = {}, ext = '', isNew = false;
+    q.forEach(function (v, k) { if (/^(utm_(source|medium|campaign|content|term)|yclid|gclid|fbclid)$/.test(k)) utm[k] = v.slice(0, 200); });
+    try { var r = document.referrer ? new URL(document.referrer) : null; if (r && r.hostname !== location.hostname) ext = (r.protocol + '//' + r.hostname + r.pathname).slice(0, 300); } catch (e) {}
+    var vid = getC('ar_vid'); if (!vid) { vid = rid(22); isNew = true; }
+    var sid = getC('ar_sid'); if (!sid || ext || Object.keys(utm).length) sid = rid(22);
+    var pid = rid(12), t0 = Date.now(), active = 0, shownAt = document.visibilityState === 'visible' ? Date.now() : 0, maxScroll = 0, marks = {};
+    var touch = function () { setC('ar_vid', vid, 31536000); setC('ar_sid', sid, 1800); };
+    var send = function (msg) {
+      msg.vid = vid; msg.sid = sid; msg.pid = pid; msg.ts = Date.now() - t0; touch();
+      var body = JSON.stringify(msg);
+      try { if (navigator.sendBeacon && navigator.sendBeacon('/api/visit', new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return; } catch (e) {}
+      try { fetch('/api/visit', { method: 'POST', body: body, keepalive: true, headers: { 'Content-Type': 'text/plain;charset=UTF-8' } }).catch(function () {}); } catch (e) {}
+    };
+    var path = location.pathname + (Object.keys(utm).length ? '?' + Object.keys(utm).map(function (k) { return k + '=' + encodeURIComponent(utm[k]); }).join('&') : '');
+    var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    var view = { t: 'view', path: path.slice(0, 300), title: document.title.slice(0, 200), ref: ext, utm: utm, screen: screen.width + 'x' + screen.height,
+      lang: (navigator.language || '').slice(0, 20), tz: tz.slice(0, 50), touch: 'ontouchstart' in window || navigator.maxTouchPoints > 0, wd: !!navigator.webdriver, 'new': isNew };
+    send(view);
+    /* ClientID Метрики — чтобы найти запись этого захода в Вебвизоре; Метрика грузится отложенно, поэтому ждём её */
+    var ymTry = 0, ymId = (window.AROME_AN || {}).ym;
+    var ymPoll = function () { if (!ymId || ymTry++ > 20) return; if (window.ym) { try { window.ym(Number(ymId), 'getClientID', function (cid) { if (cid) { view.ym = String(cid).slice(0, 30); send(view); } }); } catch (e) {} } else setTimeout(ymPoll, 1500); };
+    setTimeout(ymPoll, 2500);
+    var ev = function (name, data) { var m = { t: 'event', name: name }; if (data != null && data !== '') m.data = String(data).slice(0, 200); send(m); };
+    var once = function (key, fn) { if (!marks[key]) { marks[key] = 1; fn(); } };
+    var activeNow = function () { return Math.round((active + (shownAt ? Date.now() - shownAt : 0)) / 1000); };
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') { if (shownAt) { active += Date.now() - shownAt; shownAt = 0; } send({ t: 'leave', active: activeNow(), scroll: maxScroll }); }
+      else { shownAt = Date.now(); send({ t: 'ping' }); }
+    });
+    window.addEventListener('pagehide', function () { send({ t: 'leave', active: activeNow(), scroll: maxScroll }); });
+    setInterval(function () { if (document.visibilityState === 'visible') send({ t: 'ping' }); }, 30000);
+    window.addEventListener('scroll', function () {
+      var h = document.documentElement.scrollHeight - innerHeight, pc = h > 0 ? Math.min(100, Math.round(scrollY / h * 100)) : 100;
+      if (pc > maxScroll) maxScroll = pc;
+      [25, 50, 75, 100].forEach(function (m) { if (pc >= m) once('s' + m, function () { ev('scroll', m); }); });
+    }, { passive: true });
+    /* внешние ссылки и документы; WhatsApp и телефон считает track() ниже */
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var u; try { u = new URL(a.href, location.href); } catch (x) { return; }
+      if (/\.(pdf|docx?|xlsx?)$/i.test(u.pathname)) ev('file', u.pathname);
+      else if (/^https?:$/.test(u.protocol) && u.hostname !== location.hostname && !/wa\.me|whatsapp/.test(u.hostname)) ev('out', u.hostname);
+    }, true);
+    /* что смотрел: аромат в коллекции, модель аппарата, вопрос */
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest ? e.target.closest('.kl-it, .dv-tabs button, .fq-it summary') : null;
+      if (!el) return;
+      var txt = el.textContent.replace(/\s+/g, ' ').trim();
+      if (el.matches('.kl-it')) { var em = el.querySelector('em'); ev('scent', (em ? em.textContent + ' ' : '') + txt.replace(em ? em.textContent : '', '').trim()); }
+      else if (el.matches('.dv-tabs button')) ev('model', txt);
+      else if (!el.parentNode.open) ev('faq', txt);
+    }, true);
+    return { ev: ev, once: once, vid: function () { return vid; }, sid: function () { return sid; } };
+  })();
+
   var AN = window.AROME_AN || {};
   var track = function (name, params) {
     params = params || {}; params.page = page;
     (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: name }, params));
     try { if (AN.ym && window.ym) window.ym(Number(AN.ym), 'reachGoal', name, params); } catch (e) {}
     try { if (AN.ga4 && window.gtag) window.gtag('event', name, params); } catch (e) {}
+    try {
+      if (name === 'wa_click') VT.ev('wa', params.where);
+      else if (name === 'call_click') VT.ev('tel', params.tel || params.where);
+      else if (name === 'form_open') VT.ev('form_open', params.from);
+      else if (name === 'osi_template') VT.ev('osi', params.action);
+    } catch (e) {}
   };
   document.addEventListener('click', function (e) {
     var el = e.target.closest ? e.target.closest('a, button') : null;
     if (!el) return;
     var href = el.getAttribute('href') || '';
     if (href.indexOf('wa.me') > -1) track('wa_click', { where: el.className || 'link' });
-    if (href.indexOf('tel:') === 0) track('call_click', { where: el.className || 'link' });
+    if (href.indexOf('tel:') === 0) track('call_click', { where: el.className || 'link', tel: href.slice(4) });
     if (el.hasAttribute('data-test')) track('test_request', { via: 'whatsapp' });
     if (el.hasAttribute('data-osi')) track('osi_template', { action: el.hasAttribute('data-copy') ? 'copy' : 'download' });
   });
@@ -150,6 +220,9 @@
       lfPhone.parentNode.classList.remove('err');
     });
     lfOk.addEventListener('change', function () { lfOk.parentNode.classList.remove('err'); });
+    var lfId = lf.closest('.rq') ? 'modal' : 'block';
+    lf.addEventListener('input', function () { VT.once('fs-' + lfId, function () { VT.ev('form_start', lfId); }); });
+    if ('IntersectionObserver' in window && lfId === 'block') new IntersectionObserver(function (es, o) { if (es[0].isIntersecting) { VT.once('fv', function () { VT.ev('form_view', lfId); }); o.disconnect(); } }, { threshold: .4 }).observe(lf);
     lf.addEventListener('submit', function (e) {
       e.preventDefault();
       var digits = lfPhone.value.replace(/\D/g, ''), sp = $('input[type="radio"]:checked', lf), name = $('.lf-name', lf).value.trim();
@@ -166,8 +239,12 @@
       btn.disabled = true; btn.textContent = 'Отправляем…';
       fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, phone: '+7' + digits, space: sp ? sp.value : '', page: document.title,
+          visitor_id: VT.vid(), visit_id: VT.sid(),
           src: { ref: src.ref || '', landing: src.landing || '', utm: Object.keys(src).filter(function (k) { return /^(utm_|gclid|yclid|fbclid)/.test(k); }).reduce(function (o, k) { o[k] = src[k]; return o; }, {}) } }) })
-        .then(function (r) { if (r.ok) location.href = lf.getAttribute('action'); else toWa(); })
+        .then(function (r) {
+          if (!r.ok) { VT.ev('form_error', r.status); toWa(); return; }
+          return r.json().catch(function () { return {}; }).then(function (j) { VT.ev('lead', j && j.id); location.href = lf.getAttribute('action'); });
+        })
         .catch(toWa);
     });
   });

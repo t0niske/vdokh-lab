@@ -1913,3 +1913,69 @@ a.kc-c:hover i{transform:translateX(4px)}
   .cm-rk{display:block;margin-bottom:18px}
   .cm-c[data-l]{padding:11px 0}
 }
+
+/* ── 12.11.2026: проверка всех страниц — исправления ── */
+@media (max-width:900px){
+  /* H1 страниц: самое длинное слово курсива (--w знаков) влезает в ширину экрана, страница не расширяется */
+  .pg-h em{font-size:min(1.04em,calc((100vw - 40px) / (var(--w,10) * .54)))}
+}
+@media (max-width:900px){
+  /* «Аппарат» в экран телефона: аппарат меньше, подсказка у плюса открывается поверх низа аппарата, а не под ним */
+  .dv-card{padding:24px 20px 22px}
+  .dv-top{gap:14px}
+  .dv-lead{font-size:15px}
+  .dv-stage{width:min(190px,50vw);margin-top:16px}
+  .dv-tip,.dv-l,.dv-r,.dv-tip.on{bottom:4px;transform:translate(-50%,0)}
+  .dv-tip:not(.on){transform:translate(-50%,6px)}
+  .dv-foot{margin-top:16px}
+  /* форма заявки в экран телефона: без фото (как во всплывающем окне), поля и выбор помещения плотнее */
+  .lf{padding:40px 12px}
+  .lf-ph{display:none}
+  .lf-fm{padding:20px 20px 16px}
+  .lf-h{font-size:28px;margin-top:12px!important}
+  .lf-lead{font-size:14.5px;margin-top:8px!important}
+  .lf-fields{gap:8px;margin-top:14px}
+  .lf-in{height:50px}
+  .lf-pl{margin-top:12px}
+  .lf-chips span{padding:7px 12px;font-size:13.5px}
+  .lf-ok{margin-top:12px}
+  .lf-btn{height:52px;margin-top:12px}
+  .lf-wa{margin-top:8px}
+  /* карточка аромата в экран телефона */
+  .kl-r,.kl-page .kl-r{padding:24px var(--kl-gut)}
+  .kl-circ{width:110px;height:110px;margin-top:10px}
+  .kl-cb{padding:18px 10px 4px}
+  .kl-ds{font-size:14px}
+  .kl-nt{margin-top:12px}
+  .kl-wh{margin-top:10px}
+  .kl-rows{margin-top:14px}
+  .kl-row{padding:6px 6px 6px 18px}
+  .kl-row b{width:44px;height:44px}
+}
+@media (min-width:901px) and (max-height:1100px){
+  /* карточки пространств/запахов: фото не выше, чем позволяет экран (на высоком экране — прежние 16:10) */
+  .sx-ph{aspect-ratio:auto;height:min(calc((50vw - 60px) * .625),calc(100svh - 360px));min-height:200px}
+  /* коллекция с длинным заголовком (страницы пространств): курсив в одну строку */
+  .kl-h.kl-h-long{font-size:clamp(30px,min(3.2vw,4.6vh),52px)}
+}
+/* «Как мы работаем»: карточки одной высоты, пункты короткой карточки распределены по высоте, без пустоты внизу */
+@media (min-width:901px){
+  .mv-c{display:flex;flex-direction:column}
+  .mv-c ul{flex:1;grid-auto-rows:1fr}
+}
+/* подзаголовки h3 в статьях: отступ сверху и снизу, не вплотную к тексту */
+.ar-body h3{margin:28px 0 8px;font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.2;color:#2A2522}
+.ar-body h2+h3{margin-top:12px}
+@media (max-width:900px){.ar-body h3{margin-top:24px;font-size:18px}}
+/* низкий ноутбук (окно до 700px): таблица комплектов на «Ценах» и блок «Для бизнеса» на страницах помещений плотнее */
+@media (min-width:901px) and (max-height:700px){
+  .kn-top{margin-bottom:22px}
+  .kn-row{padding:14px 18px}
+  .kn-th{padding-top:10px;padding-bottom:10px}
+  .kn-ar{font-size:26px}
+  .kn-foot{margin-top:18px}
+  .bz-top{margin:10px 0 22px}
+  .bz-c{min-height:0;padding:24px 26px 22px}
+  .bz-n{font-size:clamp(48px,5vw,72px)}
+  .bz-note{margin-top:14px}
+}
